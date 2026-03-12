@@ -153,5 +153,10 @@ STATICFILES_DIRS = (
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 # Y añade esta línea para ayudar a WhiteNoise a encontrar la raíz
 WHITENOISE_KEEP_ONLY_HASHED_FILES = False
+
+# Fuerza a WhiteNoise a servir los archivos aunque no encuentre el manifiesto
+WHITENOISE_USE_FINDERS = True
+WHITENOISE_MANIFEST_STRICT = False
+
 #############################################################
 #############################################################

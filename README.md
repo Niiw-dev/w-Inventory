@@ -161,3 +161,4 @@ At present, we officially aim to support the last two versions of the following 
 
 ---
 [Argon Dashboard - Django Template](https://www.creative-tim.com/product/argon-dashboard-django) - Provided by [Creative Tim](https://www.creative-tim.com/) and [AppSeed](https://appseed.us)
+# w-Inventory

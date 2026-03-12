@@ -150,7 +150,8 @@ STATICFILES_DIRS = (
     os.path.join(CORE_DIR, 'apps/static'),
 )
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+# Y añade esta línea para ayudar a WhiteNoise a encontrar la raíz
+WHITENOISE_KEEP_ONLY_HASHED_FILES = False
 #############################################################
 #############################################################

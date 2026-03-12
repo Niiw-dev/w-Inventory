@@ -11,4 +11,6 @@ pip install -r requirements.txt
 # Ejecutar collectstatic
 python manage.py collectstatic --noinput --clear
 
+ls -R staticfiles
+
 echo "BUILD END"

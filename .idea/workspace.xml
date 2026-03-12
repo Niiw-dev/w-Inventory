@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="db028275-b21e-4314-951f-afda711f9cd5" name="Changes" comment="Se sube build_files.sh">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build_files.sh" beforeDir="false" afterPath="$PROJECT_DIR$/build_files.sh" afterDir="false" />
+    <list default="true" id="db028275-b21e-4314-951f-afda711f9cd5" name="Changes" comment="modificación de build_files.sh">
+      <change beforePath="$PROJECT_DIR$/vercel.json" beforeDir="false" afterPath="$PROJECT_DIR$/vercel.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -193,7 +192,15 @@
       <option name="project" value="LOCAL" />
       <updated>1773346032722</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="modificación de build_files.sh">
+      <option name="closed" value="true" />
+      <created>1773346879134</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1773346879134</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -214,6 +221,7 @@
     <MESSAGE value="Se ajustan detalles en vistas" />
     <MESSAGE value="Se crea entorno inicial para desplegar a vercel con supabase" />
     <MESSAGE value="Se sube build_files.sh" />
-    <option name="LAST_COMMIT_MESSAGE" value="Se sube build_files.sh" />
+    <MESSAGE value="modificación de build_files.sh" />
+    <option name="LAST_COMMIT_MESSAGE" value="modificación de build_files.sh" />
   </component>
 </project>

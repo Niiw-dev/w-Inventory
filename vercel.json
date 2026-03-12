@@ -1,4 +1,5 @@
 {
+    "version": 2,
     "builds": [
         {
             "src": "core/wsgi.py",
@@ -14,7 +15,7 @@
     "routes": [
         {
             "src": "/static/(.*)",
-            "dest": "/static/$1"
+            "dest": "/staticfiles/$1"
         },
         {
             "src": "/(.*)",

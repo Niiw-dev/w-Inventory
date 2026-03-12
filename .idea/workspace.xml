@@ -1,25 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="db028275-b21e-4314-951f-afda711f9cd5" name="Changes" comment="Se ajustan detalles en vistas">
-      <change afterPath="$PROJECT_DIR$/vercel.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+    <list default="true" id="db028275-b21e-4314-951f-afda711f9cd5" name="Changes" comment="Se sube build_files.sh">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/attendance/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/build_files.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/attendance/admin.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/attendance/apps.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/attendance/forms.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/attendance/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/attendance/migrations/0002_remove_attendance_device_name.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/attendance/migrations/0003_fingerprint.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/attendance/migrations/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/attendance/models.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/attendance/tests.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/attendance/urls.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/attendance/views.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build_files.sh" beforeDir="false" afterPath="$PROJECT_DIR$/build_files.sh" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -193,7 +177,23 @@
       <option name="project" value="LOCAL" />
       <updated>1770910961480</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Se crea entorno inicial para desplegar a vercel con supabase">
+      <option name="closed" value="true" />
+      <created>1773345992822</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1773345992822</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Se sube build_files.sh">
+      <option name="closed" value="true" />
+      <created>1773346032722</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1773346032722</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -212,6 +212,8 @@
     <MESSAGE value="Se ajustan modelos y vistas" />
     <MESSAGE value="Se ajustan en vistas" />
     <MESSAGE value="Se ajustan detalles en vistas" />
-    <option name="LAST_COMMIT_MESSAGE" value="Se ajustan detalles en vistas" />
+    <MESSAGE value="Se crea entorno inicial para desplegar a vercel con supabase" />
+    <MESSAGE value="Se sube build_files.sh" />
+    <option name="LAST_COMMIT_MESSAGE" value="Se sube build_files.sh" />
   </component>
 </project>

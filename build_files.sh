@@ -1,12 +1,14 @@
 #!/bin/bash
+echo "BUILD START"
 
-# Salir inmediatamente si ocurre un error
-set -e
+# Crear y activar entorno virtual
+python3.9 -m venv venv
+source venv/bin/activate
 
-echo "Instalando dependencias..."
-python3 -m pip install -r requirements.txt
+# Instalar dependencias dentro del venv
+pip install -r requirements.txt
 
-echo "Recolectando archivos estáticos..."
-python3 manage.py collectstatic --noinput --clear
+# Ejecutar collectstatic
+python manage.py collectstatic --noinput --clear
 
-echo "Build finalizado con éxito."
+echo "BUILD END"

@@ -23,9 +23,8 @@
               </nav>
             </div>
             <div class="col-lg-6 col-5 text-right">
-              <a href="#" class="btn btn-neutral">New</a>
-              <button type="submit" class="btn btn-neutral" onclick="this.disabled=true; this.form.submit();">
-                Marcar asistencia
+              <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalNuevoInsumo">
+                + Agregar Nuevo Insumo
               </button>
               <a href="#" class="btn btn-neutral">Filters</a>
 
@@ -167,7 +166,29 @@
               <!-- Chart -->
               <div class="chart">
                 <!-- Chart wrapper -->
-                <canvas id="chart-sales-dark" class="chart-canvas"></canvas>
+               <form method="POST">
+                  {% csrf_token %}
+                  <div class="list-group">
+                      {% for item in insumos_cierre %}
+                      <div class="list-group-item d-flex justify-content-between align-items-center">
+                          <div>
+                              <h6 class="mb-0">{{ item.nombre }}</h6>
+                              <small class="text-muted">Anterior: {{ item.cantidad_previa }}</small>
+                          </div>
+
+                          <div class="input-group" style="width: 150px;">
+                              <button type="button" class="btn btn-outline-secondary" onclick="changeVal('{{ item.id }}', -1)">-</button>
+
+                              <input type="number" name="cantidad_{{ item.id }}" id="input_{{ item.id }}"
+                                     class="form-control text-center" value="{{ item.cantidad_previa }}">
+
+                              <button type="button" class="btn btn-outline-secondary" onclick="changeVal('{{ item.id }}', 1)">+</button>
+                          </div>
+                      </div>
+                      {% endfor %}
+                  </div>
+                  <button type="submit" class="btn btn-primary w-100 mt-4">Guardar Cierre de Hoy</button>
+              </form>
               </div>
             </div>
           </div>
@@ -305,16 +326,44 @@
                       </div>
                     </td>
                   </tr>
-                </tbody>
-              </table>
-            </div>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
-
-      {% include "includes/footer.html" %}
-
     </div>
+
+<div class="modal fade" id="modalNuevoInsumo" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true" style="z-index:999999">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="modalLabel">Registrar Nuevo Insumo</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+
+                      <form action="{% url 'agregar_insumo' %}" method="POST">
+                        {% csrf_token %}
+                          <div class="modal-body">
+                              <div class="mb-3">
+                                  <label class="form-label">Nombre del Insumo</label>
+                                  <input type="text" name="nombre" class="form-control" placeholder="Ej. Nutella" required>
+                              </div>
+                              <div class="mb-3">
+                                  <label class="form-label">Punto de Reorden (Alerta roja)</label>
+                                  <input type="number" name="punto_reorden" class="form-control" value="5" required>
+                                  <div class="form-text">El sistema avisará cuando queden esta cantidad o menos.</div>
+                              </div>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-primary">Guardar Insumo</button>
+                          </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+
+{% include "includes/footer.html" %}
 
 {% endblock content %}
 
@@ -324,4 +373,11 @@
   <script src="/static/assets/vendor/chart.js/dist/Chart.min.js"></script>
   <script src="/static/assets/vendor/chart.js/dist/Chart.extension.js"></script>
 
+  <script>
+  function changeVal(id, delta) {
+      const input = document.getElementById('input_' + id);
+      let currentVal = parseInt(input.value) || 0;
+      input.value = Math.max(0, currentVal + delta); // Evita que baje de 0
+  }
+  </script>
 {% endblock javascripts %}

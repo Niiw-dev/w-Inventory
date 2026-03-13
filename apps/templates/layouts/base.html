@@ -49,6 +49,14 @@
 
 <body class="">
 
+{% if messages %}
+  {% for message in messages %}
+    <div class="alert alert-{{ message.tags }} m-0 rounded-0 fixed-top auto-dismiss" style="z-index:9999;">
+      {{ message }}
+    </div>
+  {% endfor %}
+{% endif %}
+
   {% include "includes/sidenav.html" %}
 
   <div class="main-content" id="panel">
@@ -59,6 +67,26 @@
 
   </div>
 
+  <script src="/static/assets/vendor/chart.js/dist/Chart.min.js"></script>
+  <script src="/static/assets/vendor/chart.js/dist/Chart.extension.js"></script>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+  <script>
+  document.addEventListener("DOMContentLoaded", function () {
+      setTimeout(function () {
+          document.querySelectorAll(".auto-dismiss").forEach(function (alert) {
+
+              // efecto fade
+              alert.style.transition = "opacity 0.5s ease";
+              alert.style.opacity = "0";
+
+              // eliminar del DOM
+              setTimeout(() => alert.remove(), 500);
+          });
+      }, 3000); // 3 segundos
+  });
+  </script>
+
   {% include "includes/scripts.html" %}
 
   <!-- Specific JS goes HERE --> 
@@ -67,5 +95,4 @@
   <script src="/static/assets/js/argon.js?v=1.2.0"></script>
 
 </body>
-
 </html>

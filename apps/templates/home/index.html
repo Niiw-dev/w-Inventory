@@ -3,140 +3,146 @@
 {% block title %} Dashboard {% endblock title %}
 
 <!-- Specific CSS goes HERE -->
-{% block stylesheets %}{% endblock stylesheets %}
+{% block stylesheets %}
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.8/css/dataTables.bootstrap4.min.css">
+{% endblock stylesheets %}
 
 {% block content %}
-  <div id="app">
-    <!-- Header -->
-    <div class="header bg-primary pb-6">
-      <div class="container-fluid">
-        <div class="header-body">
-          <div class="row align-items-center pt-4 pb-5">
-            <div class="col-lg-6 col-7">
-              <h6 class="h2 text-white d-inline-block mb-0">Default</h6>
-              <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
-                <ol class="breadcrumb breadcrumb-links breadcrumb-dark  mb-0">
-                  <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
-                  <li class="breadcrumb-item"><a href="#">Dashboards</a></li>
-                  <li class="breadcrumb-item active" aria-current="page">Default</li>
-                </ol>
-              </nav>
-            </div>
-            <div class="col-lg-6 col-5 text-right">
-              <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalNuevoInsumo">
-                + Agregar Nuevo Insumo
-              </button>
-              <a href="#" class="btn btn-neutral">Filters</a>
-            </div>
+<div id="app">
+  <!-- Header -->
+  <div class="header bg-primary pb-6">
+    <div class="container-fluid">
+      <div class="header-body">
+        <div class="row align-items-center pt-4 pb-5">
+          <div class="col-lg-6 col-7">
+            <h6 class="h2 text-white d-inline-block mb-0">Default</h6>
+            <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+              <ol class="breadcrumb breadcrumb-links breadcrumb-dark  mb-0">
+                <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
+                <li class="breadcrumb-item"><a href="#">Dashboards</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Default</li>
+              </ol>
+            </nav>
           </div>
-          <!-- Card stats -->
-          <div class="row">
-            {% verbatim %}
-            <div v-for="item in insumos" :key="item.id" class="col-xl-3 col-md-6 mb-4">
-              <div class="card card-stats shadow border-0">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col">
-                      <h5 class="text-uppercase text-muted mb-0">{{ item.nombre }}</h5>
-                      <span class="h2 font-weight-bold">{{ item.punto_reorden }}</span>
-                    </div>
-                    <div class="col-auto">
-                      <div :class="['icon icon-shape text-white rounded-circle', item.critico ? 'bg-danger' : 'bg-success']">
-                        <i class="ni ni-box-2"></i>
-                      </div>
+          <div class="col-lg-6 col-5 text-right">
+            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalNuevoInsumo">
+              <i class="fas fa-plus fa-xs"></i> Agregar Nuevo Insumo
+            </button>
+          </div>
+        </div>
+        <!-- Card stats -->
+        <div class="row">
+          <div v-for="item in insumosDashboard" :key="item.id" class="col-xl-3 col-md-6">
+            <div class="card card-stats">
+              <div class="card-body">
+
+                <div class="row">
+                  <div class="col">
+                    <h5 class="card-title text-uppercase text-muted mb-0">
+                      [[ item.nombre ]]
+                    </h5>
+
+                    <span class="h2 font-weight-bold mb-0">
+                      [[ item.cantidad ]]
+                    </span>
+                  </div>
+
+                  <div class="col-auto">
+                    <div
+                      :class="[
+                        'icon icon-shape text-white rounded-circle shadow',
+                        item.cantidad<item.punto ? 'bg-gradient-red' : 'bg-gradient-green'
+                      ]"
+                    >
+                      <i class="ni ni-archive-2"></i>
                     </div>
                   </div>
                 </div>
+
+                <p class="mt-3 mb-0 text-sm d-flex justify-content-between align-items-center">
+
+                  <span v-if="item.cantidad<item.punto" class="text-danger mr-2">
+                    <i class="fa fa-arrow-down"></i> CRÍTICO
+                  </span>
+
+                  <span v-else class="text-success mr-2">
+                    <i class="fa fa-check"></i> STOCK OK
+                  </span>
+
+                  <span class="text-nowrap">
+                    Mínimo: [[ item.punto ]]
+                  </span>
+
+                </p>
+
               </div>
             </div>
-            {% endverbatim %}
           </div>
         </div>
       </div>
     </div>
+  </div>
 
-    <!-- Page content -->
-    <div class="container-fluid mt--6">
-      <div class="row">
-        <div class="col-xl-12">
-          <div class="card bg-default">
-            <div class="card-header bg-transparent">
-              <div class="row align-items-center">
-                <div class="col">
-                  <h6 class="text-light text-uppercase ls-1 mb-1">Overview</h6>
-                  <h5 class="h3 text-white mb-0">Sales value</h5>
-                </div>
-                <div class="col">
-                  <ul class="nav nav-pills justify-content-end">
-                    <li class="nav-item mr-2 mr-md-0" data-toggle="chart" data-target="#chart-sales-dark" data-update='{"data":{"datasets":[{"data":[0, 20, 10, 30, 15, 40, 20, 60, 60]}]}}' data-prefix="$" data-suffix="k">
-                      <a href="#" class="nav-link py-2 px-3 active" data-toggle="tab">
-                        <span class="d-none d-md-block">Month</span>
-                        <span class="d-md-none">M</span>
-                      </a>
-                    </li>
-                    <li class="nav-item" data-toggle="chart" data-target="#chart-sales-dark" data-update='{"data":{"datasets":[{"data":[0, 20, 5, 25, 10, 30, 15, 40, 40]}]}}' data-prefix="$" data-suffix="k">
-                      <a href="#" class="nav-link py-2 px-3" data-toggle="tab">
-                        <span class="d-none d-md-block">Week</span>
-                        <span class="d-md-none">W</span>
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
+  <!-- Page content -->
+  <div class="container-fluid mt--6">
+  <div class="row">
+    <div class="col-xl-12">
+      <div class="card">
+        <div class="card-header">
+          <div class="row align-items-center">
+            <div class="col">
+              <h2 class="text-uppercase h2 m-0 p-0 ls-1"><strong> Inventario </strong></h2>
             </div>
-            <div class="card-body">
-              <!-- Chart -->
-              <div class="chart">
-                <!-- Chart wrapper -->
-                <div class="row">
-                  <div class="col-12">
-                    <div class="card shadow">
-                      <div class="card-header border-0">
-                        <h3 class="mb-0">Inventario de Cierre (Hoy)</h3>
-                      </div>
-                      <form method="POST">
-                        {% csrf_token %}
-                        <div class="table-responsive">
-                          <table class="table align-items-center table-flush">
-                            <thead class="thead-light">
-                              <tr>
-                                <th>Insumo</th>
-                                <th class="text-center">Cantidad Final</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              {% for item in insumos %}
-                              <tr>
-                                <td><strong>{{ item.nombre }}</strong></td>
-                                <td class="text-center">
-                                  <div class="btn-group">
-                                    <button type="button" class="btn btn-sm btn-outline-primary" onclick="change('{{item.id}}', -1)">-</button>
-                                    <input type="number" name="cantidad_{{item.id}}" id="in_{{item.id}}"
-                                           value="{{item.cantidad}}" class="form-control text-center mx-1" style="width: 70px;">
-                                    <button type="button" class="btn btn-sm btn-outline-primary" onclick="change('{{item.id}}', 1)">+</button>
-                                  </div>
-                                </td>
-                              </tr>
-                              {% endfor %}
-                            </tbody>
-                          </table>
-                        </div>
-                        <div class="card-footer">
-                          <button type="submit" name="btn_guardar_cierre" class="btn btn-primary w-100">
-                              Guardar Cierre de Jornada
-                          </button>
-                        </div>
-                      </form>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              </div>
+            <div class="col d-flex justify-content-end">
+              <button type="button" class="btn btn-primary" @click.prevent="enviarCierre">
+                <span class="d-none d-md-block">Guardar Cierre</span>
+                <span class="d-md-none">save</span>
+              </button>
             </div>
           </div>
         </div>
+
+        <div class="table-responsive">
+          <table class="table align-items-center table-flush table-hover text-center" id="registrosDatatable"
+                  style="margin-top: 15px;">
+            <thead class="thead-light">
+              <tr>
+                <th>Id</th>
+                <th>Insumo</th>
+                <th>Cantidad Final</th>
+                <th>Estado</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="item in insumos" :key="item.id">
+                <td>[[ item.id ]]</td>
+                <td>
+                  <strong>[[ item.nombre ]]</strong>
+                </td>
+                <td>
+                  <div class="btn-group justify-content-center">
+                    <button :class="['btn btn-sm', item.cantidad<item.punto ? 'btn-danger' : 'btn-success']" @click="cambiarCantidad(item, -1)">-</button>
+                    <input type="number" class="form-control text-center mx-1"
+                         style="width: 70px;"
+                         v-model="item.cantidad"
+                         min="0">
+                    <button :class="['btn btn-sm', item.cantidad<item.punto ? 'btn-danger' : 'btn-success']" @click="cambiarCantidad(item, 1)">+</button>
+                  </div>
+                </td>
+                <td>
+                  <span v-show="item.cantidad<item.punto" class="badge badge-danger ml-2 ls-1">CRÍTICO</span>
+                  <span v-show="item.cantidad>=item.punto" class="badge badge-success ml-2 ls-1">OK</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
-      <div class="modal fade" id="modalNuevoInsumo" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true" style="z-index:999999">
+    </div>
+  </div>
+</div>
+
+  <div class="modal fade" id="modalNuevoInsumo" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true" style="z-index:999999">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -165,7 +171,7 @@
       </div>
     </div>
   </div>
-  </div>
+</div>
 
 
 
@@ -175,101 +181,61 @@
 
 <!-- Specific JS goes HERE --> 
 {% block javascripts %}
-  <script>
-  function changeVal(id, delta) {
-      const input = document.getElementById('input_' + id);
-      let currentVal = parseInt(input.value) || 0;
-      input.value = Math.max(0, currentVal + delta); // Evita que baje de 0
-  }
-  </script>
-  <script>
-      function change(id, delta) {
-          let el = document.getElementById('in_' + id);
-          let val = parseInt(el.value) || 0;
-          el.value = Math.max(0, val + delta);
-      }
-  </script>
-
+<script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.8/js/dataTables.bootstrap4.min.js"></script>
 <script>
-const { createApp } = Vue;
+  document.addEventListener("DOMContentLoaded", function () {
 
-const app = createApp({
-    delimiters: ['[[', ']]'],
+    const {createApp} = Vue;
 
-    data() {
+    const app = createApp({
+      delimiters: ['[[', ']]'],
+
+      data() {
         return {
-            insumos: {{ insumos_json|safe }},
-            nuevoNombre: '',
-            nuevoPunto: 5,
-            cargando: false
+          insumos: JSON.parse('{{ insumos_json|escapejs }}'),
+          nuevoNombre: '',
+          nuevoPunto: 5,
+          cargando: false
         }
-    },
-    methods: {
-        async enviarCierre() {
-            this.cargando = true;
-            try {
-                const response = await fetch('', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRFToken': '{{ csrf_token }}'
-                    },
-                    body: JSON.stringify({
-                        action: 'guardar_cierre',
-                        inventario: this.insumos
-                    })
-                });
-
-                if (response.ok) {
-                    // Actualizamos el estado visual de "crítico" en tiempo real
-                    this.insumos.forEach(i => {
-                        i.critico = parseInt(i.cantidad) <= parseInt(i.punto);
-                    });
-                    alert("¡Inventario guardado con éxito!");
-                }
-            } catch (error) {
-                console.error("Error:", error);
-            } finally {
-                this.cargando = false;
-            }
-        },
-
-        async agregarInsumo() {
-            if (!this.nuevoNombre) return;
-
-            const response = await fetch('', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRFToken': '{{ csrf_token }}'
-                },
-                body: JSON.stringify({
-                    action: 'nuevo_insumo',
-                    nombre: this.nuevoNombre,
-                    punto: this.nuevoPunto
-                })
-            });
-
-            const data = await response.json();
-            if (data.status === 'ok') {
-                this.insumos.push({
-                    id: data.id,
-                    nombre: data.nombre,
-                    cantidad: 0,
-                    punto: this.nuevoPunto,
-                    critico: true
-                });
-                this.nuevoNombre = '';
-                $('#modalNuevoInsumo').modal('hide');
-            }
+      },
+      methods: {
+         cambiarCantidad(item, delta) {
+            item.cantidad = Math.max(0, item.cantidad + delta);
+          }
+      },
+      mounted() {
+        this.$nextTick(() => {
+          $('#registrosDatatable').DataTable({
+              pageLength: 10,
+              responsive: true,
+              lengthMenu: [5,10,25,50],
+              dom:
+                "<'row mt-3'<'col-sm-6'l><'col-sm-6'f>>" +
+                "<'row'<'col-sm-12'tr>>" +
+                "<'row mt-3 mb-3'<'col-sm-5'i><'col-sm-7'p>>",
+              language: {
+                  url: "//cdn.datatables.net/plug-ins/1.13.8/i18n/es-ES.json",
+                  paginate: {
+                      previous: "<",
+                      next: ">"
+                  }
+              }
+          });
+        });
+        console.log("Inventario:", this.insumos);
+        console.log("Dashboard:", this.insumosDashboard);
+      },
+      computed: {
+        insumosDashboard() {
+            return [...this.insumos]
+                .sort((a, b) => a.cantidad - b.cantidad)
+                .slice(0, 4);
         }
-    },
-    mounted() {
-        console.log("Inventario cargado:", this.insumos);
-    }
-});
+      }
+    });
 
-// Prueba a poner un console.log justo antes del mount
-console.log("Intentando montar Vue en #app...");
-app.mount('#app');</script>
+    app.mount('#app');
+  });
+</script>
 {% endblock javascripts %}

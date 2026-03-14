@@ -1,48 +1,77 @@
-from django.shortcuts import render, redirect
+import json
+from django.http import JsonResponse
+from django.shortcuts import render
 from .models import Insumo, RegistroDiario
-from django.contrib import messages
-from .forms import InsumoForm
-
 
 def agregar_insumo(request):
     if request.method == 'POST':
-        form = InsumoForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(request, '¡Nuevo insumo agregado al catálogo!')
-        else:
-            messages.error(request, 'Hubo un error al agregar el insumo.')
+        try:
+            # Recibimos los datos en formato JSON desde Vue
+            data = json.loads(request.body)
+            nombre = data.get('nombre')
+            punto_reorden = data.get('punto_reorden', 5)
 
-    # Redirigimos a la página desde donde se abrió el modal (ej. el dashboard)
-    destinatario = request.META.get('HTTP_REFERER', 'home')
-    return redirect(destinatario)
+            # Guardamos en la base de datos
+            nuevo_insumo = Insumo.objects.create(
+                nombre=nombre,
+                punto_reorden=int(punto_reorden)
+            )
+
+            # Devolvemos éxito y los datos del nuevo insumo para que Vue lo agregue a la tabla
+            return JsonResponse({
+                'status': 'success',
+                'message': '¡Nuevo insumo agregado al catálogo!',
+                'insumo': {
+                    'id': nuevo_insumo.id,
+                    'nombre': nuevo_insumo.nombre,
+                    'cantidad': 0,
+                    'punto': nuevo_insumo.punto_reorden,
+                    'critico': True
+                }
+            })
+        except Exception as e:
+            return JsonResponse({'status': 'error', 'message': f'Hubo un error: {str(e)}'}, status=400)
+
+    return JsonResponse({'status': 'error', 'message': 'Método no permitido'}, status=405)
 
 
 def vista_cierre_diario(request):
-    insumos_maestros = Insumo.objects.all()
-
     if request.method == 'POST':
-        for item in insumos_maestros:
-            cantidad = request.POST.get(f'cantidad_{item.id}')
-            if cantidad is not None:
+        try:
+            # Recibimos el array completo del inventario desde Vue
+            data = json.loads(request.body)
+            inventario = data.get('inventario', [])
+
+            for item in inventario:
+                insumo_obj = Insumo.objects.get(id=item['id'])
                 RegistroDiario.objects.create(
-                    insumo=item,
-                    cantidad_contada=int(cantidad)
+                    insumo=insumo_obj,
+                    cantidad_contada=int(item['cantidad'])
                 )
 
-        messages.success(request, 'Inventario de cierre guardado correctamente.')
-        return redirect('home')
+            return JsonResponse({
+                'status': 'success',
+                'message': 'Inventario de cierre guardado correctamente.'
+            })
+        except Exception as e:
+            return JsonResponse({'status': 'error', 'message': f'Error al guardar: {str(e)}'}, status=400)
 
+    # --- CARGA INICIAL (GET) ---
+    # Esto se mantiene igual para cuando cargas la página por primera vez
+    insumos_maestros = Insumo.objects.all()
     datos_para_formulario = []
+
     for item in insumos_maestros:
         ultimo = RegistroDiario.objects.filter(insumo=item).order_by('-fecha_hora').first()
         datos_para_formulario.append({
             'id': item.id,
             'nombre': item.nombre,
-            'cantidad_anterior': ultimo.cantidad_contada if ultimo else 0
+            'cantidad': ultimo.cantidad_contada if ultimo else 0,
+            'punto': item.punto_reorden,
+            'critico': (ultimo.cantidad_contada if ultimo else 0) <= item.punto_reorden
         })
 
     return render(request, 'inventory/cierre_diario.html', {
         'segment': 'cierre',
-        'datos_cierre': datos_para_formulario
+        'insumos_json': json.dumps(datos_para_formulario)  # Lo pasamos como string JSON para Vue
     })

@@ -13,6 +13,13 @@
   <div class="header bg-primary pb-6">
     <div class="container-fluid">
       <div class="header-body">
+        <div class="fixed-top" style="z-index: 9999;">
+            <div v-for="msg in mensajesDinamicos" :key="msg.id"
+                 :class="['alert', 'm-0', 'rounded-0', 'alert-' + msg.tipo]"
+                 style="transition: opacity 0.5s;">
+                [[ msg.texto ]]
+            </div>
+        </div>
         <div class="row align-items-center pt-4 pb-5">
           <div class="col-lg-6 col-7">
             <h6 class="h2 text-white d-inline-block mb-0">Default</h6>
@@ -26,7 +33,7 @@
           </div>
           <div class="col-lg-6 col-5 text-right">
             <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalNuevoInsumo">
-              <i class="fas fa-plus fa-xs"></i> Agregar Nuevo Insumo
+              <i class="fas fa-plus fa-xs mb-2"></i> Agregar Nuevo Insumo
             </button>
           </div>
         </div>
@@ -94,9 +101,14 @@
               <h2 class="text-uppercase h2 m-0 p-0 ls-1"><strong> Inventario </strong></h2>
             </div>
             <div class="col d-flex justify-content-end">
-              <button type="button" class="btn btn-primary" @click.prevent="enviarCierre">
-                <span class="d-none d-md-block">Guardar Cierre</span>
-                <span class="d-md-none">save</span>
+              <button type="button" class="btn btn-primary" @click.prevent="enviarCierre" :disabled="cargando">
+                <span v-if="cargando">
+                  <i class="fas fa-spinner fa-spin"></i> Procesando...
+                </span>
+                <span v-else>
+                  <span class="d-none d-md-block">Guardar Cierre</span>
+                  <span class="d-md-none"><i class="fas fa-save"></i></span>
+                </span>
               </button>
             </div>
           </div>
@@ -147,27 +159,27 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="modalLabel">Registrar Nuevo Insumo</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
         </div>
 
-        <form action="{% url 'agregar_insumo' %}" method="POST">
-          {% csrf_token %}
-            <div class="modal-body">
-                <div class="mb-3">
-                    <label class="form-label">Nombre del Insumo</label>
-                    <input type="text" name="nombre" class="form-control" placeholder="Ej. Nutella" required>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Punto de Reorden (Alerta roja)</label>
-                    <input type="number" name="punto_reorden" class="form-control" value="5" required>
-                    <div class="form-text">El sistema avisará cuando queden esta cantidad o menos.</div>
-                </div>
+        <div class="modal-body">
+            <div class="mb-3">
+                <label class="form-label">Nombre del Insumo</label>
+              <input type="text" v-model="nuevoNombre" class="form-control" placeholder="Ej. Nutella" required>
             </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-              <button type="submit" class="btn btn-primary">Guardar Insumo</button>
+            <div class="mb-3">
+                <label class="form-label">Punto de Reorden (Alerta roja)</label>
+                <input type="number" v-model="nuevoPunto" class="form-control" required>
+                <div class="form-text">El sistema avisará cuando queden esta cantidad o menos.</div>
             </div>
-        </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary" @click.prevent="guardarNuevoInsumo" :disabled="guardandoInsumo">
+            <span v-if="guardandoInsumo"><i class="fas fa-spinner fa-spin"></i> Guardando...</span>
+            <span v-else>Guardar Insumo</span>
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -196,33 +208,143 @@
           insumos: JSON.parse('{{ insumos_json|escapejs }}'),
           nuevoNombre: '',
           nuevoPunto: 5,
-          cargando: false
+          cargando: false,
+          guardandoInsumo: false,
+          mensajesDinamicos: [],
+          msgIdCounter: 0
         }
       },
       methods: {
-         cambiarCantidad(item, delta) {
-            item.cantidad = Math.max(0, item.cantidad + delta);
+        cambiarCantidad(item, delta) {
+          item.cantidad = Math.max(0, item.cantidad + delta);
+        },
+        async enviarCierre() {
+          if (this.cargando) return;
+          this.cargando = true;
+
+          try {
+            const response = await fetch('{% url "vista_cierre_diario" %}', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}'
+              },
+              body: JSON.stringify({
+                action: 'guardar_cierre',
+                inventario: this.insumos
+              })
+            });
+
+            const data = await response.json();
+
+            if (response.ok && data.status === 'success') {
+              this.refrescarTabla();
+
+              this.mostrarAlerta('¡Cierre de inventario guardado correctamente!', 'success');
+            } else {
+               this.mostrarAlerta(data.message || 'Error al guardar.', 'error');
+            }
+          } catch (e) {
+            console.error(e);
+            this.mostrarAlerta('Error de conexión con el servidor', 'error');
+          } finally {
+            this.cargando = false;
           }
+        },
+        async guardarNuevoInsumo() {
+          if (this.guardandoInsumo) return;
+          this.guardandoInsumo = true;
+
+          try {
+            const response = await fetch('{% url "agregar_insumo" %}', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+                  'X-CSRFToken': '{{ csrf_token }}'
+              },
+              body: JSON.stringify({
+                  nombre: this.nuevoNombre,
+                  punto_reorden: this.nuevoPunto
+              })
+            });
+
+            const data = await response.json();
+
+            if (data.status === 'success') {
+                this.insumos.push(data.insumo);
+              console.log(this.insumos)
+                this.refrescarTabla();
+
+                this.nuevoNombre = '';
+                this.nuevoPunto = 5;
+
+                $('#modalNuevoInsumo').modal('hide');
+
+                this.mostrarAlerta(data.message, 'success');
+            } else {
+                this.mostrarAlerta(data.message, 'error');
+            }
+          }catch (e) {
+            console.error(e);
+            this.mostrarAlerta('Error de conexión con el servidor', 'error');
+          } finally {
+            this.guardandoInsumo = false;
+          }
+        },
+        mostrarAlerta(texto, tipo = 'success') {
+          const claseAlerta = tipo === 'error' ? 'danger' : tipo;
+          const idActual = this.msgIdCounter++;
+
+          this.mensajesDinamicos.push({
+            id: idActual,
+            texto: texto,
+            tipo: claseAlerta
+          });
+
+          setTimeout(() => {
+            this.mensajesDinamicos = this.mensajesDinamicos.filter(m => m.id !== idActual);
+          }, 3000);
+        },
+        refrescarTabla() {
+            // 1. Destruimos la tabla INMEDIATAMENTE
+            if ($.fn.DataTable.isDataTable('#registrosDatatable')) {
+                $('#registrosDatatable').DataTable().destroy();
+            }
+
+            // 2. Esperamos a que Vue actualice el HTML (DOM)
+            this.$nextTick(() => {
+                $('#registrosDatatable').DataTable({
+                    pageLength: 10,
+                    responsive: true,
+                    lengthMenu: [5, 10, 25, 50],
+                    dom:
+                        "<'row mt-3'<'col-sm-6'l><'col-sm-6'f>>" +
+                        "<'row'<'col-sm-12'tr>>" +
+                        "<'row mt-3 mb-3'<'col-sm-5'i><'col-sm-7'p>>",
+                    // SOLUCIÓN AL CORS: Traducción manual
+                    language: {
+                        "sProcessing":     "Procesando...",
+                        "sLengthMenu":     "Mostrar _MENU_ registros",
+                        "sZeroRecords":    "No se encontraron resultados",
+                        "sEmptyTable":     "Ningún dato disponible en esta tabla",
+                        "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                        "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+                        "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+                        "sSearch":         "Buscar:",
+                        "sLoadingRecords": "Cargando...",
+                        "oPaginate": {
+                            "sFirst":    "Primero",
+                            "sLast":     "Último",
+                            "sNext":     ">",
+                            "sPrevious": "<"
+                        },
+                    }
+                });
+            });
+        },
       },
       mounted() {
-        this.$nextTick(() => {
-          $('#registrosDatatable').DataTable({
-              pageLength: 10,
-              responsive: true,
-              lengthMenu: [5,10,25,50],
-              dom:
-                "<'row mt-3'<'col-sm-6'l><'col-sm-6'f>>" +
-                "<'row'<'col-sm-12'tr>>" +
-                "<'row mt-3 mb-3'<'col-sm-5'i><'col-sm-7'p>>",
-              language: {
-                  url: "//cdn.datatables.net/plug-ins/1.13.8/i18n/es-ES.json",
-                  paginate: {
-                      previous: "<",
-                      next: ">"
-                  }
-              }
-          });
-        });
+        this.refrescarTabla();
         console.log("Inventario:", this.insumos);
         console.log("Dashboard:", this.insumosDashboard);
       },

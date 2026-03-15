@@ -1,15 +1,13 @@
-<nav class="sidenav navbar navbar-vertical  fixed-left  navbar-expand-xs navbar-light bg-white" id="sidenav-main">
+<nav class="sidenav navbar navbar-vertical  fixed-left  navbar-expand-xs navbar-light bg-white" id="sidenav-main"
+      style="border-width:0">
   <div class="scrollbar-inner">
-    <!-- Brand -->
-    <div class="sidenav-header  align-items-center">
-      <a class="navbar-brand" href="/">
-        <img src="/static/assets/img/brand/blue.png" class="navbar-brand-img" alt="Argon Design - Jinja Template Logo.">
+    <div class="d-flex justify-content-center sidenav-header align-items-center" style="background-color: #0d6441">
+      <a href="/">
+        <img src="/static/assets/img/brand/logo-prw.jpg" class="navbar-brand-img" alt="Logo Waffles Home" style="max-height: 3rem;">
       </a>
     </div>
     <div class="navbar-inner">
-      <!-- Collapse -->
       <div class="collapse navbar-collapse" id="sidenav-collapse-main">
-        <!-- Nav items -->
         <ul class="navbar-nav">
           <li class="nav-item">
             <a class="nav-link {% if 'index' in segment %} active {% endif %}" href="/">
@@ -20,13 +18,13 @@
           <li class="nav-item">
             <a class="nav-link {% if 'icons' in segment %} active {% endif %}" href="/icons.html">
               <i class="ni ni-planet text-orange"></i>
-              <span class="nav-link-text">Icons</span>
+              <span class="nav-link-text">Insumos</span>
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link {% if 'map' in segment %} active {% endif %}" href="/map.html">
               <i class="ni ni-pin-3 text-primary"></i>
-              <span class="nav-link-text">Google</span>
+              <span class="nav-link-text">Registros</span>
             </a>
           </li>
           <li class="nav-item">
@@ -35,71 +33,31 @@
               <span class="nav-link-text">Profile</span>
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link {% if 'tables' in segment %} active {% endif %}" href="/tables.html">
-              <i class="ni ni-bullet-list-67 text-default"></i>
-              <span class="nav-link-text">Tables</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link {% if 'fingerprint' in segment %} active {% endif %}" href="">
-              <i class="ni ni-active-40 text-default"></i>
-              <span class="nav-link-text">Huellas</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/login.html">
-              <i class="ni ni-key-25 text-info"></i>
-              <span class="nav-link-text">Login (template)</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/register.html">
-              <i class="ni ni-circle-08 text-pink"></i>
-              <span class="nav-link-text">Register (template)</span>
-            </a>
-          </li>
-
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'logout' %}">
-              <i class="ni ni-user-run text-red"></i>
-              <span class="nav-link-text">Logout</span>
-            </a>
-          </li>            
+<!--          <li class="nav-item">-->
+<!--            <a class="nav-link {% if 'tables' in segment %} active {% endif %}" href="/tables.html">-->
+<!--              <i class="ni ni-bullet-list-67 text-default"></i>-->
+<!--              <span class="nav-link-text">Tables</span>-->
+<!--            </a>-->
+<!--          </li>-->
         </ul>
-        <!-- Divider -->
         <hr class="my-3">
-        <!-- Heading -->
         <h6 class="navbar-heading p-0 text-muted">
           <span class="docs-normal">Resources</span>
         </h6>
-        <!-- Navigation -->
         <ul class="navbar-nav mb-md-3">
-
           <li class="nav-item">
             <a class="nav-link" 
                target="_blank" 
-               href="https://appseed.us/admin-dashboards/django-dashboard-argon">
+               href="#">
               <i class="ni ni-archive-2"></i>
-              <span class="nav-link-text">Product Page</span>
+              <span class="nav-link-text">Proximamente...</span>
             </a>
           </li>
 
           <li class="nav-item">
-            <a class="nav-link" 
-               target="_blank" 
-               href="https://appseed.us/admin-dashboards/django-dashboard-argon-pro">
-              <i class="ni ni-spaceship text-red"></i>
-              <span class="nav-link-text text-red">Resource II</span>
-            </a>
-          </li>
-
-          <li class="nav-item">
-            <a class="nav-link active active-pro" 
-               target="_blank" 
-               href="http://appseed.us">
-              <i class="ni ni-send text-dark"></i>
-              <span class="nav-link-text">AppSeed</span>
+            <a class="nav-link active active-pro" href="{% url 'logout' %}">
+              <i class="ni ni-user-run text-red"></i>
+              <span class="nav-link-text">Logout</span>
             </a>
           </li>
         </ul>

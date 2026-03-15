@@ -2,14 +2,17 @@
 
 {% block title %} Dashboard {% endblock title %}
 
-<!-- Specific CSS goes HERE -->
 {% block stylesheets %}
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.8/css/dataTables.bootstrap4.min.css">
+<style>
+  #th{
+      text-align: center;
+    }
+</style>
 {% endblock stylesheets %}
 
 {% block content %}
 <div id="app">
-  <!-- Header -->
   <div class="header bg-primary pb-6">
     <div class="container-fluid">
       <div class="header-body">
@@ -20,29 +23,10 @@
                 [[ msg.texto ]]
             </div>
         </div>
-        <div class="row align-items-center pt-4 pb-5">
-          <div class="col-lg-6 col-7">
-            <h6 class="h2 text-white d-inline-block mb-0">Default</h6>
-            <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
-              <ol class="breadcrumb breadcrumb-links breadcrumb-dark  mb-0">
-                <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
-                <li class="breadcrumb-item"><a href="#">Dashboards</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Default</li>
-              </ol>
-            </nav>
-          </div>
-          <div class="col-lg-6 col-5 text-right">
-            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalNuevoInsumo">
-              <i class="fas fa-plus fa-xs mb-2"></i> Agregar Nuevo Insumo
-            </button>
-          </div>
-        </div>
-        <!-- Card stats -->
-        <div class="row">
+        <div class="row pt-4">
           <div v-for="item in insumosDashboard" :key="item.id" class="col-xl-3 col-md-6">
             <div class="card card-stats">
               <div class="card-body">
-
                 <div class="row">
                   <div class="col">
                     <h5 class="card-title text-uppercase text-muted mb-0">
@@ -67,7 +51,6 @@
                 </div>
 
                 <p class="mt-3 mb-0 text-sm d-flex justify-content-between align-items-center">
-
                   <span v-if="item.cantidad<item.punto" class="text-danger mr-2">
                     <i class="fa fa-arrow-down"></i> CRÍTICO
                   </span>
@@ -79,9 +62,7 @@
                   <span class="text-nowrap">
                     Mínimo: [[ item.punto ]]
                   </span>
-
                 </p>
-
               </div>
             </div>
           </div>
@@ -90,7 +71,6 @@
     </div>
   </div>
 
-  <!-- Page content -->
   <div class="container-fluid mt--6">
   <div class="row">
     <div class="col-xl-12">
@@ -98,15 +78,21 @@
         <div class="card-header">
           <div class="row align-items-center">
             <div class="col">
-              <h2 class="text-uppercase h2 m-0 p-0 ls-1"><strong> Inventario </strong></h2>
+              <h2 class="text-uppercase h2 m-0 p-0 ls-1"><strong> Registrar Inventario </strong></h2>
             </div>
             <div class="col d-flex justify-content-end">
+              <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalNuevoInsumo"
+                      style="height: fit-content">
+                <span class="d-none d-md-block"><i class="fas fa-plus fa-xs pb-2"></i> Agregar Nuevo Insumo</span>
+                <span class="d-md-none"><i class="fas fa-plus"></i></span>
+              </button>
               <button type="button" class="btn btn-primary" @click.prevent="enviarCierre" :disabled="cargando">
                 <span v-if="cargando">
-                  <i class="fas fa-spinner fa-spin"></i> Procesando...
+                  <span class="d-none d-md-block"><i class="fas fa-spinner fa-spin"></i> Procesando...</span>
+                  <span class="d-md-none"><i class="fas fa-spinner fa-spin"></i></span>
                 </span>
                 <span v-else>
-                  <span class="d-none d-md-block">Guardar Cierre</span>
+                  <span class="d-none d-md-block"><i class="fas fa-save mr-2"></i >Guardar Cierre</span>
                   <span class="d-md-none"><i class="fas fa-save"></i></span>
                 </span>
               </button>
@@ -119,10 +105,10 @@
                   style="margin-top: 15px;">
             <thead class="thead-light">
               <tr>
-                <th>Id</th>
-                <th>Insumo</th>
-                <th>Cantidad Final</th>
-                <th>Estado</th>
+                <th class="text-center text-dark h1" style="font-weight: 700; font-size: smaller">ID</th>
+                <th class="text-center text-dark h1" style="font-weight: 700; font-size: smaller">Insumo</th>
+                <th class="text-center text-dark h1" style="font-weight: 700; font-size: smaller">Cantidad Final</th>
+                <th class="text-center text-dark h1" style="font-weight: 700; font-size: smaller">Estado</th>
               </tr>
             </thead>
             <tbody>
@@ -185,13 +171,8 @@
   </div>
 </div>
 
-
-
-<!--{% include "includes/footer.html" %}-->
-
 {% endblock content %}
 
-<!-- Specific JS goes HERE --> 
 {% block javascripts %}
 <script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.8/js/dataTables.bootstrap4.min.js"></script>
@@ -306,12 +287,10 @@
           }, 3000);
         },
         refrescarTabla() {
-            // 1. Destruimos la tabla INMEDIATAMENTE
             if ($.fn.DataTable.isDataTable('#registrosDatatable')) {
                 $('#registrosDatatable').DataTable().destroy();
             }
 
-            // 2. Esperamos a que Vue actualice el HTML (DOM)
             this.$nextTick(() => {
                 $('#registrosDatatable').DataTable({
                     pageLength: 10,
@@ -321,7 +300,6 @@
                         "<'row mt-3'<'col-sm-6'l><'col-sm-6'f>>" +
                         "<'row'<'col-sm-12'tr>>" +
                         "<'row mt-3 mb-3'<'col-sm-5'i><'col-sm-7'p>>",
-                    // SOLUCIÓN AL CORS: Traducción manual
                     language: {
                         "sProcessing":     "Procesando...",
                         "sLengthMenu":     "Mostrar _MENU_ registros",

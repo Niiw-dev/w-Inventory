@@ -3,6 +3,7 @@
 {% block title %} Dashboard {% endblock title %}
 
 {% block stylesheets %}
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.8/css/dataTables.bootstrap4.min.css">
 {% endblock stylesheets %}
 
 {% block content %}
@@ -168,6 +169,8 @@
 {% endblock content %}
 
 {% block javascripts %}
+<script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.8/js/dataTables.bootstrap4.min.js"></script>
 <script>
   document.addEventListener("DOMContentLoaded", function () {
 

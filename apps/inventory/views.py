@@ -1,23 +1,25 @@
 import json
 from django.http import JsonResponse
-from django.shortcuts import render
 from .models import Insumo, RegistroDiario
+from django import template
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse, HttpResponseRedirect
+from django.template import loader
+from django.urls import reverse
+from django.shortcuts import render, redirect
 
 def agregar_insumo(request):
     if request.method == 'POST':
         try:
-            # Recibimos los datos en formato JSON desde Vue
             data = json.loads(request.body)
             nombre = data.get('nombre')
             punto_reorden = data.get('punto_reorden', 5)
 
-            # Guardamos en la base de datos
             nuevo_insumo = Insumo.objects.create(
                 nombre=nombre,
                 punto_reorden=int(punto_reorden)
             )
 
-            # Devolvemos éxito y los datos del nuevo insumo para que Vue lo agregue a la tabla
             return JsonResponse({
                 'status': 'success',
                 'message': '¡Nuevo insumo agregado al catálogo!',
@@ -38,7 +40,6 @@ def agregar_insumo(request):
 def vista_cierre_diario(request):
     if request.method == 'POST':
         try:
-            # Recibimos el array completo del inventario desde Vue
             data = json.loads(request.body)
             inventario = data.get('inventario', [])
 
@@ -56,8 +57,6 @@ def vista_cierre_diario(request):
         except Exception as e:
             return JsonResponse({'status': 'error', 'message': f'Error al guardar: {str(e)}'}, status=400)
 
-    # --- CARGA INICIAL (GET) ---
-    # Esto se mantiene igual para cuando cargas la página por primera vez
     insumos_maestros = Insumo.objects.all()
     datos_para_formulario = []
 
@@ -73,5 +72,122 @@ def vista_cierre_diario(request):
 
     return render(request, 'inventory/cierre_diario.html', {
         'segment': 'cierre',
-        'insumos_json': json.dumps(datos_para_formulario)  # Lo pasamos como string JSON para Vue
+        'insumos_json': json.dumps(datos_para_formulario)
     })
+
+
+@login_required(login_url="/login/")
+def supplies(request):
+    insumos_maestros = Insumo.objects.all()
+
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        action = data.get('action')
+
+        if action == 'nuevo_insumo':
+            insumo = Insumo.objects.create(nombre=data['nombre'], punto_reorden=data['punto'])
+            return JsonResponse({'status': 'ok', 'id': insumo.id, 'nombre': insumo.nombre})
+
+        elif action == 'guardar_cierre':
+            for item in data['inventario']:
+                insumo_obj = Insumo.objects.get(id=item['id'])
+                RegistroDiario.objects.create(insumo=insumo_obj, cantidad_contada=item['cantidad'])
+            return JsonResponse({'status': 'ok'})
+
+    lista_inicial = []
+    for item in insumos_maestros:
+        ultimo = RegistroDiario.objects.filter(insumo=item).order_by('-fecha_hora').first()
+        cantidad = ultimo.cantidad_contada if ultimo else 0
+        lista_inicial.append({
+            'id': item.id,
+            'nombre': item.nombre,
+            'cantidad': cantidad,
+            'punto': item.punto_reorden,
+            'critico': cantidad <= item.punto_reorden
+        })
+
+    insumos_json_string = json.dumps(lista_inicial)
+
+    context = {
+        'segment': 'index',
+        'insumos_json': insumos_json_string
+    }
+    return render(request, 'inventory/supplies.html', context)
+
+
+@login_required(login_url="/login/")
+def resources(request):
+    insumos_maestros = Insumo.objects.all()
+
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        action = data.get('action')
+
+        if action == 'nuevo_insumo':
+            insumo = Insumo.objects.create(nombre=data['nombre'], punto_reorden=data['punto'])
+            return JsonResponse({'status': 'ok', 'id': insumo.id, 'nombre': insumo.nombre})
+
+        elif action == 'guardar_cierre':
+            for item in data['inventario']:
+                insumo_obj = Insumo.objects.get(id=item['id'])
+                RegistroDiario.objects.create(insumo=insumo_obj, cantidad_contada=item['cantidad'])
+            return JsonResponse({'status': 'ok'})
+
+    lista_inicial = []
+    for item in insumos_maestros:
+        ultimo = RegistroDiario.objects.filter(insumo=item).order_by('-fecha_hora').first()
+        cantidad = ultimo.cantidad_contada if ultimo else 0
+        lista_inicial.append({
+            'id': item.id,
+            'nombre': item.nombre,
+            'cantidad': cantidad,
+            'punto': item.punto_reorden,
+            'critico': cantidad <= item.punto_reorden
+        })
+
+    insumos_json_string = json.dumps(lista_inicial)
+
+    context = {
+        'segment': 'index',
+        'insumos_json': insumos_json_string
+    }
+    return render(request, 'inventory/resources.html', context)
+
+
+@login_required(login_url="/login/")
+def records(request):
+    insumos_maestros = Insumo.objects.all()
+
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        action = data.get('action')
+
+        if action == 'nuevo_insumo':
+            insumo = Insumo.objects.create(nombre=data['nombre'], punto_reorden=data['punto'])
+            return JsonResponse({'status': 'ok', 'id': insumo.id, 'nombre': insumo.nombre})
+
+        elif action == 'guardar_cierre':
+            for item in data['inventario']:
+                insumo_obj = Insumo.objects.get(id=item['id'])
+                RegistroDiario.objects.create(insumo=insumo_obj, cantidad_contada=item['cantidad'])
+            return JsonResponse({'status': 'ok'})
+
+    lista_inicial = []
+    for item in insumos_maestros:
+        ultimo = RegistroDiario.objects.filter(insumo=item).order_by('-fecha_hora').first()
+        cantidad = ultimo.cantidad_contada if ultimo else 0
+        lista_inicial.append({
+            'id': item.id,
+            'nombre': item.nombre,
+            'cantidad': cantidad,
+            'punto': item.punto_reorden,
+            'critico': cantidad <= item.punto_reorden
+        })
+
+    insumos_json_string = json.dumps(lista_inicial)
+
+    context = {
+        'segment': 'index',
+        'insumos_json': insumos_json_string
+    }
+    return render(request, 'inventory/records.html', context)

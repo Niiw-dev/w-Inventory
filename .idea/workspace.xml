@@ -4,14 +4,25 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="db028275-b21e-4314-951f-afda711f9cd5" name="Changes" comment="Se termina diseño de dashboard, se termina boton agregar insumo y guardar cierre, todo funcional por el momento">
-      <change afterPath="$PROJECT_DIR$/apps/static/assets/img/brand/logo-prw.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/static/assets/img/brand/logo.jpeg" afterDir="false" />
+    <list default="true" id="db028275-b21e-4314-951f-afda711f9cd5" name="Changes" comment="Se ajusta diseño de dashboard, botones y colores de fondo">
+      <change afterPath="$PROJECT_DIR$/apps/templates/inventory/records.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/templates/inventory/resources.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/templates/inventory/supplies.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/static/assets/css/argon.css" beforeDir="false" afterPath="$PROJECT_DIR$/apps/static/assets/css/argon.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/home/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/home/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/inventory/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/inventory/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/inventory/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/inventory/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/inventory/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/inventory/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/templates/attendance/fingerprintForm.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/templates/attendance/fingerprintList.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/templates/home/icons.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/templates/home/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/home/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/templates/home/map.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/templates/home/tables.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/templates/includes/navigation.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/includes/navigation.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/templates/includes/scripts.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/includes/scripts.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/templates/includes/sidenav.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/includes/sidenav.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/templates/layouts/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/layouts/base.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -86,6 +97,9 @@
       <recent name="$PROJECT_DIR$/apps" />
       <recent name="$PROJECT_DIR$/apps/templates/attendance" />
       <recent name="$PROJECT_DIR$/apps/attendance" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\IInw\PycharmProjects\w-Inventory\apps\templates\inventory" />
     </key>
   </component>
   <component name="RunManager">
@@ -171,7 +185,7 @@
       <workItem from="1773444142445" duration="9973000" />
       <workItem from="1773455203447" duration="96000" />
       <workItem from="1773486748181" duration="7243000" />
-      <workItem from="1773580004275" duration="10794000" />
+      <workItem from="1773580004275" duration="23571000" />
     </task>
     <task id="LOCAL-00001" summary="Se ajusta la vista de login y register">
       <option name="closed" value="true" />
@@ -357,7 +371,15 @@
       <option name="project" value="LOCAL" />
       <updated>1773493019081</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="Se ajusta diseño de dashboard, botones y colores de fondo">
+      <option name="closed" value="true" />
+      <created>1773596788498</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1773596788499</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -392,6 +414,7 @@
     <MESSAGE value="Se crea boton para agregar insumos y para registrar día" />
     <MESSAGE value="Se ajusta vue, se agrega bootstrap, y se arreglan diseños" />
     <MESSAGE value="Se termina diseño de dashboard, se termina boton agregar insumo y guardar cierre, todo funcional por el momento" />
-    <option name="LAST_COMMIT_MESSAGE" value="Se termina diseño de dashboard, se termina boton agregar insumo y guardar cierre, todo funcional por el momento" />
+    <MESSAGE value="Se ajusta diseño de dashboard, botones y colores de fondo" />
+    <option name="LAST_COMMIT_MESSAGE" value="Se ajusta diseño de dashboard, botones y colores de fondo" />
   </component>
 </project>

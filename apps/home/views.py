@@ -1,8 +1,3 @@
-# -*- encoding: utf-8 -*-
-"""
-Copyright (c) 2019 - present AppSeed.us
-"""
-
 from django import template
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
@@ -11,16 +6,14 @@ from django.urls import reverse
 from django.shortcuts import render, redirect
 from apps.inventory.models import Insumo, RegistroDiario
 from django.http import JsonResponse
-import json  # <--- Este es el único que necesitas
+import json
 
 
 @login_required(login_url="/login/")
 def index(request):
     insumos_maestros = Insumo.objects.all()
 
-    # --- PROCESAMIENTO AJAX (POST) ---
     if request.method == 'POST':
-        # BORRAMOS el "import json" de aquí adentro
         data = json.loads(request.body)
         action = data.get('action')
 
@@ -34,7 +27,6 @@ def index(request):
                 RegistroDiario.objects.create(insumo=insumo_obj, cantidad_contada=item['cantidad'])
             return JsonResponse({'status': 'ok'})
 
-    # --- CARGA INICIAL (GET) ---
     lista_inicial = []
     for item in insumos_maestros:
         ultimo = RegistroDiario.objects.filter(insumo=item).order_by('-fecha_hora').first()
@@ -47,7 +39,6 @@ def index(request):
             'critico': cantidad <= item.punto_reorden
         })
 
-    # Ahora Python encontrará 'json' globalmente sin problemas
     insumos_json_string = json.dumps(lista_inicial)
 
     context = {
@@ -55,18 +46,11 @@ def index(request):
         'insumos_json': insumos_json_string
     }
     return render(request, 'home/index.html', context)
-    # return render(request, 'home/index.html', {'insumos_json': lista_inicial})
-
-
-
-
 
 
 @login_required(login_url="/login/")
 def pages(request):
     context = {}
-    # All resource paths end in .html.
-    # Pick out the html file name from the url. And load that template.
     try:
 
         load_template = request.path.split('/')[-1]

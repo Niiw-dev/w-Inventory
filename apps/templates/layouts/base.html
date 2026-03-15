@@ -22,21 +22,16 @@
   <link rel="canonical" href="https://appseed.us/admin-dashboards/django-dashboard-argon">
 
   <title>
-    Django Argon Dashboard - {% block title %} Open-Source Admin Panel {% endblock %} | AppSeed
+    {% block title %} Admin Panel {% endblock %} | Waffles Home
   </title>
 
-  <!-- Favicon - loaded as static -->
   <link rel="icon" href="/static/assets/img/brand/favicon.png" type="image/png">
-  <!-- Fonts -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">
-  <!-- Icons -->
   <link rel="stylesheet" href="/static/assets/vendor/nucleo/css/nucleo.css" type="text/css">
   <link rel="stylesheet" href="/static/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css" type="text/css">
-  <!-- Page plugins -->
-  <!-- Argon CSS -->
   <link rel="stylesheet" href="/static/assets/css/argon.css?v=1.2.0" type="text/css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.8/css/dataTables.bootstrap4.min.css">
 
-  <!-- Specific CSS goes HERE -->
   {% block stylesheets %}{% endblock stylesheets %}
 
   <style>
@@ -47,41 +42,32 @@
 
 </head>
 
-<body class="">
-
+<body>
   {% include "includes/sidenav.html" %}
 
   <div class="main-content" id="panel">
-
-    {% include "includes/navigation.html" %}
+    {% block navigation %}
+        {% include "includes/navigation.html" %}
+    {% endblock %}
 
     {% block content %}{% endblock content %}
-
   </div>
-
-  <script src="/static/assets/vendor/chart.js/dist/Chart.min.js"></script>
-  <script src="/static/assets/vendor/chart.js/dist/Chart.extension.js"></script>
-  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 
   <script>
   document.addEventListener("DOMContentLoaded", function () {
       setTimeout(function () {
           document.querySelectorAll(".auto-dismiss").forEach(function (alert) {
-
-              // efecto fade
               alert.style.transition = "opacity 0.5s ease";
               alert.style.opacity = "0";
 
-              // eliminar del DOM
               setTimeout(() => alert.remove(), 500);
           });
-      }, 3000); // 3 segundos
+      }, 3000);
   });
   </script>
 
   {% include "includes/scripts.html" %}
 
-  <!-- Specific JS goes HERE --> 
   {% block javascripts %}{% endblock javascripts %}
 
   <script src="/static/assets/js/argon.js?v=1.2.0"></script>

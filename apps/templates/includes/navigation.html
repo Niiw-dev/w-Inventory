@@ -7,7 +7,9 @@
           <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
             <ol class="breadcrumb breadcrumb-links breadcrumb-dark  mb-0">
               <li class="breadcrumb-item"><a href="{% url 'home' %}"><i class="fas fa-home"></i></a></li>
-              <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+              <li class="breadcrumb-item active" aria-current="page">
+                {{ breadcrumb|default:"Dashboard" }}
+              </li>
             </ol>
           </nav>
         </li>

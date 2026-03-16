@@ -4,17 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="db028275-b21e-4314-951f-afda711f9cd5" name="Changes" comment="Se crean nuevas pestañas">
-      <change afterPath="$PROJECT_DIR$/apps/templates/home/modals/insumoModal.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/templates/inventory/modals/categoriaModal.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/templates/inventory/modals/proveedorModal.html" afterDir="false" />
+    <list default="true" id="db028275-b21e-4314-951f-afda711f9cd5" name="Changes" comment="Se termina primera parte de Recursos, falta edita y eliminar">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/inventory/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/inventory/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/inventory/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/inventory/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/static/assets/css/argon.css" beforeDir="false" afterPath="$PROJECT_DIR$/apps/static/assets/css/argon.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/static/assets/css/argon.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/apps/static/assets/css/argon.css.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/templates/home/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/home/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/templates/inventory/resources.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/inventory/resources.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build_files.sh" beforeDir="false" afterPath="$PROJECT_DIR$/build_files.sh" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -177,7 +169,7 @@
       <workItem from="1773444142445" duration="9973000" />
       <workItem from="1773455203447" duration="96000" />
       <workItem from="1773486748181" duration="7243000" />
-      <workItem from="1773580004275" duration="32265000" />
+      <workItem from="1773580004275" duration="32797000" />
     </task>
     <task id="LOCAL-00001" summary="Se ajusta la vista de login y register">
       <option name="closed" value="true" />
@@ -379,7 +371,15 @@
       <option name="project" value="LOCAL" />
       <updated>1773609856052</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="Se termina primera parte de Recursos, falta edita y eliminar">
+      <option name="closed" value="true" />
+      <created>1773621108442</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1773621108442</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -416,6 +416,7 @@
     <MESSAGE value="Se termina diseño de dashboard, se termina boton agregar insumo y guardar cierre, todo funcional por el momento" />
     <MESSAGE value="Se ajusta diseño de dashboard, botones y colores de fondo" />
     <MESSAGE value="Se crean nuevas pestañas" />
-    <option name="LAST_COMMIT_MESSAGE" value="Se crean nuevas pestañas" />
+    <MESSAGE value="Se termina primera parte de Recursos, falta edita y eliminar" />
+    <option name="LAST_COMMIT_MESSAGE" value="Se termina primera parte de Recursos, falta edita y eliminar" />
   </component>
 </project>

@@ -28,7 +28,7 @@
 
   <div class="container-fluid mt--5">
     <div class="row">
-      <div class="col-xl-12">
+      <div class="col-xl-6  col-12">
         <div class="card">
           <div class="card-header">
             <div class="row align-items-center">
@@ -62,12 +62,12 @@
                     <strong>[[ item.nombre ]]</strong>
                   </td>
                   <td>
-                    <div class="btn-group justify-content-center">
-                      <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#categoriaModal"
+                    <div>
+                      <button type="button" class="btn btn-warning" @click="openEditProveedoresModal(item.id)"
                         style="height: fit-content">
                         <i class="fas fa-pen"></i>
                       </button>
-                      <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#categoriaModal"
+                      <button type="button" class="btn btn-danger" @click="openConfirmDeleteProveedoresModal(item.id)"
                         style="height: fit-content">
                         <i class="fas fa-trash"></i>
                       </button>
@@ -79,10 +79,8 @@
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="row">
-      <div class="col-xl-12">
+      <div class="col-xl-6  col-12">
         <div class="card">
           <div class="card-header">
             <div class="row align-items-center">
@@ -116,12 +114,12 @@
                     <strong>[[ item.nombre ]]</strong>
                   </td>
                   <td>
-                    <div class="btn-group justify-content-center">
-                      <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#proveedorModal"
+                    <div>
+                      <button type="button" class="btn btn-warning" @click="openEditCategoriasModal(item.id)"
                         style="height: fit-content">
                         <i class="fas fa-pen"></i>
                       </button>
-                      <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#categoriaModal"
+                      <button type="button" class="btn btn-danger" @click="openConfirmDeleteCategoriasModal(item.id)"
                         style="height: fit-content">
                         <i class="fas fa-trash"></i>
                       </button>
@@ -137,6 +135,8 @@
   </div>
   {% include "inventory/modals/categoriaModal.html" %}
   {% include "inventory/modals/proveedorModal.html" %}
+  {% include "inventory/modals/confirmDeleteProveedoresModal.html" %}
+  {% include "inventory/modals/confirmDeleteCategoriasModal.html" %}
 </div>
 
 {% endblock content %}
@@ -158,11 +158,97 @@
           nuevaCategoria: '',
           guardandoProveedor: false,
           guardandoCategoria: false,
+          eliminandoCategoria: false,
+          eliminandoProveedor: false,
           mensajesDinamicos: [],
-          msgIdCounter: 0
+          msgIdCounter: 0,
+          idDeleteCategoria: 0,
+          idDeleteProveedor: 0
         }
       },
       methods: {
+        async eliminarCategoria() {
+          if (this.eliminandoCategoria) return;
+          this.eliminandoCategoria = true;
+
+          try {
+            const response = await fetch('{% url "eliminar_categoria" %}', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+                  'X-CSRFToken': '{{ csrf_token }}'
+              },
+              body: JSON.stringify({
+                  id: this.idDeleteCategoria
+              })
+            });
+
+            const data = await response.json();
+
+            if (data.status === 'success') {
+                this.categorias = JSON.parse(data.categorias);
+                this.refrescarTablaCategorias();
+
+                this.idDeleteCategoria = 0;
+
+                $('#confirmDeleteCategoriasModal').modal('hide');
+
+                this.mostrarAlerta(data.message, 'success');
+            } else {
+                this.mostrarAlerta(data.message, 'error');
+            }
+          }catch (e) {
+            console.error(e);
+            this.mostrarAlerta('Error de conexión con el servidor', 'error');
+          } finally {
+            this.eliminandoCategoria = false;
+          }
+        },
+        async eliminarProveedor() {
+          if (this.eliminandoProveedor) return;
+          this.eliminandoProveedor = true;
+
+          try {
+            const response = await fetch('{% url "eliminar_proveedor" %}', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+                  'X-CSRFToken': '{{ csrf_token }}'
+              },
+              body: JSON.stringify({
+                  id: this.idDeleteProveedor
+              })
+            });
+
+            const data = await response.json();
+
+            if (data.status === 'success') {
+                this.proveedores = JSON.parse(data.proveedores);
+                this.refrescarTablaProveedores();
+
+                this.idDeleteProveedor = 0;
+
+                $('#confirmDeleteProveedoresModal').modal('hide');
+
+                this.mostrarAlerta(data.message, 'success');
+            } else {
+                this.mostrarAlerta(data.message, 'error');
+            }
+          }catch (e) {
+            console.error(e);
+            this.mostrarAlerta('Error de conexión con el servidor', 'error');
+          } finally {
+            this.eliminandoProveedor = false;
+          }
+        },
+        openConfirmDeleteCategoriasModal(id) {
+          this.idDeleteCategoria = id
+          $('#confirmDeleteCategoriasModal').modal('show');
+        },
+        openConfirmDeleteProveedoresModal(id) {
+          this.idDeleteProveedor = id
+          $('#confirmDeleteProveedoresModal').modal('show');
+        },
         async guardarNuevaCategoria() {
           if (this.guardandoCategoria) return;
           this.guardandoCategoria = true;
@@ -258,7 +344,7 @@
 
             this.$nextTick(() => {
                 $('#proveedoresDatatable').DataTable({
-                    pageLength: 5,
+                    pageLength: 10,
                     responsive: true,
                     lengthMenu: [5, 10, 25, 50],
                     dom:
@@ -292,7 +378,7 @@
 
             this.$nextTick(() => {
                 $('#categoriasDatatable').DataTable({
-                    pageLength: 5,
+                    pageLength: 10,
                     responsive: true,
                     lengthMenu: [5, 10, 25, 50],
                     dom:

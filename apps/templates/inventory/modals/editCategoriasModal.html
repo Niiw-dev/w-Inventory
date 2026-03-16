@@ -1,0 +1,25 @@
+<div class="modal fade" id="categoriaModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true" style="z-index:999999">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalLabel">Registrar Nueva Categoría</h5>
+        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label">Nombre de la Categoría</label>
+            <input type="text" v-model="nuevaCategoria" class="form-control" placeholder="Ej. Dulce" required>
+          </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" @click.prevent="guardarNuevaCategoria" :disabled="guardandoCategoria">
+          <span v-if="guardandoCategoria"><i class="fas fa-spinner fa-spin"></i> Guardando...</span>
+          <span v-else>Guardar Categoría</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

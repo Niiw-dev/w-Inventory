@@ -4688,8 +4688,8 @@ a.close.disabled {
   flex-wrap: wrap;
   align-items: center;
   justify-content: flex-end;
-  padding: 1.25rem;
-  border-top: 0 solid #e9ecef;
+  padding: 1rem;
+  border-top: 1px solid #e9ecef;
   border-bottom-right-radius: 0.4375rem;
   border-bottom-left-radius: 0.4375rem; }
   .modal-footer > * {

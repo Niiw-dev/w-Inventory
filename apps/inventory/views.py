@@ -213,3 +213,74 @@ def agregar_categoria(request):
             return JsonResponse({'status': 'error', 'message': f'Hubo un error: {str(e)}'}, status=400)
 
     return JsonResponse({'status': 'error', 'message': 'Método no permitido'}, status=405)
+
+
+def eliminar_proveedor(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            proveedor_id = data.get('id')
+
+            proveedor = Proveedor.objects.get(id=proveedor_id)
+            proveedor.delete()
+
+            proveedores = Proveedor.objects.all().order_by('nombre').values()
+            proveedores_json_string = json.dumps(list(proveedores))
+
+            return JsonResponse({
+                'status': 'success',
+                'proveedores': proveedores_json_string,
+                'message': 'Proveedor eliminado correctamente'
+            })
+
+        except Proveedor.DoesNotExist:
+            return JsonResponse({
+                'status': 'error',
+                'message': 'Proveedor no encontrado'
+            }, status=404)
+
+        except Exception as e:
+            return JsonResponse({
+                'status': 'error',
+                'message': f'Hubo un error: {str(e)}'
+            }, status=400)
+
+    return JsonResponse({
+        'status': 'error',
+        'message': 'Método no permitido'
+    }, status=405)
+
+def eliminar_categoria(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            categoria_id = data.get('id')
+
+            categoria = Categoria.objects.get(id=categoria_id)
+            categoria.delete()
+
+            categorias = Categoria.objects.all().order_by('nombre').values()
+            categorias_json_string = json.dumps(list(categorias))
+
+            return JsonResponse({
+                'status': 'success',
+                'categorias': categorias_json_string,
+                'message': 'Categoria eliminada correctamente'
+            })
+
+        except Categoria.DoesNotExist:
+            return JsonResponse({
+                'status': 'error',
+                'message': 'Categoria no encontrada'
+            }, status=404)
+
+        except Exception as e:
+            return JsonResponse({
+                'status': 'error',
+                'message': f'Hubo un error: {str(e)}'
+            }, status=400)
+
+    return JsonResponse({
+        'status': 'error',
+        'message': 'Método no permitido'
+    }, status=405)

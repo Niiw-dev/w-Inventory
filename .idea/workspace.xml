@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="db028275-b21e-4314-951f-afda711f9cd5" name="Changes" comment="Se termina primera parte de Recursos, falta edita y eliminar">
+    <list default="true" id="db028275-b21e-4314-951f-afda711f9cd5" name="Changes" comment="Intengo de subir ajustes de colores">
+      <change afterPath="$PROJECT_DIR$/apps/static/assets/css/customs.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build_files.sh" beforeDir="false" afterPath="$PROJECT_DIR$/build_files.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/templates/layouts/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/layouts/base.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,7 +65,7 @@
     "disable.download.node.interpreter.editor.notification": "true",
     "git-widget-placeholder": "main",
     "junie.onboarding.icon.badge.shown": "true",
-    "last_opened_file_path": "C:/Users/IInw/PycharmProjects/w-Inventory/apps/templates/inventory/modals",
+    "last_opened_file_path": "C:/Users/IInw/PycharmProjects/w-Inventory/apps/static/assets/css",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -76,11 +77,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\IInw\PycharmProjects\w-Inventory\apps\static\assets\css" />
       <recent name="C:\Users\IInw\PycharmProjects\w-Inventory\apps\templates\inventory\modals" />
       <recent name="C:\Users\IInw\PycharmProjects\w-Inventory\apps\templates\home\modals" />
       <recent name="C:\Users\IInw\PycharmProjects\w-Inventory\apps\static\assets\img\brand" />
       <recent name="$PROJECT_DIR$/apps/inventory" />
-      <recent name="$PROJECT_DIR$/apps" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\IInw\PycharmProjects\w-Inventory\apps\templates\inventory" />
@@ -169,7 +170,7 @@
       <workItem from="1773444142445" duration="9973000" />
       <workItem from="1773455203447" duration="96000" />
       <workItem from="1773486748181" duration="7243000" />
-      <workItem from="1773580004275" duration="32797000" />
+      <workItem from="1773580004275" duration="33100000" />
     </task>
     <task id="LOCAL-00001" summary="Se ajusta la vista de login y register">
       <option name="closed" value="true" />
@@ -379,7 +380,15 @@
       <option name="project" value="LOCAL" />
       <updated>1773621108442</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="Intengo de subir ajustes de colores">
+      <option name="closed" value="true" />
+      <created>1773621593140</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1773621593140</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -417,6 +426,7 @@
     <MESSAGE value="Se ajusta diseño de dashboard, botones y colores de fondo" />
     <MESSAGE value="Se crean nuevas pestañas" />
     <MESSAGE value="Se termina primera parte de Recursos, falta edita y eliminar" />
-    <option name="LAST_COMMIT_MESSAGE" value="Se termina primera parte de Recursos, falta edita y eliminar" />
+    <MESSAGE value="Intengo de subir ajustes de colores" />
+    <option name="LAST_COMMIT_MESSAGE" value="Intengo de subir ajustes de colores" />
   </component>
 </project>

@@ -142,6 +142,9 @@
 {% endblock content %}
 
 {% block javascripts %}
+{% endblock javascripts %}
+
+
 <script>
   document.addEventListener("DOMContentLoaded", function () {
 
@@ -156,17 +159,76 @@
           categorias: JSON.parse('{{ categorias_json|escapejs }}'),
           nuevoProveedor: '',
           nuevaCategoria: '',
-          guardandoProveedor: false,
           guardandoCategoria: false,
           eliminandoCategoria: false,
+          editandoCategoria: false,
+          guardandoProveedor: false,
           eliminandoProveedor: false,
+          editandoProveedor: false,
           mensajesDinamicos: [],
           msgIdCounter: 0,
           idDeleteCategoria: 0,
-          idDeleteProveedor: 0
+          idDeleteProveedor: 0,
+          categoriaEdit: {
+            id: 0,
+            nombre: ''
+          },
+          proveedorEdit: {
+            id: 0,
+            nombre: ''
+          },
         }
       },
       methods: {
+        async editarCategoria() {
+          if (this.editandoCategoria) return;
+          this.editandoCategoria = true;
+
+          try {
+            const response = await fetch('{% url "editar_categoria" %}', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+                  'X-CSRFToken': '{{ csrf_token }}'
+              },
+              body: JSON.stringify({
+                  id: this.categoriaEdit.id,
+                  nombre: this.categoriaEdit.nombre,
+              })
+            });
+
+            const data = await response.json();
+
+            if (data.status === 'success') {
+                this.categorias = JSON.parse(data.categorias);
+                this.refrescarTablaCategorias();
+
+                this.categoriaEdit = {
+                  id: 0,
+                  nombre: ''
+                };
+
+                $('#editCategoriaModal').modal('hide');
+
+                this.mostrarAlerta(data.message, 'success');
+            } else {
+                this.mostrarAlerta(data.message, 'error');
+            }
+          }catch (e) {
+            console.error(e);
+            this.mostrarAlerta('Error de conexión con el servidor', 'error');
+          } finally {
+            this.editandoCategoria = false;
+          }
+        },
+        async openEditCategoriasModal() {
+          this.idEditCategoria = id
+          $('#editCategoriaModal').modal('show');
+        },
+        async openEditProveedoresModal() {
+          this.idEditProveedor = id
+          $('#editProveedorModal').modal('show');
+        },
         async eliminarCategoria() {
           if (this.eliminandoCategoria) return;
           this.eliminandoCategoria = true;
@@ -417,4 +479,3 @@
     app.mount('#app');
   });
 </script>
-{% endblock javascripts %}

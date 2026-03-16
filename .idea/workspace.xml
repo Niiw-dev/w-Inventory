@@ -4,18 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="db028275-b21e-4314-951f-afda711f9cd5" name="Changes" comment="Intengo de subir ajustes de colores">
-      <change afterPath="$PROJECT_DIR$/apps/templates/inventory/modals/confirmDeleteCategoriasModal.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/templates/inventory/modals/confirmDeleteProveedoresModal.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/templates/inventory/modals/editCategoriasModal.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/templates/inventory/modals/editProveedoresModal.html" afterDir="false" />
+    <list default="true" id="db028275-b21e-4314-951f-afda711f9cd5" name="Changes" comment="Se agrega funcionalidad a botón eliminar para categorias y proveedores">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/inventory/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/inventory/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/inventory/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/inventory/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/static/assets/css/customs.css" beforeDir="false" afterPath="$PROJECT_DIR$/apps/static/assets/css/customs.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/templates/inventory/modals/editCategoriasModal.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/inventory/modals/editCategoriasModal.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/templates/inventory/modals/editProveedoresModal.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/inventory/modals/editProveedoresModal.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/templates/inventory/resources.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/inventory/resources.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/templates/layouts/base-fullscreen.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/layouts/base-fullscreen.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/templates/layouts/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/layouts/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build_files.sh" beforeDir="false" afterPath="$PROJECT_DIR$/build_files.sh" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,30 +53,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.MCP Project settings loaded": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "ai.playground.ignore.import.keys.banner.in.settings": "true",
-    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "disable.download.node.interpreter.editor.notification": "true",
-    "git-widget-placeholder": "main",
-    "junie.onboarding.icon.badge.shown": "true",
-    "last_opened_file_path": "/home/developer12/Documentos/w-Inventory/apps/templates/inventory/modals",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "to.speed.mode.migration.done": "true",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;ai.playground.ignore.import.keys.banner.in.settings&quot;: &quot;true&quot;,
+    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
+    &quot;disable.download.node.interpreter.editor.notification&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/developer12/Documentos/w-Inventory/apps/templates/inventory/modals&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/apps/templates/inventory/modals" />
@@ -396,7 +390,15 @@
       <option name="project" value="LOCAL" />
       <updated>1773621593140</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="Se agrega funcionalidad a botón eliminar para categorias y proveedores">
+      <option name="closed" value="true" />
+      <created>1773673222292</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1773673222292</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -435,6 +437,7 @@
     <MESSAGE value="Se crean nuevas pestañas" />
     <MESSAGE value="Se termina primera parte de Recursos, falta edita y eliminar" />
     <MESSAGE value="Intengo de subir ajustes de colores" />
-    <option name="LAST_COMMIT_MESSAGE" value="Intengo de subir ajustes de colores" />
+    <MESSAGE value="Se agrega funcionalidad a botón eliminar para categorias y proveedores" />
+    <option name="LAST_COMMIT_MESSAGE" value="Se agrega funcionalidad a botón eliminar para categorias y proveedores" />
   </component>
 </project>

@@ -1,0 +1,25 @@
+<div class="modal fade" id="proveedorModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true" style="z-index:999999">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalLabel">Registrar Nuevo Proveedor</h5>
+        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label">Nombre del Proveedor</label>
+            <input type="text" v-model="nuevoProveedor" class="form-control" placeholder="Ej. Postobon" required>
+          </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" @click.prevent="guardarNuevoProveedor" :disabled="guardandoProveedor">
+          <span v-if="guardandoProveedor"><i class="fas fa-spinner fa-spin"></i> Guardando...</span>
+          <span v-else>Guardar Proveedor</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

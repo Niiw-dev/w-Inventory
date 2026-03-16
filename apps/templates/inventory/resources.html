@@ -36,7 +36,7 @@
                 <h2 class="text-uppercase h2 m-0 p-0 ls-1"><strong> Proveedores </strong></h2>
               </div>
               <div class="col d-flex justify-content-end">
-                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalNuevoInsumo"
+                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#proveedorModal"
                         style="height: fit-content">
                   <span class="d-none d-md-block"><i class="fas fa-plus fa-xs pb-2"></i> Agregar Proveedor</span>
                   <span class="d-md-none"><i class="fas fa-plus"></i></span>
@@ -56,24 +56,22 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="item in insumos" :key="item.id">
+                <tr v-for="item in proveedores" :key="item.id">
                   <td>[[ item.id ]]</td>
                   <td>
                     <strong>[[ item.nombre ]]</strong>
                   </td>
                   <td>
                     <div class="btn-group justify-content-center">
-                      <button :class="['btn btn-sm', item.cantidad<item.punto ? 'btn-danger' : 'btn-success']" @click="cambiarCantidad(item, -1)">-</button>
-                      <input type="number" class="form-control text-center mx-1"
-                           style="width: 70px;"
-                           v-model="item.cantidad"
-                           min="0">
-                      <button :class="['btn btn-sm', item.cantidad<item.punto ? 'btn-danger' : 'btn-success']" @click="cambiarCantidad(item, 1)">+</button>
+                      <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#categoriaModal"
+                        style="height: fit-content">
+                        <i class="fas fa-pen"></i>
+                      </button>
+                      <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#categoriaModal"
+                        style="height: fit-content">
+                        <i class="fas fa-trash"></i>
+                      </button>
                     </div>
-                  </td>
-                  <td>
-                    <span v-show="item.cantidad<item.punto" class="badge badge-danger ml-2 ls-1">CRÍTICO</span>
-                    <span v-show="item.cantidad>=item.punto" class="badge badge-success ml-2 ls-1">OK</span>
                   </td>
                 </tr>
               </tbody>
@@ -92,55 +90,42 @@
                 <h2 class="text-uppercase h2 m-0 p-0 ls-1"><strong> Categorías </strong></h2>
               </div>
               <div class="col d-flex justify-content-end">
-                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalNuevoInsumo"
+                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#categoriaModal"
                         style="height: fit-content">
-                  <span class="d-none d-md-block"><i class="fas fa-plus fa-xs pb-2"></i> Agregar Nuevo Insumo</span>
+                  <span class="d-none d-md-block"><i class="fas fa-plus fa-xs pb-2"></i> Agregar Categoría</span>
                   <span class="d-md-none"><i class="fas fa-plus"></i></span>
-                </button>
-                <button type="button" class="btn btn-primary" @click.prevent="enviarCierre" :disabled="cargando">
-                  <span v-if="cargando">
-                    <span class="d-none d-md-block"><i class="fas fa-spinner fa-spin"></i> Procesando...</span>
-                    <span class="d-md-none"><i class="fas fa-spinner fa-spin"></i></span>
-                  </span>
-                  <span v-else>
-                    <span class="d-none d-md-block"><i class="fas fa-save mr-2"></i >Guardar Cierre</span>
-                    <span class="d-md-none"><i class="fas fa-save"></i></span>
-                  </span>
                 </button>
               </div>
             </div>
           </div>
 
           <div class="table-responsive">
-            <table class="table align-items-center table-flush table-hover text-center" id="registrosDatatable"
+            <table class="table align-items-center table-flush table-hover text-center" id="categoriasDatatable"
                     style="margin-top: 15px;">
               <thead class="thead-light">
                 <tr>
                   <th class="text-center text-dark h1" style="font-weight: 700; font-size: smaller">ID</th>
-                  <th class="text-center text-dark h1" style="font-weight: 700; font-size: smaller">Insumo</th>
-                  <th class="text-center text-dark h1" style="font-weight: 700; font-size: smaller">Cantidad Final</th>
-                  <th class="text-center text-dark h1" style="font-weight: 700; font-size: smaller">Estado</th>
+                  <th class="text-center text-dark h1" style="font-weight: 700; font-size: smaller">Categoría</th>
+                  <th class="text-center text-dark h1" style="font-weight: 700; font-size: smaller">Acciones</th>
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="item in insumos" :key="item.id">
+                <tr v-for="item in categorias" :key="item.id">
                   <td>[[ item.id ]]</td>
                   <td>
                     <strong>[[ item.nombre ]]</strong>
                   </td>
                   <td>
                     <div class="btn-group justify-content-center">
-                      <button :class="['btn btn-sm', item.cantidad<item.punto ? 'btn-danger' : 'btn-success']" @click="cambiarCantidad(item, -1)">-</button>
-                      <input type="number" class="form-control text-center mx-1"
-                           style="width: 70px;"
-                           v-model="item.cantidad"
-                           min="0">
-                      <button :class="['btn btn-sm', item.cantidad<item.punto ? 'btn-danger' : 'btn-success']" @click="cambiarCantidad(item, 1)">+</button>
+                      <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#proveedorModal"
+                        style="height: fit-content">
+                        <i class="fas fa-pen"></i>
+                      </button>
+                      <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#categoriaModal"
+                        style="height: fit-content">
+                        <i class="fas fa-trash"></i>
+                      </button>
                     </div>
-                  </td>
-                  <td>
-                    <span v-show="item.cantidad<item.punto" class="badge badge-danger ml-2 ls-1">CRÍTICO</span>
-                    <span v-show="item.cantidad>=item.punto" class="badge badge-success ml-2 ls-1">OK</span>
                   </td>
                 </tr>
               </tbody>
@@ -150,43 +135,13 @@
       </div>
     </div>
   </div>
-
-  <div class="modal fade" id="modalNuevoInsumo" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true" style="z-index:999999">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="modalLabel">Registrar Nuevo Insumo</h5>
-          <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-        </div>
-
-        <div class="modal-body">
-            <div class="mb-3">
-                <label class="form-label">Nombre del Insumo</label>
-              <input type="text" v-model="nuevoNombre" class="form-control" placeholder="Ej. Nutella" required>
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Punto de Reorden (Alerta roja)</label>
-                <input type="number" v-model="nuevoPunto" class="form-control" required>
-                <div class="form-text">El sistema avisará cuando queden esta cantidad o menos.</div>
-            </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-          <button type="button" class="btn btn-primary" @click.prevent="guardarNuevoInsumo" :disabled="guardandoInsumo">
-            <span v-if="guardandoInsumo"><i class="fas fa-spinner fa-spin"></i> Guardando...</span>
-            <span v-else>Guardar Insumo</span>
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
+  {% include "inventory/modals/categoriaModal.html" %}
+  {% include "inventory/modals/proveedorModal.html" %}
 </div>
 
 {% endblock content %}
 
 {% block javascripts %}
-<script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.13.8/js/dataTables.bootstrap4.min.js"></script>
 <script>
   document.addEventListener("DOMContentLoaded", function () {
 
@@ -197,80 +152,42 @@
 
       data() {
         return {
-          insumos: JSON.parse('{{ insumos_json|escapejs }}'),
-          nuevoNombre: '',
-          nuevoPunto: 5,
-          cargando: false,
-          guardandoInsumo: false,
+          proveedores: JSON.parse('{{ proveedores_json|escapejs }}'),
+          categorias: JSON.parse('{{ categorias_json|escapejs }}'),
+          nuevoProveedor: '',
+          nuevaCategoria: '',
+          guardandoProveedor: false,
+          guardandoCategoria: false,
           mensajesDinamicos: [],
           msgIdCounter: 0
         }
       },
       methods: {
-        cambiarCantidad(item, delta) {
-          item.cantidad = Math.max(0, item.cantidad + delta);
-        },
-        async enviarCierre() {
-          if (this.cargando) return;
-          this.cargando = true;
+        async guardarNuevaCategoria() {
+          if (this.guardandoCategoria) return;
+          this.guardandoCategoria = true;
 
           try {
-            const response = await fetch('{% url "vista_cierre_diario" %}', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': '{{ csrf_token }}'
-              },
-              body: JSON.stringify({
-                action: 'guardar_cierre',
-                inventario: this.insumos
-              })
-            });
-
-            const data = await response.json();
-
-            if (response.ok && data.status === 'success') {
-              this.refrescarTabla();
-
-              this.mostrarAlerta('¡Cierre de inventario guardado correctamente!', 'success');
-            } else {
-               this.mostrarAlerta(data.message || 'Error al guardar.', 'error');
-            }
-          } catch (e) {
-            console.error(e);
-            this.mostrarAlerta('Error de conexión con el servidor', 'error');
-          } finally {
-            this.cargando = false;
-          }
-        },
-        async guardarNuevoInsumo() {
-          if (this.guardandoInsumo) return;
-          this.guardandoInsumo = true;
-
-          try {
-            const response = await fetch('{% url "agregar_insumo" %}', {
+            const response = await fetch('{% url "agregar_categoria" %}', {
               method: 'POST',
               headers: {
                   'Content-Type': 'application/json',
                   'X-CSRFToken': '{{ csrf_token }}'
               },
               body: JSON.stringify({
-                  nombre: this.nuevoNombre,
-                  punto_reorden: this.nuevoPunto
+                  nombre: this.nuevaCategoria
               })
             });
 
             const data = await response.json();
 
             if (data.status === 'success') {
-                this.insumos.push(data.insumo);
-              console.log(this.insumos)
-                this.refrescarTabla();
+                this.categorias.push(data.categorias);
+                this.refrescarTablaCategorias();
 
-                this.nuevoNombre = '';
-                this.nuevoPunto = 5;
+                this.nuevaCategoria = '';
 
-                $('#modalNuevoInsumo').modal('hide');
+                $('#categoriaModal').modal('hide');
 
                 this.mostrarAlerta(data.message, 'success');
             } else {
@@ -280,7 +197,44 @@
             console.error(e);
             this.mostrarAlerta('Error de conexión con el servidor', 'error');
           } finally {
-            this.guardandoInsumo = false;
+            this.guardandoCategoria = false;
+          }
+        },
+        async guardarNuevoProveedor() {
+          if (this.guardandoProveedor) return;
+          this.guardandoProveedor = true;
+
+          try {
+            const response = await fetch('{% url "agregar_proveedor" %}', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+                  'X-CSRFToken': '{{ csrf_token }}'
+              },
+              body: JSON.stringify({
+                  nombre: this.nuevoProveedor
+              })
+            });
+
+            const data = await response.json();
+
+            if (data.status === 'success') {
+                this.proveedores.push(data.proveedores);
+                this.refrescarTablaProveedores();
+
+                this.nuevoProveedor = '';
+
+                $('#proveedorModal').modal('hide');
+
+                this.mostrarAlerta(data.message, 'success');
+            } else {
+                this.mostrarAlerta(data.message, 'error');
+            }
+          }catch (e) {
+            console.error(e);
+            this.mostrarAlerta('Error de conexión con el servidor', 'error');
+          } finally {
+            this.guardandoProveedor = false;
           }
         },
         mostrarAlerta(texto, tipo = 'success') {
@@ -297,14 +251,48 @@
             this.mensajesDinamicos = this.mensajesDinamicos.filter(m => m.id !== idActual);
           }, 3000);
         },
-        refrescarTabla() {
-            if ($.fn.DataTable.isDataTable('#registrosDatatable')) {
-                $('#registrosDatatable').DataTable().destroy();
+        refrescarTablaProveedores() {
+            if ($.fn.DataTable.isDataTable('#proveedoresDatatable')) {
+                $('#proveedoresDatatable').DataTable().destroy();
             }
 
             this.$nextTick(() => {
-                $('#registrosDatatable').DataTable({
-                    pageLength: 10,
+                $('#proveedoresDatatable').DataTable({
+                    pageLength: 5,
+                    responsive: true,
+                    lengthMenu: [5, 10, 25, 50],
+                    dom:
+                        "<'row mt-3'<'col-sm-6'l><'col-sm-6'f>>" +
+                        "<'row'<'col-sm-12'tr>>" +
+                        "<'row mt-3 mb-3'<'col-sm-5'i><'col-sm-7'p>>",
+                    language: {
+                        "sProcessing":     "Procesando...",
+                        "sLengthMenu":     "Mostrar _MENU_ registros",
+                        "sZeroRecords":    "No se encontraron resultados",
+                        "sEmptyTable":     "Ningún dato disponible en esta tabla",
+                        "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                        "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+                        "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+                        "sSearch":         "Buscar:",
+                        "sLoadingRecords": "Cargando...",
+                        "oPaginate": {
+                            "sFirst":    "Primero",
+                            "sLast":     "Último",
+                            "sNext":     ">",
+                            "sPrevious": "<"
+                        },
+                    }
+                });
+            });
+        },
+        refrescarTablaCategorias() {
+            if ($.fn.DataTable.isDataTable('#categoriasDatatable')) {
+                $('#categoriasDatatable').DataTable().destroy();
+            }
+
+            this.$nextTick(() => {
+                $('#categoriasDatatable').DataTable({
+                    pageLength: 5,
                     responsive: true,
                     lengthMenu: [5, 10, 25, 50],
                     dom:
@@ -333,14 +321,10 @@
         },
       },
       mounted() {
-        this.refrescarTabla();
+        this.refrescarTablaProveedores();
+        this.refrescarTablaCategorias();
       },
       computed: {
-        insumosDashboard() {
-            return [...this.insumos]
-                .sort((a, b) => a.cantidad - b.cantidad)
-                .slice(0, 4);
-        }
       }
     });
 

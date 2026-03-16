@@ -1,0 +1,30 @@
+<div class="modal fade" id="modalNuevoInsumo" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true" style="z-index:999999">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalLabel">Registrar Nuevo Insumo</h5>
+        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">
+          <div class="mb-3">
+              <label class="form-label">Nombre del Insumo</label>
+            <input type="text" v-model="nuevoNombre" class="form-control" placeholder="Ej. Nutella" required>
+          </div>
+          <div class="mb-3">
+              <label class="form-label">Punto de Reorden (Alerta roja)</label>
+              <input type="number" v-model="nuevoPunto" class="form-control" required>
+              <div class="form-text">El sistema avisará cuando queden esta cantidad o menos.</div>
+          </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" @click.prevent="guardarNuevoInsumo" :disabled="guardandoInsumo">
+          <span v-if="guardandoInsumo"><i class="fas fa-spinner fa-spin"></i> Guardando...</span>
+          <span v-else>Guardar Insumo</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

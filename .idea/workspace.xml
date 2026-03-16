@@ -4,25 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="db028275-b21e-4314-951f-afda711f9cd5" name="Changes" comment="Se ajusta diseño de dashboard, botones y colores de fondo">
-      <change afterPath="$PROJECT_DIR$/apps/templates/inventory/records.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/templates/inventory/resources.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/templates/inventory/supplies.html" afterDir="false" />
+    <list default="true" id="db028275-b21e-4314-951f-afda711f9cd5" name="Changes" comment="Se crean nuevas pestañas">
+      <change afterPath="$PROJECT_DIR$/apps/templates/home/modals/insumoModal.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/templates/inventory/modals/categoriaModal.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/templates/inventory/modals/proveedorModal.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/home/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/home/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/inventory/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/inventory/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/inventory/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/inventory/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/inventory/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/inventory/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/templates/attendance/fingerprintForm.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/templates/attendance/fingerprintList.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/templates/home/icons.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/static/assets/css/argon.css" beforeDir="false" afterPath="$PROJECT_DIR$/apps/static/assets/css/argon.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/static/assets/css/argon.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/apps/static/assets/css/argon.css.map" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/templates/home/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/home/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/templates/home/map.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/templates/home/tables.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/templates/includes/navigation.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/includes/navigation.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/templates/includes/scripts.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/includes/scripts.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/templates/includes/sidenav.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/includes/sidenav.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/templates/layouts/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/layouts/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/templates/inventory/resources.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/inventory/resources.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,7 +72,7 @@
     "disable.download.node.interpreter.editor.notification": "true",
     "git-widget-placeholder": "main",
     "junie.onboarding.icon.badge.shown": "true",
-    "last_opened_file_path": "C:/Users/IInw/PycharmProjects/w-Inventory/apps/static/assets/img/brand",
+    "last_opened_file_path": "C:/Users/IInw/PycharmProjects/w-Inventory/apps/templates/inventory/modals",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -92,11 +84,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\IInw\PycharmProjects\w-Inventory\apps\templates\inventory\modals" />
+      <recent name="C:\Users\IInw\PycharmProjects\w-Inventory\apps\templates\home\modals" />
       <recent name="C:\Users\IInw\PycharmProjects\w-Inventory\apps\static\assets\img\brand" />
       <recent name="$PROJECT_DIR$/apps/inventory" />
       <recent name="$PROJECT_DIR$/apps" />
-      <recent name="$PROJECT_DIR$/apps/templates/attendance" />
-      <recent name="$PROJECT_DIR$/apps/attendance" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\IInw\PycharmProjects\w-Inventory\apps\templates\inventory" />
@@ -185,7 +177,7 @@
       <workItem from="1773444142445" duration="9973000" />
       <workItem from="1773455203447" duration="96000" />
       <workItem from="1773486748181" duration="7243000" />
-      <workItem from="1773580004275" duration="23571000" />
+      <workItem from="1773580004275" duration="32265000" />
     </task>
     <task id="LOCAL-00001" summary="Se ajusta la vista de login y register">
       <option name="closed" value="true" />
@@ -379,7 +371,15 @@
       <option name="project" value="LOCAL" />
       <updated>1773596788499</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="Se crean nuevas pestañas">
+      <option name="closed" value="true" />
+      <created>1773609856052</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1773609856052</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -415,6 +415,7 @@
     <MESSAGE value="Se ajusta vue, se agrega bootstrap, y se arreglan diseños" />
     <MESSAGE value="Se termina diseño de dashboard, se termina boton agregar insumo y guardar cierre, todo funcional por el momento" />
     <MESSAGE value="Se ajusta diseño de dashboard, botones y colores de fondo" />
-    <option name="LAST_COMMIT_MESSAGE" value="Se ajusta diseño de dashboard, botones y colores de fondo" />
+    <MESSAGE value="Se crean nuevas pestañas" />
+    <option name="LAST_COMMIT_MESSAGE" value="Se crean nuevas pestañas" />
   </component>
 </project>

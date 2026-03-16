@@ -7,5 +7,7 @@ urlpatterns = [
     path('supplies/', views.supplies, name='supplies'),
     path('records/', views.records, name='records'),
     path('resources/', views.resources, name='resources'),
+    path('agregar_proveedor/', views.agregar_proveedor, name='agregar_proveedor'),
+    path('agregar_categoria/', views.agregar_categoria, name='agregar_categoria'),
 ]
 

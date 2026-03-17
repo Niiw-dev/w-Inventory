@@ -12,22 +12,37 @@ def agregar_insumo(request):
             data = json.loads(request.body)
             nombre = data.get('nombre')
             punto_reorden = data.get('punto_reorden', 5)
-
-            nuevo_insumo = Insumo.objects.create(
+            proveedor_id = data.get('proveedor_id')
+            categoria_id = data.get('categoria_id')
+            print(proveedor_id)
+            print(categoria_id)
+            Insumo.objects.create(
                 nombre=nombre,
-                punto_reorden=int(punto_reorden)
+                proveedor_id=proveedor_id,
+                categoria_id=categoria_id,
+                punto_reorden=punto_reorden
             )
+
+            insumos_maestros = Insumo.objects.all()
+
+            lista_inicial = []
+            for item in insumos_maestros:
+                ultimo = RegistroDiario.objects.filter(insumo=item).order_by('-fecha_hora').first()
+                cantidad = ultimo.cantidad_contada if ultimo else 0
+                lista_inicial.append({
+                    'id': item.id,
+                    'nombre': item.nombre,
+                    'cantidad': cantidad,
+                    'punto': item.punto_reorden,
+                    'critico': cantidad <= item.punto_reorden
+                })
+
+            insumos_json_string = json.dumps(lista_inicial)
 
             return JsonResponse({
                 'status': 'success',
-                'message': '¡Nuevo insumo agregado al catálogo!',
-                'insumo': {
-                    'id': nuevo_insumo.id,
-                    'nombre': nuevo_insumo.nombre,
-                    'cantidad': 0,
-                    'punto': nuevo_insumo.punto_reorden,
-                    'critico': True
-                }
+                'message': 'Insumo agregado correctamente.',
+                'insumos': insumos_json_string
             })
         except Exception as e:
             return JsonResponse({'status': 'error', 'message': f'Hubo un error: {str(e)}'}, status=400)
@@ -76,16 +91,25 @@ def vista_cierre_diario(request):
 
 @login_required(login_url="/login/")
 def supplies(request):
+    insumos = Insumo.objects.all().order_by('nombre').values(
+        'id',
+        'nombre',
+        'punto_reorden',
+        'proveedor_id',
+        'proveedor__nombre',
+        'categoria_id',
+        'categoria__nombre'
+    )
     proveedores = Proveedor.objects.all().order_by('nombre').values()
     categorias = Categoria.objects.all().order_by('nombre').values()
     proveedores_json_string = json.dumps(list(proveedores))
     categorias_json_string = json.dumps(list(categorias))
 
-    insumos = Insumo.objects.all().order_by('nombre').values()
     insumos_json_string = json.dumps(
         list(insumos),
         cls=DjangoJSONEncoder
     )
+
     context = {
         'segment': 'supplies',
         'insumos_json': insumos_json_string,
@@ -224,6 +248,32 @@ def editar_categoria(request):
     return JsonResponse({'status': 'error', 'message': 'Método no permitido'}, status=405)
 
 
+def editar_insumo(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+
+            proveedor_id = data.get('id')
+            nombre = data.get('nombre')
+
+            proveedor = Proveedor.objects.get(id=proveedor_id)
+            proveedor.nombre = nombre
+            proveedor.save()
+
+            proveedores = Proveedor.objects.all().order_by('nombre').values()
+            proveedores_json_string = json.dumps(list(proveedores))
+
+            return JsonResponse({
+                'status': 'success',
+                'proveedores': proveedores_json_string,
+                'message': 'Actualización Éxitosa'
+            })
+        except Exception as e:
+            return JsonResponse({'status': 'error', 'message': f'Hubo un error: {str(e)}'}, status=400)
+
+    return JsonResponse({'status': 'error', 'message': 'Método no permitido'}, status=405)
+
+
 def agregar_categoria(request):
     if request.method == 'POST':
         try:
@@ -282,6 +332,54 @@ def eliminar_proveedor(request):
         'status': 'error',
         'message': 'Método no permitido'
     }, status=405)
+
+
+def eliminar_insumo(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            insumo_id = data.get('id')
+
+            insumo = Insumo.objects.get(id=insumo_id)
+            insumo.delete()
+
+            insumos = Insumo.objects.all().order_by('nombre').values(
+                'id',
+                'nombre',
+                'punto_reorden',
+                'proveedor_id',
+                'proveedor__nombre',
+                'categoria_id',
+                'categoria__nombre'
+            )
+            insumos_json_string = json.dumps(
+                list(insumos),
+                cls=DjangoJSONEncoder
+            )
+
+            return JsonResponse({
+                'status': 'success',
+                'insumos': insumos_json_string,
+                'message': 'Insumo eliminado correctamente'
+            })
+
+        except Insumo.DoesNotExist:
+            return JsonResponse({
+                'status': 'error',
+                'message': 'Insumo no encontrado'
+            }, status=404)
+
+        except Exception as e:
+            return JsonResponse({
+                'status': 'error',
+                'message': f'Hubo un error: {str(e)}'
+            }, status=400)
+
+    return JsonResponse({
+        'status': 'error',
+        'message': 'Método no permitido'
+    }, status=405)
+
 
 def eliminar_categoria(request):
     if request.method == 'POST':

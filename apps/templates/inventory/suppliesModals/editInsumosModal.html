@@ -1,4 +1,4 @@
-<div class="modal fade" id="editProveedorModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true" style="z-index:999999">
+<div class="modal fade" id="editInsumoModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true" style="z-index:999999">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -9,15 +9,15 @@
       <div class="modal-body">
           <div class="mb-3">
             <label class="form-label">Nombre de la Categoría</label>
-            <input type="text" v-model="proveedores[idProveedorEdit].nombre" class="form-control" placeholder="Ej. Dulce" required>
+            <input type="text" v-model="insumos[idInsumoEdit].nombre" class="form-control" placeholder="Ej. Dulce" required>
           </div>
       </div>
 
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary" @click.prevent="editarProveedor" :disabled="editandoProveedor">
-          <span v-if="editandoProveedor"><i class="fas fa-spinner fa-spin"></i> Guardando...</span>
-          <span v-else>Guardar Proveedor</span>
+        <button type="button" class="btn btn-primary" @click.prevent="editarInsumo" :disabled="editandoInsumo">
+          <span v-if="editandoInsumo"><i class="fas fa-spinner fa-spin"></i> Guardando...</span>
+          <span v-else>Guardar Insumo</span>
         </button>
       </div>
     </div>

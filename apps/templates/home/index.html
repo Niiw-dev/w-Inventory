@@ -150,7 +150,11 @@
       data() {
         return {
           insumos: JSON.parse('{{ insumos_json|escapejs }}'),
-          nuevoNombre: '',
+          proveedores: JSON.parse('{{ proveedores_json|escapejs }}'),
+          categorias: JSON.parse('{{ categorias_json|escapejs }}'),
+          nuevoInsumo: '',
+          nuevoProveedor: '',
+          nuevaCategoria: '',
           nuevoPunto: 5,
           cargando: false,
           guardandoInsumo: false,
@@ -207,19 +211,20 @@
                   'X-CSRFToken': '{{ csrf_token }}'
               },
               body: JSON.stringify({
-                  nombre: this.nuevoNombre,
-                  punto_reorden: this.nuevoPunto
+                nombre: this.nuevoInsumo,
+                proveedor_id: this.nuevoProveedor,
+                categoria_id: this.nuevaCategoria,
+                punto_reorden: this.nuevoPunto
               })
             });
 
             const data = await response.json();
 
             if (data.status === 'success') {
-                this.insumos.push(data.insumo);
-              console.log(this.insumos)
+                this.insumos = JSON.parse(data.insumos);
                 this.refrescarTabla();
 
-                this.nuevoNombre = '';
+                this.nuevoInsumo = '';
                 this.nuevoPunto = 5;
 
                 $('#modalNuevoInsumo').modal('hide');

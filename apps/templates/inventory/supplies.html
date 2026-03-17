@@ -1,6 +1,6 @@
 {% extends 'layouts/base.html' %}
 
-{% block title %} Proveedores {% endblock title %}
+{% block title %} insumos {% endblock title %}
 
 {% block breadcrumb %} Insumos {% endblock %}
 
@@ -28,17 +28,17 @@
 
   <div class="container-fluid mt--5">
     <div class="row">
-      <div class="col-xl-6  col-12">
+      <div class="col-12">
         <div class="card">
           <div class="card-header">
             <div class="row align-items-center">
               <div class="col">
-                <h2 class="text-uppercase h2 m-0 p-0 ls-1"><strong> Proveedores </strong></h2>
+                <h2 class="text-uppercase h2 m-0 p-0 ls-1"><strong> Insumos </strong></h2>
               </div>
               <div class="col d-flex justify-content-end">
-                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#proveedorModal"
+                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalNuevoInsumo"
                         style="height: fit-content">
-                  <span class="d-none d-md-block"><i class="fas fa-plus fa-xs pb-2"></i> Agregar Proveedor</span>
+                  <span class="d-none d-md-block"><i class="fas fa-plus fa-xs pb-2"></i> Agregar Insumo</span>
                   <span class="d-md-none"><i class="fas fa-plus"></i></span>
                 </button>
               </div>
@@ -46,80 +46,34 @@
           </div>
 
           <div class="table-responsive">
-            <table class="table align-items-center table-flush table-hover text-center" id="proveedoresDatatable"
+            <table class="table align-items-center table-flush table-hover text-center" id="insumosDatatable"
                     style="margin-top: 15px;">
               <thead class="thead-light">
                 <tr>
                   <th class="text-center text-dark h1" style="font-weight: 700; font-size: smaller">Id</th>
+                  <th class="text-center text-dark h1" style="font-weight: 700; font-size: smaller">Insumo</th>
+                  <th class="text-center text-dark h1" style="font-weight: 700; font-size: smaller">Punto de Reorden</th>
                   <th class="text-center text-dark h1" style="font-weight: 700; font-size: smaller">Proveedor</th>
-                  <th class="text-center text-dark h1" style="font-weight: 700; font-size: smaller">Acciones</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="(item, index) in proveedores" :key="item.id">
-                  <td>[[ item.id ]]</td>
-                  <td>
-                    <strong>[[ item.nombre ]]</strong>
-                  </td>
-                  <td>
-                    <div>
-                      <button type="button" class="btn btn-warning" @click="openEditProveedoresModal(index)"
-                        style="height: fit-content">
-                        <i class="fas fa-pen"></i>
-                      </button>
-                      <button type="button" class="btn btn-danger" @click="openConfirmDeleteProveedoresModal(item.id)"
-                        style="height: fit-content">
-                        <i class="fas fa-trash"></i>
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-xl-6  col-12">
-        <div class="card">
-          <div class="card-header">
-            <div class="row align-items-center">
-              <div class="col">
-                <h2 class="text-uppercase h2 m-0 p-0 ls-1"><strong> Categorías </strong></h2>
-              </div>
-              <div class="col d-flex justify-content-end">
-                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#categoriaModal"
-                        style="height: fit-content">
-                  <span class="d-none d-md-block"><i class="fas fa-plus fa-xs pb-2"></i> Agregar Categoría</span>
-                  <span class="d-md-none"><i class="fas fa-plus"></i></span>
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <div class="table-responsive">
-            <table class="table align-items-center table-flush table-hover text-center" id="categoriasDatatable"
-                    style="margin-top: 15px;">
-              <thead class="thead-light">
-                <tr>
-                  <th class="text-center text-dark h1" style="font-weight: 700; font-size: smaller">ID</th>
                   <th class="text-center text-dark h1" style="font-weight: 700; font-size: smaller">Categoría</th>
                   <th class="text-center text-dark h1" style="font-weight: 700; font-size: smaller">Acciones</th>
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="(item, index) in categorias" :key="item.id">
+                <tr v-for="(item, index) in insumos" :key="item.id">
                   <td>[[ item.id ]]</td>
                   <td>
                     <strong>[[ item.nombre ]]</strong>
                   </td>
+                  <td>[[ item.punto_reorden ]]</td>
+                  <td>[[ item.proveedor__nombre ]]</td>
+                  <td>[[ item.categoria__nombre ]]</td>
                   <td>
                     <div>
-                      <button type="button" class="btn btn-warning" @click="openEditCategoriasModal(index)"
+                      <button type="button" class="btn btn-warning" @click="openEditInsumosModal(index)"
                         style="height: fit-content">
                         <i class="fas fa-pen"></i>
                       </button>
-                      <button type="button" class="btn btn-danger" @click="openConfirmDeleteCategoriasModal(item.id)"
+                      <button type="button" class="btn btn-danger" @click="openConfirmDeleteInsumosModal(item.id)"
                         style="height: fit-content">
                         <i class="fas fa-trash"></i>
                       </button>
@@ -133,20 +87,14 @@
       </div>
     </div>
   </div>
-  {% include "inventory/resourcesModals/categoriaModal.html" %}
-  {% include "inventory/resourcesModals/proveedorModal.html" %}
-  {% include "inventory/resourcesModals/confirmDeleteProveedoresModal.html" %}
-  {% include "inventory/resourcesModals/confirmDeleteCategoriasModal.html" %}
-  {% include "inventory/resourcesModals/editProveedoresModal.html" %}
-  {% include "inventory/resourcesModals/editCategoriasModal.html" %}
+  {% include "inventory/suppliesModals/insumoModal.html" %}
+  {% include "inventory/suppliesModals/confirmDeleteInsumosModal.html" %}
+  {% include "inventory/suppliesModals/editInsumosModal.html" %}
 </div>
 
 {% endblock content %}
 
 {% block javascripts %}
-<script>
-console.log(`{{ insumos_json_string|escapejs }}`);
-</script>
 <script>
   document.addEventListener("DOMContentLoaded", function () {
 
@@ -157,52 +105,49 @@ console.log(`{{ insumos_json_string|escapejs }}`);
 
       data() {
         return {
+          insumos: JSON.parse('{{ insumos_json|escapejs }}'),
           proveedores: JSON.parse('{{ proveedores_json|escapejs }}'),
-          insumos: JSON.parse('{{ insumos_json_string|escapejs }}'),
           categorias: JSON.parse('{{ categorias_json|escapejs }}'),
           nuevoProveedor: '',
           nuevaCategoria: '',
-          guardandoCategoria: false,
-          eliminandoCategoria: false,
-          editandoCategoria: false,
-          guardandoProveedor: false,
-          eliminandoProveedor: false,
-          editandoProveedor: false,
+          nuevoInsumo: '',
+          nuevoPunto: 5,
+          guardandoInsumo: false,
+          eliminandoInsumo: false,
+          editandoInsumo: false,
           mensajesDinamicos: [],
           msgIdCounter: 0,
-          idDeleteCategoria: 0,
-          idDeleteProveedor: 0,
-          idProveedorEdit: 0,
-          idCategoriaEdit: 0,
+          idDeleteInsumo: 0,
+          idInsumoEdit: 0,
         }
       },
       methods: {
-        async editarCategoria() {
-          if (this.editandoCategoria) return;
-          this.editandoCategoria = true;
+        async editarInsumo() {
+          if (this.editandoInsumo) return;
+          this.editandoInsumo = true;
 
           try {
-            const response = await fetch('{% url "editar_categoria" %}', {
+            const response = await fetch('{% url "editar_insumo" %}', {
               method: 'POST',
               headers: {
                   'Content-Type': 'application/json',
                   'X-CSRFToken': '{{ csrf_token }}'
               },
               body: JSON.stringify({
-                  id: this.categorias[this.idCategoriaEdit].id,
-                  nombre: this.categorias[this.idCategoriaEdit].nombre,
+                  id: this.insumos[this.idInsumoEdit].id,
+                  nombre: this.insumos[this.idInsumoEdit].nombre,
               })
             });
 
             const data = await response.json();
 
             if (data.status === 'success') {
-                this.categorias = JSON.parse(data.categorias);
-                this.refrescarTablaCategorias();
+                this.insumos = JSON.parse(data.insumos);
+                this.refrescarTablaInsumos();
 
-                this.idCategoriaEdit = 0;
+                this.idInsumoEdit = 0;
 
-                $('#editCategoriaModal').modal('hide');
+                $('#editInsumoModal').modal('hide');
 
                 this.mostrarAlerta(data.message, 'success');
             } else {
@@ -212,35 +157,38 @@ console.log(`{{ insumos_json_string|escapejs }}`);
             console.error(e);
             this.mostrarAlerta('Error de conexión con el servidor', 'error');
           } finally {
-            this.editandoCategoria = false;
+            this.editandoInsumo = false;
           }
         },
-        async editarProveedor() {
-          if (this.editandoProveedor) return;
-          this.editandoProveedor = true;
+        openEditInsumosModal(index) {
+          this.idInsumoEdit = index;
+          $('#editInsumoModal').modal('show');
+        },
+        async eliminarInsumo() {
+          if (this.eliminandoInsumo) return;
+          this.eliminandoInsumo = true;
 
           try {
-            const response = await fetch('{% url "editar_proveedor" %}', {
+            const response = await fetch('{% url "eliminar_insumo" %}', {
               method: 'POST',
               headers: {
                   'Content-Type': 'application/json',
                   'X-CSRFToken': '{{ csrf_token }}'
               },
               body: JSON.stringify({
-                  id: this.proveedores[this.idProveedorEdit].id,
-                  nombre: this.proveedores[this.idProveedorEdit].nombre,
+                  id: this.idDeleteInsumo
               })
             });
 
             const data = await response.json();
 
             if (data.status === 'success') {
-                this.proveedores = JSON.parse(data.proveedores);
-                this.refrescarTablaProveedores();
+                this.insumos = JSON.parse(data.insumos);
+                this.refrescarTablaInsumos();
 
-                this.idProveedorEdit = 0;
+                this.idDeleteInsumo = 0;
 
-                $('#editProveedorModal').modal('hide');
+                $('#confirmDeleteInsumosModal').modal('hide');
 
                 this.mostrarAlerta(data.message, 'success');
             } else {
@@ -250,42 +198,41 @@ console.log(`{{ insumos_json_string|escapejs }}`);
             console.error(e);
             this.mostrarAlerta('Error de conexión con el servidor', 'error');
           } finally {
-            this.editandoProveedor = false;
+            this.eliminandoInsumo = false;
           }
         },
-        openEditCategoriasModal(index) {
-          this.idCategoriaEdit = index;
-          $('#editCategoriaModal').modal('show');
+        openConfirmDeleteInsumosModal(id) {
+          this.idDeleteInsumo = id
+          $('#confirmDeleteInsumosModal').modal('show');
         },
-        openEditProveedoresModal(index) {
-          this.idProveedorEdit = index;
-          $('#editProveedorModal').modal('show');
-        },
-        async eliminarCategoria() {
-          if (this.eliminandoCategoria) return;
-          this.eliminandoCategoria = true;
+        async guardarNuevoInsumo() {
+          if (this.guardandoInsumo) return;
+          this.guardandoInsumo = true;
 
           try {
-            const response = await fetch('{% url "eliminar_categoria" %}', {
+            const response = await fetch('{% url "agregar_insumo" %}', {
               method: 'POST',
               headers: {
                   'Content-Type': 'application/json',
                   'X-CSRFToken': '{{ csrf_token }}'
               },
               body: JSON.stringify({
-                  id: this.idDeleteCategoria
+                nombre: this.nuevoInsumo,
+                proveedor_id: this.nuevoProveedor,
+                categoria_id: this.nuevaCategoria,
+                punto_reorden: this.nuevoPunto
               })
             });
 
             const data = await response.json();
 
             if (data.status === 'success') {
-                this.categorias = JSON.parse(data.categorias);
-                this.refrescarTablaCategorias();
+                this.insumos = JSON.parse(data.insumos);
+                this.refrescarTablaInsumos();
 
-                this.idDeleteCategoria = 0;
+                this.nuevoInsumo = '';
 
-                $('#confirmDeleteCategoriasModal').modal('hide');
+                $('#modalNuevoInsumo').modal('hide');
 
                 this.mostrarAlerta(data.message, 'success');
             } else {
@@ -295,126 +242,7 @@ console.log(`{{ insumos_json_string|escapejs }}`);
             console.error(e);
             this.mostrarAlerta('Error de conexión con el servidor', 'error');
           } finally {
-            this.eliminandoCategoria = false;
-          }
-        },
-        async eliminarProveedor() {
-          if (this.eliminandoProveedor) return;
-          this.eliminandoProveedor = true;
-
-          try {
-            const response = await fetch('{% url "eliminar_proveedor" %}', {
-              method: 'POST',
-              headers: {
-                  'Content-Type': 'application/json',
-                  'X-CSRFToken': '{{ csrf_token }}'
-              },
-              body: JSON.stringify({
-                  id: this.idDeleteProveedor
-              })
-            });
-
-            const data = await response.json();
-
-            if (data.status === 'success') {
-                this.proveedores = JSON.parse(data.proveedores);
-                this.refrescarTablaProveedores();
-
-                this.idDeleteProveedor = 0;
-
-                $('#confirmDeleteProveedoresModal').modal('hide');
-
-                this.mostrarAlerta(data.message, 'success');
-            } else {
-                this.mostrarAlerta(data.message, 'error');
-            }
-          }catch (e) {
-            console.error(e);
-            this.mostrarAlerta('Error de conexión con el servidor', 'error');
-          } finally {
-            this.eliminandoProveedor = false;
-          }
-        },
-        openConfirmDeleteCategoriasModal(id) {
-          this.idDeleteCategoria = id
-          $('#confirmDeleteCategoriasModal').modal('show');
-        },
-        openConfirmDeleteProveedoresModal(id) {
-          this.idDeleteProveedor = id
-          $('#confirmDeleteProveedoresModal').modal('show');
-        },
-        async guardarNuevaCategoria() {
-          if (this.guardandoCategoria) return;
-          this.guardandoCategoria = true;
-
-          try {
-            const response = await fetch('{% url "agregar_categoria" %}', {
-              method: 'POST',
-              headers: {
-                  'Content-Type': 'application/json',
-                  'X-CSRFToken': '{{ csrf_token }}'
-              },
-              body: JSON.stringify({
-                  nombre: this.nuevaCategoria
-              })
-            });
-
-            const data = await response.json();
-
-            if (data.status === 'success') {
-                this.categorias.push(data.categorias);
-                this.refrescarTablaCategorias();
-
-                this.nuevaCategoria = '';
-
-                $('#categoriaModal').modal('hide');
-
-                this.mostrarAlerta(data.message, 'success');
-            } else {
-                this.mostrarAlerta(data.message, 'error');
-            }
-          }catch (e) {
-            console.error(e);
-            this.mostrarAlerta('Error de conexión con el servidor', 'error');
-          } finally {
-            this.guardandoCategoria = false;
-          }
-        },
-        async guardarNuevoProveedor() {
-          if (this.guardandoProveedor) return;
-          this.guardandoProveedor = true;
-
-          try {
-            const response = await fetch('{% url "agregar_proveedor" %}', {
-              method: 'POST',
-              headers: {
-                  'Content-Type': 'application/json',
-                  'X-CSRFToken': '{{ csrf_token }}'
-              },
-              body: JSON.stringify({
-                  nombre: this.nuevoProveedor
-              })
-            });
-
-            const data = await response.json();
-
-            if (data.status === 'success') {
-                this.proveedores.push(data.proveedores);
-                this.refrescarTablaProveedores();
-
-                this.nuevoProveedor = '';
-
-                $('#proveedorModal').modal('hide');
-
-                this.mostrarAlerta(data.message, 'success');
-            } else {
-                this.mostrarAlerta(data.message, 'error');
-            }
-          }catch (e) {
-            console.error(e);
-            this.mostrarAlerta('Error de conexión con el servidor', 'error');
-          } finally {
-            this.guardandoProveedor = false;
+            this.guardandoInsumo = false;
           }
         },
         mostrarAlerta(texto, tipo = 'success') {
@@ -431,47 +259,13 @@ console.log(`{{ insumos_json_string|escapejs }}`);
             this.mensajesDinamicos = this.mensajesDinamicos.filter(m => m.id !== idActual);
           }, 3000);
         },
-        refrescarTablaProveedores() {
-            if ($.fn.DataTable.isDataTable('#proveedoresDatatable')) {
-                $('#proveedoresDatatable').DataTable().destroy();
+        refrescarTablaInsumos() {
+            if ($.fn.DataTable.isDataTable('#insumosDatatable')) {
+                $('#insumosDatatable').DataTable().destroy();
             }
 
             this.$nextTick(() => {
-                $('#proveedoresDatatable').DataTable({
-                    pageLength: 10,
-                    responsive: true,
-                    lengthMenu: [5, 10, 25, 50],
-                    dom:
-                        "<'row mt-3'<'col-sm-6'l><'col-sm-6'f>>" +
-                        "<'row'<'col-sm-12'tr>>" +
-                        "<'row mt-3 mb-3'<'col-sm-5'i><'col-sm-7'p>>",
-                    language: {
-                        "sProcessing":     "Procesando...",
-                        "sLengthMenu":     "Mostrar _MENU_ registros",
-                        "sZeroRecords":    "No se encontraron resultados",
-                        "sEmptyTable":     "Ningún dato disponible en esta tabla",
-                        "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-                        "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
-                        "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
-                        "sSearch":         "Buscar:",
-                        "sLoadingRecords": "Cargando...",
-                        "oPaginate": {
-                            "sFirst":    "Primero",
-                            "sLast":     "Último",
-                            "sNext":     ">",
-                            "sPrevious": "<"
-                        },
-                    }
-                });
-            });
-        },
-        refrescarTablaCategorias() {
-            if ($.fn.DataTable.isDataTable('#categoriasDatatable')) {
-                $('#categoriasDatatable').DataTable().destroy();
-            }
-
-            this.$nextTick(() => {
-                $('#categoriasDatatable').DataTable({
+                $('#insumosDatatable').DataTable({
                     pageLength: 10,
                     responsive: true,
                     lengthMenu: [5, 10, 25, 50],
@@ -501,8 +295,7 @@ console.log(`{{ insumos_json_string|escapejs }}`);
         },
       },
       mounted() {
-        this.refrescarTablaProveedores();
-        this.refrescarTablaCategorias();
+        this.refrescarTablaInsumos();
       },
       computed: {
       }

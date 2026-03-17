@@ -4,7 +4,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.urls import reverse
 from django.shortcuts import render, redirect
-from apps.inventory.models import Insumo, RegistroDiario
+from apps.inventory.models import Insumo, RegistroDiario, Proveedor, Categoria
 from django.http import JsonResponse
 import json
 
@@ -12,20 +12,6 @@ import json
 @login_required(login_url="/login/")
 def index(request):
     insumos_maestros = Insumo.objects.all()
-
-    if request.method == 'POST':
-        data = json.loads(request.body)
-        action = data.get('action')
-
-        if action == 'nuevo_insumo':
-            insumo = Insumo.objects.create(nombre=data['nombre'], punto_reorden=data['punto'])
-            return JsonResponse({'status': 'ok', 'id': insumo.id, 'nombre': insumo.nombre})
-
-        elif action == 'guardar_cierre':
-            for item in data['inventario']:
-                insumo_obj = Insumo.objects.get(id=item['id'])
-                RegistroDiario.objects.create(insumo=insumo_obj, cantidad_contada=item['cantidad'])
-            return JsonResponse({'status': 'ok'})
 
     lista_inicial = []
     for item in insumos_maestros:
@@ -41,9 +27,16 @@ def index(request):
 
     insumos_json_string = json.dumps(lista_inicial)
 
+    proveedores = Proveedor.objects.all().order_by('nombre').values()
+    categorias = Categoria.objects.all().order_by('nombre').values()
+    proveedores_json_string = json.dumps(list(proveedores))
+    categorias_json_string = json.dumps(list(categorias))
+
     context = {
         'segment': 'index',
-        'insumos_json': insumos_json_string
+        'insumos_json': insumos_json_string,
+        'proveedores_json': proveedores_json_string,
+        'categorias_json': categorias_json_string
     }
     return render(request, 'home/index.html', context)
 

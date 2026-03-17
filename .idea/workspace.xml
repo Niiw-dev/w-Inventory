@@ -4,13 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="db028275-b21e-4314-951f-afda711f9cd5" name="Changes" comment="Se inicia construcción de proceso para editar proveedores y categorías">
+    <list default="true" id="db028275-b21e-4314-951f-afda711f9cd5" name="Changes" comment="Se implementa actualización de proveedores y categorías">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/inventory/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/inventory/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/inventory/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/inventory/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/templates/inventory/modals/editCategoriasModal.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/inventory/modals/editCategoriasModal.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/templates/inventory/modals/editProveedoresModal.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/inventory/modals/editProveedoresModal.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/templates/includes/sidenav.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/includes/sidenav.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/templates/inventory/modals/categoriaModal.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/inventory/resourcesModals/categoriaModal.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/templates/inventory/modals/confirmDeleteCategoriasModal.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/inventory/resourcesModals/confirmDeleteCategoriasModal.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/templates/inventory/modals/confirmDeleteProveedoresModal.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/inventory/resourcesModals/confirmDeleteProveedoresModal.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/templates/inventory/modals/editCategoriasModal.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/inventory/resourcesModals/editCategoriasModal.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/templates/inventory/modals/editProveedoresModal.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/inventory/resourcesModals/editProveedoresModal.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/templates/inventory/modals/proveedorModal.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/inventory/resourcesModals/proveedorModal.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/templates/inventory/resources.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/inventory/resources.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/templates/inventory/supplies.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/inventory/supplies.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -406,7 +411,15 @@
       <option name="project" value="LOCAL" />
       <updated>1773676503854</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="Se implementa actualización de proveedores y categorías">
+      <option name="closed" value="true" />
+      <created>1773756756281</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1773756756281</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -447,6 +460,7 @@
     <MESSAGE value="Intengo de subir ajustes de colores" />
     <MESSAGE value="Se agrega funcionalidad a botón eliminar para categorias y proveedores" />
     <MESSAGE value="Se inicia construcción de proceso para editar proveedores y categorías" />
-    <option name="LAST_COMMIT_MESSAGE" value="Se inicia construcción de proceso para editar proveedores y categorías" />
+    <MESSAGE value="Se implementa actualización de proveedores y categorías" />
+    <option name="LAST_COMMIT_MESSAGE" value="Se implementa actualización de proveedores y categorías" />
   </component>
 </project>

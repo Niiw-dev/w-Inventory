@@ -1,12 +1,10 @@
 import json
 from django.http import JsonResponse
 from .models import *
-from django import template
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse, HttpResponseRedirect
-from django.template import loader
-from django.urls import reverse
-from django.shortcuts import render, redirect
+from django.shortcuts import render
+from django.core.serializers.json import DjangoJSONEncoder
+
 
 def agregar_insumo(request):
     if request.method == 'POST':
@@ -78,39 +76,21 @@ def vista_cierre_diario(request):
 
 @login_required(login_url="/login/")
 def supplies(request):
-    insumos_maestros = Insumo.objects.all()
+    proveedores = Proveedor.objects.all().order_by('nombre').values()
+    categorias = Categoria.objects.all().order_by('nombre').values()
+    proveedores_json_string = json.dumps(list(proveedores))
+    categorias_json_string = json.dumps(list(categorias))
 
-    if request.method == 'POST':
-        data = json.loads(request.body)
-        action = data.get('action')
-
-        if action == 'nuevo_insumo':
-            insumo = Insumo.objects.create(nombre=data['nombre'], punto_reorden=data['punto'])
-            return JsonResponse({'status': 'ok', 'id': insumo.id, 'nombre': insumo.nombre})
-
-        elif action == 'guardar_cierre':
-            for item in data['inventario']:
-                insumo_obj = Insumo.objects.get(id=item['id'])
-                RegistroDiario.objects.create(insumo=insumo_obj, cantidad_contada=item['cantidad'])
-            return JsonResponse({'status': 'ok'})
-
-    lista_inicial = []
-    for item in insumos_maestros:
-        ultimo = RegistroDiario.objects.filter(insumo=item).order_by('-fecha_hora').first()
-        cantidad = ultimo.cantidad_contada if ultimo else 0
-        lista_inicial.append({
-            'id': item.id,
-            'nombre': item.nombre,
-            'cantidad': cantidad,
-            'punto': item.punto_reorden,
-            'critico': cantidad <= item.punto_reorden
-        })
-
-    insumos_json_string = json.dumps(lista_inicial)
-
+    insumos = Insumo.objects.all().order_by('nombre').values()
+    insumos_json_string = json.dumps(
+        list(insumos),
+        cls=DjangoJSONEncoder
+    )
     context = {
-        'segment': 'index',
-        'insumos_json': insumos_json_string
+        'segment': 'supplies',
+        'insumos_json': insumos_json_string,
+        'proveedores_json': proveedores_json_string,
+        'categorias_json': categorias_json_string
     }
     return render(request, 'inventory/supplies.html', context)
 
@@ -122,7 +102,7 @@ def resources(request):
     proveedores_json_string = json.dumps(list(proveedores))
     categorias_json_string = json.dumps(list(categorias))
     context = {
-        'segment': 'index',
+        'segment': 'resources',
         'proveedores_json': proveedores_json_string,
         'categorias_json': categorias_json_string
     }
@@ -162,7 +142,7 @@ def records(request):
     insumos_json_string = json.dumps(lista_inicial)
 
     context = {
-        'segment': 'index',
+        'segment': 'records',
         'insumos_json': insumos_json_string
     }
     return render(request, 'inventory/records.html', context)

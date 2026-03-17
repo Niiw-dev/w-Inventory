@@ -4,12 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="db028275-b21e-4314-951f-afda711f9cd5" name="Changes" comment="Se agrega funcionalidad a botón eliminar para categorias y proveedores">
+    <list default="true" id="db028275-b21e-4314-951f-afda711f9cd5" name="Changes" comment="Se inicia construcción de proceso para editar proveedores y categorías">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/inventory/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/inventory/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/inventory/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/inventory/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/templates/inventory/modals/editCategoriasModal.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/inventory/modals/editCategoriasModal.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/templates/inventory/modals/editProveedoresModal.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/inventory/modals/editProveedoresModal.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/templates/inventory/resources.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/inventory/resources.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build_files.sh" beforeDir="false" afterPath="$PROJECT_DIR$/build_files.sh" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,12 +33,12 @@
     &quot;assignee&quot;: &quot;Niiw-dev&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/Niiw-dev/w-Inventory.git&quot;,
-    &quot;accountId&quot;: &quot;6fc6db20-971e-4611-a31d-1e3a5fd39a49&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/Niiw-dev/w-Inventory.git",
+    "accountId": "abd70da5-485b-4566-b21a-1cf4b71ec6d0"
   }
-}</component>
+}]]></component>
   <component name="McpProjectServerCommands">
     <commands />
     <urls />
@@ -156,8 +157,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-9b0f141eb926-JavaScript-PY-253.31033.139" />
-        <option value="bundled-python-sdk-2653e85de345-6d6dccd035ac-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-253.31033.139" />
+        <option value="bundled-python-sdk-3944b0c99280-6d6dccd035ac-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-253.30387.127" />
       </set>
     </attachedChunks>
   </component>
@@ -398,7 +398,15 @@
       <option name="project" value="LOCAL" />
       <updated>1773673222292</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="Se inicia construcción de proceso para editar proveedores y categorías">
+      <option name="closed" value="true" />
+      <created>1773676503854</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1773676503854</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -438,6 +446,7 @@
     <MESSAGE value="Se termina primera parte de Recursos, falta edita y eliminar" />
     <MESSAGE value="Intengo de subir ajustes de colores" />
     <MESSAGE value="Se agrega funcionalidad a botón eliminar para categorias y proveedores" />
-    <option name="LAST_COMMIT_MESSAGE" value="Se agrega funcionalidad a botón eliminar para categorias y proveedores" />
+    <MESSAGE value="Se inicia construcción de proceso para editar proveedores y categorías" />
+    <option name="LAST_COMMIT_MESSAGE" value="Se inicia construcción de proceso para editar proveedores y categorías" />
   </component>
 </project>

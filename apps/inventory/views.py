@@ -167,6 +167,7 @@ def records(request):
     }
     return render(request, 'inventory/records.html', context)
 
+
 def agregar_proveedor(request):
     if request.method == 'POST':
         try:
@@ -184,6 +185,58 @@ def agregar_proveedor(request):
                     'id': nuevo_proveedor.id,
                     'nombre': nuevo_proveedor.nombre,
                 }
+            })
+        except Exception as e:
+            return JsonResponse({'status': 'error', 'message': f'Hubo un error: {str(e)}'}, status=400)
+
+    return JsonResponse({'status': 'error', 'message': 'Método no permitido'}, status=405)
+
+
+def editar_proveedor(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+
+            proveedor_id = data.get('id')
+            nombre = data.get('nombre')
+
+            proveedor = Proveedor.objects.get(id=proveedor_id)
+            proveedor.nombre = nombre
+            proveedor.save()
+
+            proveedores = Proveedor.objects.all().order_by('nombre').values()
+            proveedores_json_string = json.dumps(list(proveedores))
+
+            return JsonResponse({
+                'status': 'success',
+                'proveedores': proveedores_json_string,
+                'message': 'Actualización Éxitosa'
+            })
+        except Exception as e:
+            return JsonResponse({'status': 'error', 'message': f'Hubo un error: {str(e)}'}, status=400)
+
+    return JsonResponse({'status': 'error', 'message': 'Método no permitido'}, status=405)
+
+
+def editar_categoria(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+
+            categoria_id = data.get('id')
+            nombre = data.get('nombre')
+
+            categoria = Categoria.objects.get(id=categoria_id)
+            categoria.nombre = nombre
+            categoria.save()
+
+            categoria = Categoria.objects.all().order_by('nombre').values()
+            categoria_json_string = json.dumps(list(categoria))
+
+            return JsonResponse({
+                'status': 'success',
+                'categorias': categoria_json_string,
+                'message': 'Actualización Éxitosa'
             })
         except Exception as e:
             return JsonResponse({'status': 'error', 'message': f'Hubo un error: {str(e)}'}, status=400)

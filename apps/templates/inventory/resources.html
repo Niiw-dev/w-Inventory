@@ -56,14 +56,14 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="item in proveedores" :key="item.id">
+                <tr v-for="(item, index) in proveedores" :key="item.id">
                   <td>[[ item.id ]]</td>
                   <td>
                     <strong>[[ item.nombre ]]</strong>
                   </td>
                   <td>
                     <div>
-                      <button type="button" class="btn btn-warning" @click="openEditProveedoresModal(item.id)"
+                      <button type="button" class="btn btn-warning" @click="openEditProveedoresModal(index)"
                         style="height: fit-content">
                         <i class="fas fa-pen"></i>
                       </button>
@@ -108,14 +108,14 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="item in categorias" :key="item.id">
+                <tr v-for="(item, index) in categorias" :key="item.id">
                   <td>[[ item.id ]]</td>
                   <td>
                     <strong>[[ item.nombre ]]</strong>
                   </td>
                   <td>
                     <div>
-                      <button type="button" class="btn btn-warning" @click="openEditCategoriasModal(item.id)"
+                      <button type="button" class="btn btn-warning" @click="openEditCategoriasModal(index)"
                         style="height: fit-content">
                         <i class="fas fa-pen"></i>
                       </button>
@@ -137,14 +137,13 @@
   {% include "inventory/modals/proveedorModal.html" %}
   {% include "inventory/modals/confirmDeleteProveedoresModal.html" %}
   {% include "inventory/modals/confirmDeleteCategoriasModal.html" %}
+  {% include "inventory/modals/editProveedoresModal.html" %}
+  {% include "inventory/modals/editCategoriasModal.html" %}
 </div>
 
 {% endblock content %}
 
 {% block javascripts %}
-{% endblock javascripts %}
-
-
 <script>
   document.addEventListener("DOMContentLoaded", function () {
 
@@ -169,14 +168,8 @@
           msgIdCounter: 0,
           idDeleteCategoria: 0,
           idDeleteProveedor: 0,
-          categoriaEdit: {
-            id: 0,
-            nombre: ''
-          },
-          proveedorEdit: {
-            id: 0,
-            nombre: ''
-          },
+          idProveedorEdit: 0,
+          idCategoriaEdit: 0,
         }
       },
       methods: {
@@ -192,8 +185,8 @@
                   'X-CSRFToken': '{{ csrf_token }}'
               },
               body: JSON.stringify({
-                  id: this.categoriaEdit.id,
-                  nombre: this.categoriaEdit.nombre,
+                  id: this.categorias[this.idCategoriaEdit].id,
+                  nombre: this.categorias[this.idCategoriaEdit].nombre,
               })
             });
 
@@ -203,10 +196,7 @@
                 this.categorias = JSON.parse(data.categorias);
                 this.refrescarTablaCategorias();
 
-                this.categoriaEdit = {
-                  id: 0,
-                  nombre: ''
-                };
+                this.idCategoriaEdit = 0;
 
                 $('#editCategoriaModal').modal('hide');
 
@@ -221,12 +211,50 @@
             this.editandoCategoria = false;
           }
         },
-        async openEditCategoriasModal() {
-          this.idEditCategoria = id
+        async editarProveedor() {
+          if (this.editandoProveedor) return;
+          this.editandoProveedor = true;
+
+          try {
+            const response = await fetch('{% url "editar_proveedor" %}', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+                  'X-CSRFToken': '{{ csrf_token }}'
+              },
+              body: JSON.stringify({
+                  id: this.proveedores[this.idProveedorEdit].id,
+                  nombre: this.proveedores[this.idProveedorEdit].nombre,
+              })
+            });
+
+            const data = await response.json();
+
+            if (data.status === 'success') {
+                this.proveedores = JSON.parse(data.proveedores);
+                this.refrescarTablaProveedores();
+
+                this.idProveedorEdit = 0;
+
+                $('#editProveedorModal').modal('hide');
+
+                this.mostrarAlerta(data.message, 'success');
+            } else {
+                this.mostrarAlerta(data.message, 'error');
+            }
+          }catch (e) {
+            console.error(e);
+            this.mostrarAlerta('Error de conexión con el servidor', 'error');
+          } finally {
+            this.editandoProveedor = false;
+          }
+        },
+        openEditCategoriasModal(index) {
+          this.idCategoriaEdit = index;
           $('#editCategoriaModal').modal('show');
         },
-        async openEditProveedoresModal() {
-          this.idEditProveedor = id
+        openEditProveedoresModal(index) {
+          this.idProveedorEdit = index;
           $('#editProveedorModal').modal('show');
         },
         async eliminarCategoria() {
@@ -479,3 +507,4 @@
     app.mount('#app');
   });
 </script>
+{% endblock javascripts %}

@@ -11,5 +11,7 @@ urlpatterns = [
     path('agregar_categoria/', views.agregar_categoria, name='agregar_categoria'),
     path('eliminar_proveedor/', views.eliminar_proveedor, name='eliminar_proveedor'),
     path('eliminar_categoria/', views.eliminar_categoria, name='eliminar_categoria'),
+    path('editar_categoria/', views.editar_categoria, name='editar_categoria'),
+    path('editar_proveedor/', views.editar_proveedor, name='editar_proveedor'),
 ]
 

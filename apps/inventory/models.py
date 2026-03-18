@@ -1,4 +1,5 @@
 from django.db import models
+from decimal import Decimal
 
 
 class Categoria(models.Model):
@@ -27,23 +28,10 @@ class Proveedor(models.Model):
 
 class Insumo(models.Model):
     nombre = models.CharField(max_length=100, unique=True)
-    # Enlazamos con Categoría y Proveedor
-    # 'on_delete=models.SET_NULL' evita que se borre el insumo si borras la categoría
-    categoria = models.ForeignKey(
-        Categoria,
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True,
-        related_name='insumos'
-    )
-    proveedor = models.ForeignKey(
-        Proveedor,
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True,
-        related_name='insumos'
-    )
+    categoria = models.ForeignKey(Categoria, on_delete=models.SET_NULL, null=True, blank=True, related_name='insumos')
+    proveedor = models.ForeignKey(Proveedor, on_delete=models.SET_NULL, null=True, blank=True, related_name='insumos')
     punto_reorden = models.IntegerField(default=5)
+    costo_unidad = models.DecimalField(max_digits=12, decimal_places=2,default=0)
     creado_el = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -52,8 +40,16 @@ class Insumo(models.Model):
 
 class RegistroDiario(models.Model):
     insumo = models.ForeignKey(Insumo, on_delete=models.CASCADE, related_name='registros')
+    idRegistro = models.IntegerField(default=0)
     cantidad_contada = models.IntegerField()
+    costo_aprox = models.DecimalField(max_digits=12, decimal_places=2, default=0)
     fecha_hora = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         ordering = ['-fecha_hora']
+
+    def save(self, *args, **kwargs):
+        if self.insumo and self.cantidad_contada is not None:
+            self.costo_aprox = (Decimal(self.cantidad_contada) * self.insumo.costo_unidad)
+
+        super().save(*args, **kwargs)

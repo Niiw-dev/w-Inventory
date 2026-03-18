@@ -4,6 +4,7 @@ from .models import *
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.core.serializers.json import DjangoJSONEncoder
+from django.db.models import Sum, Min, Max
 
 
 def agregar_insumo(request):
@@ -14,8 +15,7 @@ def agregar_insumo(request):
             punto_reorden = data.get('punto_reorden', 5)
             proveedor_id = data.get('proveedor_id')
             categoria_id = data.get('categoria_id')
-            print(proveedor_id)
-            print(categoria_id)
+
             Insumo.objects.create(
                 nombre=nombre,
                 proveedor_id=proveedor_id,
@@ -51,42 +51,30 @@ def agregar_insumo(request):
 
 
 def vista_cierre_diario(request):
-    if request.method == 'POST':
-        try:
-            data = json.loads(request.body)
-            inventario = data.get('inventario', [])
+    try:
+        data = json.loads(request.body)
+        inventario = data.get('inventario', [])
 
-            for item in inventario:
-                insumo_obj = Insumo.objects.get(id=item['id'])
-                RegistroDiario.objects.create(
-                    insumo=insumo_obj,
-                    cantidad_contada=int(item['cantidad'])
-                )
+        ultimo_id = RegistroDiario.objects.aggregate(
+            Max('idRegistro')
+        )['idRegistro__max'] or 0
 
-            return JsonResponse({
-                'status': 'success',
-                'message': 'Inventario de cierre guardado correctamente.'
-            })
-        except Exception as e:
-            return JsonResponse({'status': 'error', 'message': f'Error al guardar: {str(e)}'}, status=400)
+        nuevo_idRegistro = ultimo_id + 1
 
-    insumos_maestros = Insumo.objects.all()
-    datos_para_formulario = []
+        for item in inventario:
+            insumo_obj = Insumo.objects.get(id=item['id'])
+            RegistroDiario.objects.create(
+                insumo=insumo_obj,
+                cantidad_contada=int(item['cantidad']),
+                idRegistro=nuevo_idRegistro
+            )
 
-    for item in insumos_maestros:
-        ultimo = RegistroDiario.objects.filter(insumo=item).order_by('-fecha_hora').first()
-        datos_para_formulario.append({
-            'id': item.id,
-            'nombre': item.nombre,
-            'cantidad': ultimo.cantidad_contada if ultimo else 0,
-            'punto': item.punto_reorden,
-            'critico': (ultimo.cantidad_contada if ultimo else 0) <= item.punto_reorden
+        return JsonResponse({
+            'status': 'success',
+            'message': 'Inventario de cierre guardado correctamente.'
         })
-
-    return render(request, 'inventory/cierre_diario.html', {
-        'segment': 'cierre',
-        'insumos_json': json.dumps(datos_para_formulario)
-    })
+    except Exception as e:
+        return JsonResponse({'status': 'error', 'message': f'Error al guardar: {str(e)}'}, status=400)
 
 
 @login_required(login_url="/login/")
@@ -135,40 +123,37 @@ def resources(request):
 
 @login_required(login_url="/login/")
 def records(request):
-    insumos_maestros = Insumo.objects.all()
+    registros_agrupados = (
+        RegistroDiario.objects
+        .values('idRegistro')
+        .annotate(
+            total_cantidad=Sum('cantidad_contada'),
+            total_costo=Sum('costo_aprox'),
+            primera_fecha_hora=Min('fecha_hora')
+        )
+        .order_by('-idRegistro')
+    )
 
-    if request.method == 'POST':
-        data = json.loads(request.body)
-        action = data.get('action')
+    resultado = []
 
-        if action == 'nuevo_insumo':
-            insumo = Insumo.objects.create(nombre=data['nombre'], punto_reorden=data['punto'])
-            return JsonResponse({'status': 'ok', 'id': insumo.id, 'nombre': insumo.nombre})
+    for r in registros_agrupados:
+        fh = r["primera_fecha_hora"]
 
-        elif action == 'guardar_cierre':
-            for item in data['inventario']:
-                insumo_obj = Insumo.objects.get(id=item['id'])
-                RegistroDiario.objects.create(insumo=insumo_obj, cantidad_contada=item['cantidad'])
-            return JsonResponse({'status': 'ok'})
-
-    lista_inicial = []
-    for item in insumos_maestros:
-        ultimo = RegistroDiario.objects.filter(insumo=item).order_by('-fecha_hora').first()
-        cantidad = ultimo.cantidad_contada if ultimo else 0
-        lista_inicial.append({
-            'id': item.id,
-            'nombre': item.nombre,
-            'cantidad': cantidad,
-            'punto': item.punto_reorden,
-            'critico': cantidad <= item.punto_reorden
+        resultado.append({
+            "idRegistro": r["idRegistro"],
+            "cantidad_total": float(r["total_cantidad"]),
+            "costo_total": r["total_costo"],
+            "fecha": fh.strftime("%Y-%m-%d"),
+            "hora": fh.strftime("%H:%M"),
         })
 
-    insumos_json_string = json.dumps(lista_inicial)
+    resultado_json_string = json.dumps(resultado, cls=DjangoJSONEncoder)
 
     context = {
         'segment': 'records',
-        'insumos_json': insumos_json_string
+        'records_json': resultado_json_string
     }
+
     return render(request, 'inventory/records.html', context)
 
 
@@ -253,19 +238,37 @@ def editar_insumo(request):
         try:
             data = json.loads(request.body)
 
-            proveedor_id = data.get('id')
+            insumo_id = data.get('id')
             nombre = data.get('nombre')
+            proveedor_id = data.get('proveedor_id')
+            categoria_id = data.get('categoria_id')
+            punto_reorden = data.get('punto_reorden')
 
-            proveedor = Proveedor.objects.get(id=proveedor_id)
-            proveedor.nombre = nombre
-            proveedor.save()
+            insumo = Insumo.objects.get(id=insumo_id)
+            insumo.nombre = nombre
+            insumo.proveedor_id = proveedor_id
+            insumo.categoria_id = categoria_id
+            insumo.punto_reorden = punto_reorden
+            insumo.save()
 
-            proveedores = Proveedor.objects.all().order_by('nombre').values()
-            proveedores_json_string = json.dumps(list(proveedores))
+            insumos = Insumo.objects.all().order_by('nombre').values(
+                'id',
+                'nombre',
+                'punto_reorden',
+                'proveedor_id',
+                'proveedor__nombre',
+                'categoria_id',
+                'categoria__nombre'
+            )
+
+            insumos_json_string = json.dumps(
+                list(insumos),
+                cls=DjangoJSONEncoder
+            )
 
             return JsonResponse({
                 'status': 'success',
-                'proveedores': proveedores_json_string,
+                'insumos': insumos_json_string,
                 'message': 'Actualización Éxitosa'
             })
         except Exception as e:
@@ -400,6 +403,65 @@ def eliminar_categoria(request):
             })
 
         except Categoria.DoesNotExist:
+            return JsonResponse({
+                'status': 'error',
+                'message': 'Categoria no encontrada'
+            }, status=404)
+
+        except Exception as e:
+            return JsonResponse({
+                'status': 'error',
+                'message': f'Hubo un error: {str(e)}'
+            }, status=400)
+
+    return JsonResponse({
+        'status': 'error',
+        'message': 'Método no permitido'
+    }, status=405)
+
+
+def eliminar_record(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            record_id = data.get('id')
+
+            record = RegistroDiario.objects.get(idRegistro=record_id)
+            record.delete()
+
+            registros_agrupados = (
+                RegistroDiario.objects
+                .values('idRegistro')
+                .annotate(
+                    total_cantidad=Sum('cantidad_contada'),
+                    total_costo=Sum('costo_aprox'),
+                    primera_fecha_hora=Min('fecha_hora')
+                )
+                .order_by('-idRegistro')
+            )
+
+            resultado = []
+
+            for r in registros_agrupados:
+                fh = r["primera_fecha_hora"]
+
+                resultado.append({
+                    "idRegistro": r["idRegistro"],
+                    "cantidad_total": float(r["total_cantidad"]),
+                    "costo_total": r["total_costo"],
+                    "fecha": fh.strftime("%Y-%m-%d"),
+                    "hora": fh.strftime("%H:%M"),
+                })
+
+            resultado_json_string = json.dumps(resultado, cls=DjangoJSONEncoder)
+
+            return JsonResponse({
+                'status': 'success',
+                'records_json': resultado_json_string,
+                'message': 'Categoria eliminada correctamente'
+            })
+
+        except RegistroDiario.DoesNotExist:
             return JsonResponse({
                 'status': 'error',
                 'message': 'Categoria no encontrada'

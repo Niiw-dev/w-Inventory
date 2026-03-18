@@ -2,15 +2,47 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="modalLabel">Registrar Nueva Categoría</h5>
+        <h5 class="modal-title" id="modalLabel">Editar Insumo</h5>
         <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
       </div>
 
       <div class="modal-body">
           <div class="mb-3">
-            <label class="form-label">Nombre de la Categoría</label>
-            <input type="text" v-model="insumos[idInsumoEdit].nombre" class="form-control" placeholder="Ej. Dulce" required>
+            <label class="form-label">Nombre del Insumo</label>
+            <input type="text" v-model="insumos[idInsumoEdit].nombre" class="form-control" placeholder="Ej. Nutella" required>
           </div>
+          <div class="mb-3">
+              <label class="form-label">Punto de Reorden (Alerta roja)</label>
+              <input type="number" v-model="insumos[idInsumoEdit].punto_reorden" class="form-control" required>
+              <div class="form-text">El sistema avisará cuando queden esta cantidad o menos.</div>
+          </div>
+          <div class="mb-3">
+              <label class="form-label">Proveedor</label>
+              <select v-model="insumos[idInsumoEdit].proveedor_id" class="form-control">
+                <option value="">Seleccione un proveedor</option>
+                <option
+                  v-for="proveedor in proveedores"
+                  :key="proveedor.id"
+                  :value="proveedor.id"
+                >
+                  [[ proveedor.nombre ]]
+                </option>
+              </select>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Categoría</label>
+              <select v-model="insumos[idInsumoEdit].categoria_id" class="form-control">
+                <option value="">Seleccione una categoría</option>
+                <option
+                  v-for="categoria in categorias"
+                  :key="categoria.id"
+                  :value="categoria.id"
+                >
+                  [[ categoria.nombre ]]
+                </option>
+              </select>
+            </div>
       </div>
 
       <div class="modal-footer">

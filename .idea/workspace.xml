@@ -5,18 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="db028275-b21e-4314-951f-afda711f9cd5" name="Changes" comment="Se implementa actualización de proveedores y categorías">
-      <change afterPath="$PROJECT_DIR$/apps/templates/inventory/suppliesModals/confirmDeleteInsumosModal.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/templates/inventory/suppliesModals/editInsumosModal.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/templates/inventory/suppliesModals/insumoModal.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/templates/inventory/recordsModals/confirmDeleteRecordsModal.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/templates/inventory/recordsModals/recordsModal.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/home/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/home/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/inventory/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/inventory/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/inventory/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/inventory/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/inventory/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/inventory/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/templates/home/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/home/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/templates/home/modals/insumoModal.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/home/modals/insumoModal.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/templates/includes/scripts.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/includes/scripts.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/templates/inventory/records.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/inventory/records.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/templates/inventory/resourcesModals/editCategoriasModal.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/inventory/resourcesModals/editCategoriasModal.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/templates/inventory/resourcesModals/editProveedoresModal.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/inventory/resourcesModals/editProveedoresModal.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/templates/inventory/supplies.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/inventory/supplies.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/templates/inventory/suppliesModals/editInsumosModal.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/inventory/suppliesModals/editInsumosModal.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/templates/layouts/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/layouts/base.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,7 +74,7 @@
     "disable.download.node.interpreter.editor.notification": "true",
     "git-widget-placeholder": "main",
     "junie.onboarding.icon.badge.shown": "true",
-    "last_opened_file_path": "C:/Users/IInw/PycharmProjects/w-Inventory/apps/templates/inventory/suppliesModals",
+    "last_opened_file_path": "/home/developer12/Documentos/w-Inventory/apps/templates/inventory/recordsModals",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -86,11 +86,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/apps/templates/inventory/recordsModals" />
       <recent name="C:\Users\IInw\PycharmProjects\w-Inventory\apps\templates\inventory\suppliesModals" />
       <recent name="$PROJECT_DIR$/apps/templates/inventory/modals" />
       <recent name="C:\Users\IInw\PycharmProjects\w-Inventory\apps\static\assets\css" />
       <recent name="C:\Users\IInw\PycharmProjects\w-Inventory\apps\templates\inventory\modals" />
-      <recent name="C:\Users\IInw\PycharmProjects\w-Inventory\apps\templates\home\modals" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\IInw\PycharmProjects\w-Inventory\apps\templates\inventory" />

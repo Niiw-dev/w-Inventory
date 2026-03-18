@@ -1,6 +1,6 @@
 {% extends 'layouts/base.html' %}
 
-{% block title %} insumos {% endblock title %}
+{% block title %} Insumos {% endblock title %}
 
 {% block breadcrumb %} Insumos {% endblock %}
 
@@ -136,6 +136,9 @@
               body: JSON.stringify({
                   id: this.insumos[this.idInsumoEdit].id,
                   nombre: this.insumos[this.idInsumoEdit].nombre,
+                  proveedor_id: this.insumos[this.idInsumoEdit].proveedor_id,
+                  categoria_id: this.insumos[this.idInsumoEdit].categoria_id,
+                  punto_reorden: this.insumos[this.idInsumoEdit].punto_reorden
               })
             });
 

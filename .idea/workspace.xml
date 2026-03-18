@@ -4,17 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="db028275-b21e-4314-951f-afda711f9cd5" name="Changes" comment="Se termina módulo de insumos, Se continúa con módulo de registros">
-      <change afterPath="$PROJECT_DIR$/apps/templates/inventory/recordsModals/seeRecordModal.html" afterDir="false" />
+    <list default="true" id="db028275-b21e-4314-951f-afda711f9cd5" name="Changes" comment="Se termina módulo de registros y Se agrega módulo para iniciar de &quot;Shopping List&quot;">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/inventory/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/inventory/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/inventory/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/inventory/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/inventory/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/inventory/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/templates/includes/navigation.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/includes/navigation.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/templates/includes/sidenav.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/includes/sidenav.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/templates/inventory/records.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/inventory/records.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/templates/inventory/recordsModals/confirmDeleteRecordsModal.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/inventory/recordsModals/confirmDeleteRecordsModal.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/templates/inventory/recordsModals/recordsModal.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/inventory/recordsModals/recordsModal.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -426,7 +418,15 @@
       <option name="project" value="LOCAL" />
       <updated>1773852570162</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="Se termina módulo de registros y Se agrega módulo para iniciar de &quot;Shopping List&quot;">
+      <option name="closed" value="true" />
+      <created>1773873638071</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1773873638071</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -444,7 +444,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Se ajusta la vista de login y register" />
     <MESSAGE value="Se ajustan modelos y vistas" />
     <MESSAGE value="Se ajustan en vistas" />
     <MESSAGE value="Se ajustan detalles en vistas" />
@@ -469,6 +468,7 @@
     <MESSAGE value="Se inicia construcción de proceso para editar proveedores y categorías" />
     <MESSAGE value="Se implementa actualización de proveedores y categorías" />
     <MESSAGE value="Se termina módulo de insumos, Se continúa con módulo de registros" />
-    <option name="LAST_COMMIT_MESSAGE" value="Se termina módulo de insumos, Se continúa con módulo de registros" />
+    <MESSAGE value="Se termina módulo de registros y Se agrega módulo para iniciar de &quot;Shopping List&quot;" />
+    <option name="LAST_COMMIT_MESSAGE" value="Se termina módulo de registros y Se agrega módulo para iniciar de &quot;Shopping List&quot;" />
   </component>
 </project>

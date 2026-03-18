@@ -65,17 +65,17 @@
                   <td>[[ item.cantidad_total ]]</td>
                   <td>[[ item.costo_total ]]</td>
                   <td>
-                      <div>
-                        <button type="button" class="btn btn-info" @click="openRecordModal(item.idRegistro)"
-                          style="height: fit-content" :disabled="mostrandoRecord">
-                          <i v-if="mostrandoRecord" class="fas fa-spinner fa-spin"></i> <i class="fas fa-eye"></i>
-                        </button>
-                        <button type="button" class="btn btn-danger" @click="openConfirmDeleteRecordsModal(item.idRegistro)"
-                          style="height: fit-content">
-                          <i class="fas fa-trash"></i>
-                        </button>
-                      </div>
-                    </td>
+                    <div>
+                      <button type="button" class="btn btn-info" @click="openRecordModal(item.idRegistro, index)"
+                        style="height: fit-content" :disabled="mostrandoRecord">
+                        <i v-if="mostrandoRecord_[index]" class="fas fa-spinner fa-spin"></i> <i v-else class="fas fa-eye"></i>
+                      </button>
+                      <button type="button" class="btn btn-danger" @click="openConfirmDeleteRecordsModal(item.idRegistro)"
+                        style="height: fit-content">
+                        <i class="fas fa-trash"></i>
+                      </button>
+                    </div>
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -105,7 +105,7 @@
           records: JSON.parse('{{ records_json|escapejs }}'),
           insumos: JSON.parse('{{ insumos_json|escapejs }}'),
           cargando: false,
-          mostrandoRecord: false,
+          mostrandoRecord_: {},
           mensajesDinamicos: [],
           msgIdCounter: 0,
           idDeleteRecord: 0,
@@ -117,10 +117,10 @@
         }
       },
       methods: {
-      async openRecordModal(id) {
+      async openRecordModal(id, index) {
           this.recordActual = id;
-          if (this.mostrandoRecord) return;
-          this.mostrandoRecord = true;
+          if (this.mostrandoRecord_[index]) return;
+          this.mostrandoRecord_[index] = true;
 
           try {
             const response = await fetch('{% url "get_record" %}', {
@@ -148,7 +148,7 @@
             console.error(e);
             this.mostrarAlerta('Error de conexión con el servidor', 'error');
           } finally {
-            this.mostrandoRecord = false;
+            this.mostrandoRecord_[index] = false;
           }
         },
         async eliminarRecord() {

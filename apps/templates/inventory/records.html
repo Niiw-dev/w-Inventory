@@ -1,11 +1,11 @@
 {% extends 'layouts/base.html' %}
 
-{% block title %} Proveedores {% endblock title %}
+{% block title %} Registros {% endblock title %}
 
-{% block breadcrumb %} Categorías y Proveedores {% endblock %}
+{% block breadcrumb %} Registros Diarios {% endblock %}
 
 {% block navigation %}
-{% with breadcrumb="Categorías y Proveedores" %}
+{% with breadcrumb="Registros Diarios" %}
     {% include "includes/navigation.html" %}
 {% endwith %}
 {% endblock %}
@@ -49,16 +49,16 @@
                     style="margin-top: 15px;">
               <thead class="thead-light">
                 <tr>
-                  <th class="text-center text-dark h1" style="font-weight: 700; font-size: smaller">ID</th>
+                  <th class="text-center text-dark h1" style="font-weight: 700; font-size: smaller"># Registro</th>
                   <th class="text-center text-dark h1" style="font-weight: 700; font-size: smaller">Fecha</th>
                   <th class="text-center text-dark h1" style="font-weight: 700; font-size: smaller">Hora</th>
-                  <th class="text-center text-dark h1" style="font-weight: 700; font-size: smaller">Cantidad Records</th>
-                  <th class="text-center text-dark h1" style="font-weight: 700; font-size: smaller">Costo Total</th>
+                  <th class="text-center text-dark h1" style="font-weight: 700; font-size: smaller">Insumos</th>
+                  <th class="text-center text-dark h1" style="font-weight: 700; font-size: smaller">Total</th>
                   <th class="text-center text-dark h1" style="font-weight: 700; font-size: smaller">Acciones</th>
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="item in records" :key="item.id">
+                <tr v-for="(item, index) in records" :key="item.id">
                   <td>[[ item.idRegistro ]]</td>
                   <td>[[ item.fecha ]]</td>
                   <td>[[ item.hora ]]</td>
@@ -66,15 +66,11 @@
                   <td>[[ item.costo_total ]]</td>
                   <td>
                       <div>
-                        <button type="button" class="btn btn-info" @click="openEditRecordsModal(index)"
-                          style="height: fit-content">
-                          <i class="fas fa-eye"></i>
+                        <button type="button" class="btn btn-info" @click="openRecordModal(item.idRegistro)"
+                          style="height: fit-content" :disabled="mostrandoRecord">
+                          <i v-if="mostrandoRecord" class="fas fa-spinner fa-spin"></i> <i class="fas fa-eye"></i>
                         </button>
-                        <button type="button" class="btn btn-warning" @click="openEditRecordsModal(index)"
-                          style="height: fit-content">
-                          <i class="fas fa-pen"></i>
-                        </button>
-                        <button type="button" class="btn btn-danger" @click="openConfirmDeleteRecordsModal(item.id)"
+                        <button type="button" class="btn btn-danger" @click="openConfirmDeleteRecordsModal(item.idRegistro)"
                           style="height: fit-content">
                           <i class="fas fa-trash"></i>
                         </button>
@@ -90,6 +86,7 @@
   </div>
   {% include "inventory/recordsModals/confirmDeleteRecordsModal.html" %}
   {% include "inventory/recordsModals/recordsModal.html" %}
+  {% include "inventory/recordsModals/seeRecordModal.html" %}
 </div>
 
 {% endblock content %}
@@ -106,15 +103,54 @@
       data() {
         return {
           records: JSON.parse('{{ records_json|escapejs }}'),
-          nuevoNombre: '',
-          nuevoPunto: 5,
+          insumos: JSON.parse('{{ insumos_json|escapejs }}'),
           cargando: false,
-          guardandoRecord: false,
+          mostrandoRecord: false,
           mensajesDinamicos: [],
-          msgIdCounter: 0
+          msgIdCounter: 0,
+          idDeleteRecord: 0,
+          eliminandoRecord: false,
+          mensajesDinamicos: [],
+          msgIdCounter: 0,
+          recordList: {},
+          recordActual: 1
         }
       },
       methods: {
+      async openRecordModal(id) {
+          this.recordActual = id;
+          if (this.mostrandoRecord) return;
+          this.mostrandoRecord = true;
+
+          try {
+            const response = await fetch('{% url "get_record" %}', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+                  'X-CSRFToken': '{{ csrf_token }}'
+              },
+              body: JSON.stringify({
+                  id: id
+              })
+            });
+
+            const data = await response.json();
+
+            if (data.status === 'success') {
+                this.recordList = JSON.parse(data.records_json);
+                this.refrescarTablaRegistroIndividualDatatable();
+
+                $('#seeRecordModal').modal('show');
+            } else {
+                this.mostrarAlerta(data.message, 'error');
+            }
+          }catch (e) {
+            console.error(e);
+            this.mostrarAlerta('Error de conexión con el servidor', 'error');
+          } finally {
+            this.mostrandoRecord = false;
+          }
+        },
         async eliminarRecord() {
           if (this.eliminandoRecord) return;
           this.eliminandoRecord = true;
@@ -134,8 +170,9 @@
             const data = await response.json();
 
             if (data.status === 'success') {
-                this.records = JSON.parse(data.records);
-                this.refrescarTablaRecords();
+                this.records = JSON.parse(data.records_json);
+                this.refrescarTabla();
+                this.refrescarTablaInsumos();
 
                 this.idDeleteRecord = 0;
 
@@ -171,15 +208,20 @@
                 'X-CSRFToken': '{{ csrf_token }}'
               },
               body: JSON.stringify({
-                action: 'guardar_cierre',
-                inventario: this.records
+                inventario: this.insumos
               })
             });
 
             const data = await response.json();
 
             if (response.ok && data.status === 'success') {
+              $('#modalNuevoRegistro').modal('hide');
+
+              this.records = JSON.parse(data.records_json);
+              this.insumos = JSON.parse(data.insumos_json);
+
               this.refrescarTabla();
+              this.refrescarTablaInsumos();
 
               this.mostrarAlerta('¡Cierre de inventario guardado correctamente!', 'success');
             } else {
@@ -240,9 +282,78 @@
                 });
             });
         },
+        refrescarTablaInsumos() {
+            if ($.fn.DataTable.isDataTable('#registroInsumosDatatable')) {
+                $('#registroInsumosDatatable').DataTable().destroy();
+            }
+
+            this.$nextTick(() => {
+                $('#registroInsumosDatatable').DataTable({
+                    pageLength: 5,
+                    responsive: true,
+                    lengthMenu: [5, 10, 25, 50],
+                    dom:
+                        "<'row mt-3'<'col-sm-6'l><'col-sm-6'f>>" +
+                        "<'row'<'col-sm-12'tr>>" +
+                        "<'row mt-3 mb-3'<'col-sm-5'i><'col-sm-7'p>>",
+                    language: {
+                        "sProcessing":     "Procesando...",
+                        "sLengthMenu":     "Mostrar _MENU_ registros",
+                        "sZeroRecords":    "No se encontraron resultados",
+                        "sEmptyTable":     "Ningún dato disponible en esta tabla",
+                        "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                        "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+                        "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+                        "sSearch":         "Buscar:",
+                        "sLoadingRecords": "Cargando...",
+                        "oPaginate": {
+                            "sFirst":    "Primero",
+                            "sLast":     "Último",
+                            "sNext":     ">",
+                            "sPrevious": "<"
+                        },
+                    }
+                });
+            });
+        },
+        refrescarTablaRegistroIndividualDatatable() {
+            if ($.fn.DataTable.isDataTable('#registroIndividualDatatable')) {
+                $('#registroIndividualDatatable').DataTable().destroy();
+            }
+
+            this.$nextTick(() => {
+                $('#registroIndividualDatatable').DataTable({
+                    pageLength: 5,
+                    responsive: true,
+                    lengthMenu: [5, 10, 25, 50],
+                    dom:
+                        "<'row mt-3'<'col-sm-6'l><'col-sm-6'f>>" +
+                        "<'row'<'col-sm-12'tr>>" +
+                        "<'row mt-3 mb-3'<'col-sm-5'i><'col-sm-7'p>>",
+                    language: {
+                        "sProcessing":     "Procesando...",
+                        "sLengthMenu":     "Mostrar _MENU_ registros",
+                        "sZeroRecords":    "No se encontraron resultados",
+                        "sEmptyTable":     "Ningún dato disponible en esta tabla",
+                        "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                        "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+                        "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+                        "sSearch":         "Buscar:",
+                        "sLoadingRecords": "Cargando...",
+                        "oPaginate": {
+                            "sFirst":    "Primero",
+                            "sLast":     "Último",
+                            "sNext":     ">",
+                            "sPrevious": "<"
+                        },
+                    }
+                });
+            });
+        },
       },
       mounted() {
         this.refrescarTabla();
+        this.refrescarTablaInsumos();
       },
       computed: {
         recordsDashboard() {

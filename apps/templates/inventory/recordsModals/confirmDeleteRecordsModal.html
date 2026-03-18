@@ -1,21 +1,21 @@
-<div class="modal fade" id="confirmDeleteInsumosModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true" style="z-index:999999">
+<div class="modal fade" id="confirmDeleteRecordsModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true" style="z-index:999999">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="modalLabel">Eliminar Insumo</h5>
+        <h5 class="modal-title" id="modalLabel">Eliminar Registro</h5>
       </div>
 
       <div class="modal-body">
           <div class="text-center">
-            <label class="form-label">¿Seguro que desea eliminar este insumo?</label>
+            <label class="form-label">¿Seguro que desea eliminar este registro?</label>
           </div>
       </div>
 
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary" @click.prevent="eliminarInsumo" :disabled="eliminandoInsumo">
-          <span v-if="eliminandoInsumo"><i class="fas fa-spinner fa-spin"></i> Eliminando Insumo...</span>
-          <span v-else>Eliminar Insumo</span>
+        <button type="button" class="btn btn-primary" @click.prevent="eliminarRecord" :disabled="eliminandoRecord">
+          <span v-if="eliminandoRecord"><i class="fas fa-spinner fa-spin"></i> Eliminando Registro...</span>
+          <span v-else>Eliminar Registro</span>
         </button>
       </div>
     </div>

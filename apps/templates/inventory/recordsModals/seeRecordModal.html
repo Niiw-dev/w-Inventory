@@ -1,0 +1,44 @@
+<div class="modal fade" id="seeRecordModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true" style="z-index:999999">
+  <div class="modal-dialog" style="max-width: 1000px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalLabel">Registro # [[ recordActual ]]</h5>
+        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">
+        <div class="table-responsive">
+          <table class="table align-items-center table-flush table-hover text-center" id="registroIndividualDatatable"
+                  style="margin-top: 15px;">
+            <thead class="thead-light">
+              <tr>
+                <th class="text-center text-dark h1" style="font-weight: 700; font-size: smaller">Insumo</th>
+                <th class="text-center text-dark h1" style="font-weight: 700; font-size: smaller">Cantidad Actual</th>
+                <th class="text-center text-dark h1" style="font-weight: 700; font-size: smaller">Cantidad a Comprar</th>
+                <th class="text-center text-dark h1" style="font-weight: 700; font-size: smaller">Costo Unidad</th>
+                <th class="text-center text-dark h1" style="font-weight: 700; font-size: smaller">Costo Total</th>
+                <th class="text-center text-dark h1" style="font-weight: 700; font-size: smaller">Estado</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="item in recordList" :key="item.id">
+                <td>
+                  <strong>[[ item.insumo ]]</strong>
+                </td>
+                <td>[[ item.cantidad_actual ]]</td>
+                <td>[[ item.cantidad_a_comprar ]]</td>
+                <td>[[ item.costo_unidad ]]</td>
+                <td>[[ item.costo_total ]]</td>
+                <td>[[ item.estado ]]</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -123,32 +123,35 @@ def vista_cierre_diario(request):
 
 @login_required(login_url="/login/")
 def supplies(request):
-    insumos = Insumo.objects.all().order_by('nombre').values(
-        'id',
-        'nombre',
-        'punto_reorden',
-        'proveedor_id',
-        'proveedor__nombre',
-        'categoria_id',
-        'categoria__nombre'
-    )
-    proveedores = Proveedor.objects.all().order_by('nombre').values()
-    categorias = Categoria.objects.all().order_by('nombre').values()
-    proveedores_json_string = json.dumps(list(proveedores))
-    categorias_json_string = json.dumps(list(categorias))
+    try:
+        insumos = Insumo.objects.all().order_by('nombre').values(
+            'id',
+            'nombre',
+            'punto_reorden',
+            'proveedor_id',
+            'proveedor__nombre',
+            'categoria_id',
+            'categoria__nombre'
+        )
+        proveedores = Proveedor.objects.all().order_by('nombre').values()
+        categorias = Categoria.objects.all().order_by('nombre').values()
+        proveedores_json_string = json.dumps(list(proveedores))
+        categorias_json_string = json.dumps(list(categorias))
 
-    insumos_json_string = json.dumps(
-        list(insumos),
-        cls=DjangoJSONEncoder
-    )
+        insumos_json_string = json.dumps(
+            list(insumos),
+            cls=DjangoJSONEncoder
+        )
 
-    context = {
-        'segment': 'supplies',
-        'insumos_json': insumos_json_string,
-        'proveedores_json': proveedores_json_string,
-        'categorias_json': categorias_json_string
-    }
-    return render(request, 'inventory/supplies.html', context)
+        context = {
+            'segment': 'supplies',
+            'insumos_json': insumos_json_string or [],
+            'proveedores_json': proveedores_json_string or [],
+            'categorias_json': categorias_json_string or []
+        }
+        return render(request, 'inventory/supplies.html', context)
+    except Exception as e:
+        return JsonResponse({'status': 'error', 'message': f'Error al guardar: {str(e)}'}, status=400)
 
 
 @login_required(login_url="/login/")
@@ -215,7 +218,40 @@ def records(request):
         'insumos_json': insumos_json_string
     }
 
-    return (render(request, 'inventory/records.html', context))
+    return render(request, 'inventory/records.html', context)
+
+
+@login_required(login_url="/login/")
+def shoppingList(request):
+    ultimo_registro = RegistroDiario.objects.order_by('-fecha_hora').first()
+
+    record_id = ultimo_registro.idRegistro if ultimo_registro else None
+
+    registros = RegistroDiario.objects.filter(
+        idRegistro=record_id
+    ).select_related('insumo')
+
+    resultado = []
+
+    for r in registros:
+        resultado.append({
+            "id": r.id,
+            "insumo": r.insumo.nombre,
+            "cantidad_actual": r.cantidad_contada,
+            "cantidad_a_comprar": r.cantidad_a_comprar,
+            "costo_unidad": float(r.costo_unidad),
+            "costo_total": float(r.costo_aprox),
+            "estado": r.estado,
+        })
+
+    resultado_json_string = json.dumps(resultado, cls=DjangoJSONEncoder)
+
+    context = {
+        'segment': 'records',
+        'records_json': resultado_json_string,
+    }
+
+    return render(request, 'inventory/shoppingList.html', context)
 
 
 def get_record(request):

@@ -4,9 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="db028275-b21e-4314-951f-afda711f9cd5" name="Changes" comment="Se termina módulo de registros y Se agrega módulo para iniciar de &quot;Shopping List&quot;">
+    <list default="true" id="db028275-b21e-4314-951f-afda711f9cd5" name="Changes" comment="Se realizan ajustes de diseño">
+      <change afterPath="$PROJECT_DIR$/apps/templates/inventory/shoppingList.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/templates/inventory/records.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/inventory/records.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/inventory/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/inventory/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/inventory/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/inventory/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/static/assets/css/customs.css" beforeDir="false" afterPath="$PROJECT_DIR$/apps/static/assets/css/customs.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/templates/home/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/home/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/templates/home/login.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/templates/home/profile.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/templates/home/register.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/templates/includes/navigation.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/includes/navigation.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/templates/includes/sidenav.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/includes/sidenav.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/templates/inventory/resources.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/inventory/resources.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/templates/inventory/supplies.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/inventory/supplies.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/templates/layouts/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/layouts/base.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,7 +76,7 @@
     "disable.download.node.interpreter.editor.notification": "true",
     "git-widget-placeholder": "main",
     "junie.onboarding.icon.badge.shown": "true",
-    "last_opened_file_path": "/home/developer12/Documentos/w-Inventory/apps/templates/inventory/recordsModals",
+    "last_opened_file_path": "/home/developer12/Documentos/w-Inventory/apps/templates/inventory",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -76,11 +88,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/apps/templates/inventory" />
       <recent name="$PROJECT_DIR$/apps/templates/inventory/recordsModals" />
       <recent name="C:\Users\IInw\PycharmProjects\w-Inventory\apps\templates\inventory\suppliesModals" />
       <recent name="$PROJECT_DIR$/apps/templates/inventory/modals" />
       <recent name="C:\Users\IInw\PycharmProjects\w-Inventory\apps\static\assets\css" />
-      <recent name="C:\Users\IInw\PycharmProjects\w-Inventory\apps\templates\inventory\modals" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\IInw\PycharmProjects\w-Inventory\apps\templates\inventory" />
@@ -426,7 +438,15 @@
       <option name="project" value="LOCAL" />
       <updated>1773873638071</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="Se realizan ajustes de diseño">
+      <option name="closed" value="true" />
+      <created>1773874092114</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1773874092114</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -444,7 +464,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Se ajustan modelos y vistas" />
     <MESSAGE value="Se ajustan en vistas" />
     <MESSAGE value="Se ajustan detalles en vistas" />
     <MESSAGE value="Se crea entorno inicial para desplegar a vercel con supabase" />
@@ -469,6 +488,7 @@
     <MESSAGE value="Se implementa actualización de proveedores y categorías" />
     <MESSAGE value="Se termina módulo de insumos, Se continúa con módulo de registros" />
     <MESSAGE value="Se termina módulo de registros y Se agrega módulo para iniciar de &quot;Shopping List&quot;" />
-    <option name="LAST_COMMIT_MESSAGE" value="Se termina módulo de registros y Se agrega módulo para iniciar de &quot;Shopping List&quot;" />
+    <MESSAGE value="Se realizan ajustes de diseño" />
+    <option name="LAST_COMMIT_MESSAGE" value="Se realizan ajustes de diseño" />
   </component>
 </project>

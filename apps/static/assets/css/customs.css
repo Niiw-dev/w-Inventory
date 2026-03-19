@@ -10437,10 +10437,10 @@ a.text-info:hover, a.text-info:focus {
   color: #0b90a8 !important; }
 
 .text-warning {
-  color: #fb6340 !important; }
+  color: #ffc107 !important; }
 
 a.text-warning:hover, a.text-warning:focus {
-  color: #ea3005 !important; }
+  color: #ffc107 !important; }
 
 .text-danger {
   color: #f5365c !important; }

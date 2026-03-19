@@ -1,0 +1,321 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %} Registros {% endblock title %}
+
+{% block breadcrumb %} Registros Diarios {% endblock %}
+
+{% block navigation %}
+{% with breadcrumb="Registros Diarios" %}
+    {% include "includes/navigation.html" %}
+{% endwith %}
+{% endblock %}
+
+{% block stylesheets %}
+  <style>
+
+/* CONTENEDOR RESPONSIVE */
+.shopping-container{
+  display:grid;
+  gap:18px;
+  padding:20px;
+}
+
+/* 📱 MOBILE = LISTA */
+@media (max-width: 768px){
+  .shopping-container{
+    grid-template-columns: 1fr;
+    max-width:600px;
+    margin:auto;
+  }
+}
+
+/* 💻 TABLET */
+@media (min-width: 769px){
+  .shopping-container{
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* 🖥️ PC */
+@media (min-width: 1200px){
+  .shopping-container{
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* 🖥️ PANTALLAS GRANDES */
+@media (min-width: 1600px){
+  .shopping-container{
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+
+/* CARD */
+.shopping-card{
+  display:flex;
+  align-items:center;
+  background:white;
+  border-radius:18px;
+  padding:18px;
+  box-shadow:0 8px 22px rgba(0,0,0,0.06);
+  transition:.25s;
+  position:relative;
+}
+
+.shopping-card:hover{
+  transform:translateY(-4px);
+  box-shadow:0 14px 30px rgba(0,0,0,0.08);
+}
+
+/* CHECK */
+.shopping-check{
+  width:22px;
+  height:22px;
+  accent-color:#ff8fb1;
+}
+
+/* BODY */
+.card-body{
+  flex:1;
+  margin-left:14px;
+}
+
+.card-title{
+  font-size:18px;
+  font-weight:600;
+  color:#444;
+}
+
+/* STATUS */
+.card-status{
+  margin-top:4px;
+  display:inline-block;
+  padding:3px 10px;
+  border-radius:12px;
+  font-size:12px;
+  font-weight:600;
+}
+
+/* COLORES SUAVES */
+.estado-ok{
+  background:#e7f8f1;
+  color:#1ea97c;
+}
+
+.estado-bajo{
+  background:#fff6dd;
+  color:#c99100;
+}
+
+.estado-agotado{
+  background:#fdeaea;
+  color:#d94a4a;
+}
+
+/* DATA */
+.card-data{
+  margin-top:8px;
+  font-size:13px;
+  color:#777;
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+.comprar{
+  background:#fff1cc;
+  padding:3px 8px;
+  border-radius:10px;
+}
+
+/* PRICE */
+.card-price{
+  font-size:18px;
+  font-weight:700;
+  color:#ff8fb1;
+}
+
+    .shopping-check:checked ~ .card-body{
+  opacity:.5;
+}
+
+.shopping-check:checked ~ .card-body .card-title{
+  text-decoration:line-through;
+}
+
+    .item-icon{
+  font-size:20px;
+  margin-right:6px;
+}
+</style>
+{% endblock stylesheets %}
+
+{% block content %}
+<div id="app">
+  <div class="header bg-primary pb-6">
+    <div class="container-fluid">
+      <div class="header-body">
+        <div class="fixed-top" style="z-index: 9999;">
+            <div v-for="msg in mensajesDinamicos" :key="msg.id" style="transition: opacity 0.5s;"
+                 :class="['alert', 'm-0', 'rounded-0', 'alert-' + msg.tipo]">
+                [[ msg.texto ]]
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid mt--5">
+    <div class="row">
+      <div class="col-xl-12">
+        <div class="card">
+          <div class="card-header">
+            <div class="row align-items-center">
+              <div class="col text-center justify-content-center">
+                <h2 class="text-uppercase h2 m-0 p-0 ls-1 text-center"><strong> Shopping List </strong></h2>
+              </div>
+            </div>
+          </div>
+
+          <div class="shopping-container">
+            <div class="shopping-card"
+                 v-for="(item, index) in records"
+                 :key="item.id"
+                 @click="toggleCheck(item)">
+              <div class="card-check">
+                <input type="checkbox"
+                       v-model="check_[index]"
+                       class="shopping-check" @click.stop>
+              </div>
+
+              <div class="card-body">
+                <div class="card-title">
+                  <span class="item-icon">[[ obtenerIcono(item.insumo) ]]</span>
+                  [[ item.insumo ]]
+                </div>
+
+                <div class="card-status"
+                     :class="claseEstadoBadge(item.estado)">
+                  [[ item.estado ]]
+                </div>
+
+                <div class="card-data">
+                  <span>Actual: [[ item.cantidad_actual ]]</span>
+                  <span class="comprar">Comprar: [[ item.cantidad_a_comprar ]]</span>
+                </div>
+              </div>
+
+              <div class="card-price">
+                $ [[ item.costo_total ]]
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}
+
+{% block javascripts %}
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+
+    const {createApp} = Vue;
+
+    const app = createApp({
+      delimiters: ['[[', ']]'],
+
+      data() {
+        return {
+          records: JSON.parse('{{ records_json|escapejs }}'),
+          mensajesDinamicos: [],
+          msgIdCounter: 0,
+          check_:{}
+        }
+      },
+      methods: {
+        toggleCheck(item) {
+          const index = this.records.indexOf(item);
+
+          this.$set
+              ? this.$set(this.check_, index, !this.check_[index])
+              : (this.check_[index] = !this.check_[index]);
+        },
+        obtenerIcono(nombre) {
+          const n = nombre.toLowerCase();
+
+          if (n.includes('leche') || n.includes('queso')) return '🥛';
+          if (n.includes('arroz') || n.includes('pasta')) return '🍚';
+          if (n.includes('pollo') || n.includes('carne')) return '🍗';
+          if (n.includes('huevo')) return '🥚';
+          if (n.includes('pan')) return '🍞';
+          if (n.includes('café')) return '☕';
+          if (n.includes('aceite')) return '🫒';
+          if (n.includes('jabón') || n.includes('aseo')) return '🧴';
+          if (n.includes('tomate') || n.includes('verdura')) return '🥦';
+
+          return '🛒';
+        },
+        claseEstadoBadge(estado) {
+          return {
+            'text-success': estado === 'OK',
+            'text-danger': estado === 'AGOTADO',
+            'text-warning': estado === 'BAJO'
+          };
+        },
+        mostrarAlerta(texto, tipo = 'success') {
+          const claseAlerta = tipo === 'error' ? 'danger' : tipo;
+          const idActual = this.msgIdCounter++;
+
+          this.mensajesDinamicos.push({
+            id: idActual,
+            texto: texto,
+            tipo: claseAlerta
+          });
+
+          setTimeout(() => {
+            this.mensajesDinamicos = this.mensajesDinamicos.filter(m => m.id !== idActual);
+          }, 3000);
+        },
+        refrescarTablaRegistroIndividualDatatable() {
+          if ($.fn.DataTable.isDataTable('#registroIndividualDatatable')) {
+              $('#registroIndividualDatatable').DataTable().destroy();
+          }
+
+          this.$nextTick(() => {
+            $('#registroIndividualDatatable').DataTable({
+              ordering: true,
+              paging: false,
+              searching: false,
+              info: false,
+              lengthChange: false,
+              responsive: true,
+              dom:
+                "<'row mt-3'<'col-sm-6'l><'col-sm-6'f>>" +
+                "<'row'<'col-sm-12'tr>>" +
+                "<'row mt-3 mb-3'<'col-sm-5'i><'col-sm-7'p>>",
+
+              order: [[1, 'asc']],
+
+              language: {
+                  sZeroRecords: "No se encontraron resultados",
+                  sEmptyTable: "Ningún dato disponible en esta tabla"
+              }
+            });
+          });
+        },
+      },
+      mounted() {
+        this.refrescarTablaRegistroIndividualDatatable();
+      },
+      computed: {
+      }
+    });
+
+    app.mount('#app');
+  });
+</script>
+{% endblock javascripts %}

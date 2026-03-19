@@ -4,15 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="db028275-b21e-4314-951f-afda711f9cd5" name="Changes" comment="Se agrega pestaña de shopping list">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/inventory/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/inventory/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/inventory/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/inventory/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/templates/home/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/home/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/templates/inventory/resources.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/inventory/resources.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/templates/inventory/supplies.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/inventory/supplies.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/templates/inventory/suppliesModals/editInsumosModal.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/inventory/suppliesModals/editInsumosModal.html" afterDir="false" />
-    </list>
+    <list default="true" id="db028275-b21e-4314-951f-afda711f9cd5" name="Changes" comment="Se realizan ajustes en editar insumos y en modelos" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -447,7 +439,15 @@
       <option name="project" value="LOCAL" />
       <updated>1773939058801</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="Se realizan ajustes en editar insumos y en modelos">
+      <option name="closed" value="true" />
+      <created>1773960601030</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1773960601030</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -465,7 +465,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Se ajustan detalles en vistas" />
     <MESSAGE value="Se crea entorno inicial para desplegar a vercel con supabase" />
     <MESSAGE value="Se sube build_files.sh" />
     <MESSAGE value="modificación de vercel.json" />
@@ -490,6 +489,7 @@
     <MESSAGE value="Se termina módulo de registros y Se agrega módulo para iniciar de &quot;Shopping List&quot;" />
     <MESSAGE value="Se realizan ajustes de diseño" />
     <MESSAGE value="Se agrega pestaña de shopping list" />
-    <option name="LAST_COMMIT_MESSAGE" value="Se agrega pestaña de shopping list" />
+    <MESSAGE value="Se realizan ajustes en editar insumos y en modelos" />
+    <option name="LAST_COMMIT_MESSAGE" value="Se realizan ajustes en editar insumos y en modelos" />
   </component>
 </project>

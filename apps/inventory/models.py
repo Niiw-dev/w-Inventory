@@ -29,7 +29,8 @@ class Proveedor(models.Model):
 class Insumo(models.Model):
     nombre = models.CharField(max_length=100, unique=True)
     categoria = models.ForeignKey(Categoria, on_delete=models.SET_NULL, null=True, blank=True, related_name='insumos')
-    proveedor = models.ForeignKey(Proveedor, on_delete=models.SET_NULL, null=True, blank=True, related_name='insumos')
+    proveedor = models.ForeignKey(Proveedor, on_delete=models.SET_NULL, null=True, blank=True, related_name='insumos_principales')
+    proveedor_secundario = models.ForeignKey(Proveedor, on_delete=models.SET_NULL, null=True, blank=True, related_name='insumos_secundarios')
     punto_reorden = models.IntegerField(default=5)
     costo_unidad = models.DecimalField(max_digits=12, decimal_places=2,default=0)
     creado_el = models.DateTimeField(auto_now_add=True)

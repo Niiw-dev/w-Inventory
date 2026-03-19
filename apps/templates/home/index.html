@@ -106,8 +106,8 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="item in insumos" :key="item.id">
-                  <td>[[ item.id ]]</td>
+                <tr v-for="(item, index) in insumos" :key="item.id">
+                  <td>[[ index + 1 ]]</td>
                   <td>
                     <strong>[[ item.nombre ]]</strong>
                   </td>

@@ -4,21 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="db028275-b21e-4314-951f-afda711f9cd5" name="Changes" comment="Se realizan ajustes de diseño">
-      <change afterPath="$PROJECT_DIR$/apps/templates/inventory/shoppingList.html" afterDir="false" />
+    <list default="true" id="db028275-b21e-4314-951f-afda711f9cd5" name="Changes" comment="Se agrega pestaña de shopping list">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/inventory/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/inventory/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/inventory/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/inventory/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/inventory/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/inventory/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/static/assets/css/customs.css" beforeDir="false" afterPath="$PROJECT_DIR$/apps/static/assets/css/customs.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/templates/home/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/home/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/templates/home/login.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/templates/home/profile.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/templates/home/register.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/templates/includes/navigation.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/includes/navigation.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/templates/includes/sidenav.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/includes/sidenav.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/templates/inventory/resources.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/inventory/resources.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/templates/inventory/supplies.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/inventory/supplies.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/templates/layouts/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/layouts/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/templates/inventory/suppliesModals/editInsumosModal.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/inventory/suppliesModals/editInsumosModal.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -446,7 +439,15 @@
       <option name="project" value="LOCAL" />
       <updated>1773874092114</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="Se agrega pestaña de shopping list">
+      <option name="closed" value="true" />
+      <created>1773939058801</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1773939058801</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -464,7 +465,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Se ajustan en vistas" />
     <MESSAGE value="Se ajustan detalles en vistas" />
     <MESSAGE value="Se crea entorno inicial para desplegar a vercel con supabase" />
     <MESSAGE value="Se sube build_files.sh" />
@@ -489,6 +489,7 @@
     <MESSAGE value="Se termina módulo de insumos, Se continúa con módulo de registros" />
     <MESSAGE value="Se termina módulo de registros y Se agrega módulo para iniciar de &quot;Shopping List&quot;" />
     <MESSAGE value="Se realizan ajustes de diseño" />
-    <option name="LAST_COMMIT_MESSAGE" value="Se realizan ajustes de diseño" />
+    <MESSAGE value="Se agrega pestaña de shopping list" />
+    <option name="LAST_COMMIT_MESSAGE" value="Se agrega pestaña de shopping list" />
   </component>
 </project>

@@ -37,12 +37,28 @@ def agregar_insumo(request):
                     'critico': cantidad <= item.punto_reorden
                 })
 
+            insumos = Insumo.objects.all().order_by('nombre').values(
+                'id',
+                'nombre',
+                'punto_reorden',
+                'proveedor_id',
+                'proveedor__nombre',
+                'categoria_id',
+                'categoria__nombre'
+            )
+
+            insumos_json_stringII = json.dumps(
+                list(insumos),
+                cls=DjangoJSONEncoder
+            )
+
             insumos_json_string = json.dumps(lista_inicial)
 
             return JsonResponse({
                 'status': 'success',
                 'message': 'Insumo agregado correctamente.',
-                'insumos': insumos_json_string
+                'insumos': insumos_json_string,
+                'insumosSupplies': insumos_json_stringII
             })
         except Exception as e:
             return JsonResponse({'status': 'error', 'message': f'Hubo un error: {str(e)}'}, status=400)

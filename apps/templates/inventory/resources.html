@@ -57,7 +57,7 @@
               </thead>
               <tbody>
                 <tr v-for="(item, index) in proveedores" :key="item.id">
-                  <td>[[ index ]]</td>
+                  <td>[[ index + 1 ]]</td>
                   <td>
                     <strong>[[ item.nombre ]]</strong>
                   </td>
@@ -109,7 +109,7 @@
               </thead>
               <tbody>
                 <tr v-for="(item, index) in categorias" :key="item.id">
-                  <td>[[ index ]]</td>
+                  <td>[[ index + 1 ]]</td>
                   <td>
                     <strong>[[ item.nombre ]]</strong>
                   </td>

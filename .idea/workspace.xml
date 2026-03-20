@@ -4,14 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="db028275-b21e-4314-951f-afda711f9cd5" name="Changes" comment="Se realizan ajustes de diseño para shopping list">
+    <list default="true" id="db028275-b21e-4314-951f-afda711f9cd5" name="Changes" comment="Se ajusta diseño de login y register">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/static/assets/css/customs.css" beforeDir="false" afterPath="$PROJECT_DIR$/apps/static/assets/css/customs.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/templates/accounts/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/accounts/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/templates/includes/footer-fullscreen.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/templates/includes/navigation-fullscreen.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/includes/navigation-fullscreen.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/templates/layouts/base-fullscreen.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/layouts/base-fullscreen.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/templates/layouts/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/layouts/base.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -479,7 +474,15 @@
       <option name="project" value="LOCAL" />
       <updated>1774036636798</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="Se ajusta diseño de login y register">
+      <option name="closed" value="true" />
+      <created>1774039531953</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1774039531953</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -497,7 +500,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="modificación de build_files.sh" />
     <MESSAGE value="SE modifica uri host" />
     <MESSAGE value="Se modifica DEBUG" />
     <MESSAGE value="Seguimiento a fallo con estilos" />
@@ -522,6 +524,7 @@
     <MESSAGE value="workspace" />
     <MESSAGE value="Se realizan ajustes de optimización para carga rápida de la página, se procede a realizar ajustes en shoppingList" />
     <MESSAGE value="Se realizan ajustes de diseño para shopping list" />
-    <option name="LAST_COMMIT_MESSAGE" value="Se realizan ajustes de diseño para shopping list" />
+    <MESSAGE value="Se ajusta diseño de login y register" />
+    <option name="LAST_COMMIT_MESSAGE" value="Se ajusta diseño de login y register" />
   </component>
 </project>

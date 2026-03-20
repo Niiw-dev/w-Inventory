@@ -193,7 +193,15 @@
             const data = await response.json();
 
             if (data.status === 'success') {
-                this.categorias = JSON.parse(data.categorias);
+                const actualizada = data.categoria
+                const index = this.categorias.findIndex(
+                    c => c.id === actualizada.id
+                )
+
+                if (index !== -1) {
+                    this.categorias[index].nombre = actualizada.nombre
+                }
+
                 this.refrescarTablaCategorias();
 
                 this.idCategoriaEdit = 0;
@@ -231,7 +239,15 @@
             const data = await response.json();
 
             if (data.status === 'success') {
-                this.proveedores = JSON.parse(data.proveedores);
+                const actualizado = data.proveedor
+                const index = this.proveedores.findIndex(
+                    p => p.id === actualizado.id
+                )
+
+                if (index !== -1) {
+                    this.proveedores[index].nombre = actualizado.nombre
+                }
+
                 this.refrescarTablaProveedores();
 
                 this.idProveedorEdit = 0;
@@ -276,7 +292,9 @@
             const data = await response.json();
 
             if (data.status === 'success') {
-                this.categorias = JSON.parse(data.categorias);
+                this.categorias = this.categorias.filter(
+                  p => p.id !== data.deleted_id
+                )
                 this.refrescarTablaCategorias();
 
                 this.idDeleteCategoria = 0;
@@ -313,7 +331,9 @@
             const data = await response.json();
 
             if (data.status === 'success') {
-                this.proveedores = JSON.parse(data.proveedores);
+                this.proveedores = this.proveedores.filter(
+                  p => p.id !== data.deleted_id
+                )
                 this.refrescarTablaProveedores();
 
                 this.idDeleteProveedor = 0;
@@ -358,7 +378,7 @@
             const data = await response.json();
 
             if (data.status === 'success') {
-                this.categorias.push(data.categorias);
+                this.categorias.push(data.categoria);
                 this.refrescarTablaCategorias();
 
                 this.nuevaCategoria = '';
@@ -395,7 +415,7 @@
             const data = await response.json();
 
             if (data.status === 'success') {
-                this.proveedores.push(data.proveedores);
+                this.proveedores.push(data.proveedor);
                 this.refrescarTablaProveedores();
 
                 this.nuevoProveedor = '';

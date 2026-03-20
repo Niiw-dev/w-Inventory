@@ -1,11 +1,11 @@
 {% extends 'layouts/base.html' %}
 
-{% block title %} Registros {% endblock title %}
+{% block title %} Lista de Compras {% endblock title %}
 
-{% block breadcrumb %} Registros Diarios {% endblock %}
+{% block breadcrumb %} Shopping List {% endblock %}
 
 {% block navigation %}
-{% with breadcrumb="Registros Diarios" %}
+{% with breadcrumb="Shopping List" %}
     {% include "includes/navigation.html" %}
 {% endwith %}
 {% endblock %}
@@ -179,37 +179,38 @@
           </div>
 
           <div class="shopping-container">
-            <div class="shopping-card"
-                 v-for="(item, index) in records"
+            <template v-for="(item, index) in records"
                  :key="item.id"
                  @click="toggleCheck(item)">
-              <div class="card-check">
-                <input type="checkbox"
-                       v-model="check_[index]"
-                       class="shopping-check" @click.stop>
-              </div>
-
-              <div class="card-body">
-                <div class="card-title">
-                  <span class="item-icon">[[ obtenerIcono(item.insumo) ]]</span>
-                  [[ item.insumo ]]
+              <div class="shopping-card" v-if="item.cantidad_a_comprar<90">
+                <div class="card-check">
+                  <input type="checkbox"
+                         v-model="check_[index]"
+                         class="shopping-check" @click.stop>
                 </div>
 
-                <div class="card-status"
-                     :class="claseEstadoBadge(item.estado)">
-                  [[ item.estado ]]
+                <div class="card-body">
+                  <div class="card-title">
+                    <span class="item-icon">[[ obtenerIcono(item.insumo) ]]</span>
+                    [[ item.insumo ]]
+                  </div>
+
+                  <div class="card-status"
+                       :class="claseEstadoBadge(item.estado)">
+                    [[ item.estado ]]
+                  </div>
+
+                  <div class="card-data">
+                    <span>Actual: [[ item.cantidad_actual ]]</span>
+                    <span class="comprar">Comprar: [[ item.cantidad_a_comprar ]]</span>
+                  </div>
                 </div>
 
-                <div class="card-data">
-                  <span>Actual: [[ item.cantidad_actual ]]</span>
-                  <span class="comprar">Comprar: [[ item.cantidad_a_comprar ]]</span>
+                <div class="card-price">
+                  $ [[ item.costo_total ]]
                 </div>
               </div>
-
-              <div class="card-price">
-                $ [[ item.costo_total ]]
-              </div>
-            </div>
+            </template>
           </div>
         </div>
       </div>

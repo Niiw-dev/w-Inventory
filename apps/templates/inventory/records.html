@@ -170,7 +170,7 @@
             const data = await response.json();
 
             if (data.status === 'success') {
-                this.records = JSON.parse(data.records_json);
+                this.records = this.records.filter(r => r.idRegistro !== data.deleted_id)
                 this.refrescarTabla();
                 this.refrescarTablaInsumos();
 

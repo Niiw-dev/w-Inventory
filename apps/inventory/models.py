@@ -52,27 +52,7 @@ class RegistroDiario(models.Model):
     class Meta:
         ordering = ['-fecha_hora']
 
-    def save(self, *args, **kwargs):
-        if self.insumo and self.cantidad_contada is not None:
-            insumo = Insumo.objects.get(pk=self.insumo_id)
-
-            self.costo_unidad = insumo.costo_unidad
-
-            stock_minimo = insumo.punto_reorden or 0
-
-            diferencia = stock_minimo - self.cantidad_contada
-            self.cantidad_a_comprar = max(diferencia, 0)
-
-            self.costo_aprox = (
-                    Decimal(self.cantidad_a_comprar)
-                    * self.costo_unidad
-            )
-
-            if self.cantidad_contada == 0:
-                self.estado = "AGOTADO"
-            elif self.cantidad_contada < stock_minimo:
-                self.estado = "BAJO"
-            else:
-                self.estado = "OK"
-
-        super().save(*args, **kwargs)
+        indexes = [
+            models.Index(fields=['insumo', '-fecha_hora']),
+            models.Index(fields=['idRegistro']),
+        ]

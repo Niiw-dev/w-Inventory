@@ -145,7 +145,15 @@
             const data = await response.json();
 
             if (data.status === 'success') {
-                this.insumos = JSON.parse(data.insumos);
+                const actualizado = data.insumo
+                const index = this.insumos.findIndex(
+                    i => i.id === actualizado.id
+                )
+
+                if (index !== -1) {
+                    this.insumos[index] = actualizado
+                }
+
                 this.refrescarTablaInsumos();
 
                 this.idInsumoEdit = 0;
@@ -186,7 +194,9 @@
             const data = await response.json();
 
             if (data.status === 'success') {
-                this.insumos = JSON.parse(data.insumos);
+                this.insumos = this.insumos.filter(
+                  p => p.id !== data.deleted_id
+                )
                 this.refrescarTablaInsumos();
 
                 this.idDeleteInsumo = 0;

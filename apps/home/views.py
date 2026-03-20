@@ -6,17 +6,30 @@ from django.urls import reverse
 from django.shortcuts import render, redirect
 from apps.inventory.models import Insumo, RegistroDiario, Proveedor, Categoria
 from django.http import JsonResponse
+from django.db.models import OuterRef, Subquery
+from django.core.serializers.json import DjangoJSONEncoder
 import json
+
+
 
 
 @login_required(login_url="/login/")
 def index(request):
-    insumos_maestros = Insumo.objects.all()
+    ultimo_registro = RegistroDiario.objects.filter(
+        insumo=OuterRef('pk')
+    ).order_by('-fecha_hora')
+
+    insumos = Insumo.objects.annotate(
+        cantidad_actual=Subquery(
+            ultimo_registro.values('cantidad_contada')[:1]
+        )
+    )
 
     lista_inicial = []
-    for item in insumos_maestros:
-        ultimo = RegistroDiario.objects.filter(insumo=item).order_by('-fecha_hora').first()
-        cantidad = ultimo.cantidad_contada if ultimo else 0
+
+    for item in insumos:
+        cantidad = item.cantidad_actual or 0
+
         lista_inicial.append({
             'id': item.id,
             'nombre': item.nombre,
@@ -25,12 +38,18 @@ def index(request):
             'critico': cantidad <= item.punto_reorden
         })
 
-    insumos_json_string = json.dumps(lista_inicial)
+    insumos_json_string = json.dumps(
+        lista_inicial,
+        cls=DjangoJSONEncoder
+    )
 
-    proveedores = Proveedor.objects.all().order_by('nombre').values()
-    categorias = Categoria.objects.all().order_by('nombre').values()
-    proveedores_json_string = json.dumps(list(proveedores))
-    categorias_json_string = json.dumps(list(categorias))
+    proveedores_json_string = json.dumps(
+        list(Proveedor.objects.order_by('nombre').values())
+    )
+
+    categorias_json_string = json.dumps(
+        list(Categoria.objects.order_by('nombre').values())
+    )
 
     context = {
         'segment': 'index',
@@ -38,6 +57,7 @@ def index(request):
         'proveedores_json': proveedores_json_string,
         'categorias_json': categorias_json_string
     }
+
     return render(request, 'home/index.html', context)
 
 

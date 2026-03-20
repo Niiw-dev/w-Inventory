@@ -11,142 +11,50 @@
 {% endblock %}
 
 {% block stylesheets %}
-  <style>
-
-/* CONTENEDOR RESPONSIVE */
-.shopping-container{
-  display:grid;
-  gap:18px;
-  padding:20px;
-}
-
-/* 📱 MOBILE = LISTA */
-@media (max-width: 768px){
-  .shopping-container{
-    grid-template-columns: 1fr;
-    max-width:600px;
-    margin:auto;
-  }
-}
-
-/* 💻 TABLET */
-@media (min-width: 769px){
-  .shopping-container{
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-/* 🖥️ PC */
-@media (min-width: 1200px){
-  .shopping-container{
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-/* 🖥️ PANTALLAS GRANDES */
-@media (min-width: 1600px){
-  .shopping-container{
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
-
-
-/* CARD */
+<style>
 .shopping-card{
-  display:flex;
-  align-items:center;
-  background:white;
-  border-radius:18px;
-  padding:18px;
-  box-shadow:0 8px 22px rgba(0,0,0,0.06);
-  transition:.25s;
-  position:relative;
+  background:#fff;
+  border-radius:14px;
+  padding:14px;
+  border:1px solid #f1f1f1;
+  transition:.15s ease;
 }
 
 .shopping-card:hover{
-  transform:translateY(-4px);
-  box-shadow:0 14px 30px rgba(0,0,0,0.08);
+  transform:translateY(-2px);
+  box-shadow:0 8px 18px rgba(0,0,0,.06);
 }
 
-/* CHECK */
-.shopping-check{
-  width:22px;
-  height:22px;
-  accent-color:#ff8fb1;
-}
-
-/* BODY */
-.card-body{
-  flex:1;
-  margin-left:14px;
-}
-
-.card-title{
-  font-size:18px;
-  font-weight:600;
-  color:#444;
-}
-
-/* STATUS */
-.card-status{
-  margin-top:4px;
-  display:inline-block;
-  padding:3px 10px;
-  border-radius:12px;
-  font-size:12px;
-  font-weight:600;
-}
-
-/* COLORES SUAVES */
-.estado-ok{
-  background:#e7f8f1;
-  color:#1ea97c;
-}
-
-.estado-bajo{
-  background:#fff6dd;
-  color:#c99100;
-}
-
-.estado-agotado{
-  background:#fdeaea;
-  color:#d94a4a;
-}
-
-/* DATA */
-.card-data{
-  margin-top:8px;
-  font-size:13px;
-  color:#777;
+/* CHECK CENTRADO */
+.check-col{
+  width:45px;
   display:flex;
-  gap:10px;
-  flex-wrap:wrap;
+  align-items:center;
+  justify-content:center;
 }
 
-.comprar{
-  background:#fff1cc;
-  padding:3px 8px;
-  border-radius:10px;
+.shopping-check{
+  width:20px;
+  height:20px;
+  cursor:pointer;
 }
 
-/* PRICE */
-.card-price{
-  font-size:18px;
-  font-weight:700;
-  color:#ff8fb1;
+/* PRECIO */
+.price{
+  font-weight:600;
+  color:#e83e8c;
+  white-space:nowrap;
 }
 
-    .shopping-check:checked ~ .card-body{
-  opacity:.5;
+/* BADGES */
+.proveedor-badge{
+  background:#ffe8f3;
+  color:#c2185b;
 }
 
-.shopping-check:checked ~ .card-body .card-title{
-  text-decoration:line-through;
-}
-
-    .item-icon{
-  font-size:20px;
-  margin-right:6px;
+.proveedor-alt{
+  background:#eef2ff;
+  color:#3949ab;
 }
 </style>
 {% endblock stylesheets %}
@@ -178,39 +86,61 @@
             </div>
           </div>
 
-          <div class="shopping-container">
-            <template v-for="(item, index) in records"
-                 :key="item.id"
-                 @click="toggleCheck(item)">
-              <div class="shopping-card" v-if="item.cantidad_a_comprar<90">
-                <div class="card-check">
-                  <input type="checkbox"
-                         v-model="check_[index]"
-                         class="shopping-check" @click.stop>
-                </div>
+          <div class="container-fluid py-3">
+            <div class="row g-3">
+              <template v-for="(item, index) in records" :key="item.id">
+                <div v-if="item.estado!='OK'"
+                     class="col-12 col-md-6 col-lg-4 mb-3">
+                  <div class="shopping-card h-100 d-flex align-items-center"
+                       @click="toggleCheck(item)">
+                    <div class="check-col">
+                      <input type="checkbox"
+                             v-model="check_[index]"
+                             class="form-check-input shopping-check"
+                             @click.stop>
+                    </div>
 
-                <div class="card-body">
-                  <div class="card-title">
-                    <span class="item-icon">[[ obtenerIcono(item.insumo) ]]</span>
-                    [[ item.insumo ]]
+                    <div class="flex-grow-1">
+                      <div class="d-flex justify-content-between align-items-start">
+                        <div class="fw-semibold">
+                          [[ obtenerIcono(item.insumo) ]] [[ item.insumo ]]
+                          <div>
+                            <span class="badge mt-1"
+                                  :class="claseEstadoBadge(item.estado)">
+                              [[ item.estado ]]
+                            </span>
+                          </div>
+                        </div>
+
+                        <div class="price">
+                          $ [[ item.costo_total ]]
+                        </div>
+                      </div>
+
+                      <div class="small text-muted mt-2">
+                        Actual <b>[[ item.cantidad_actual ]]</b>
+                        · Comprar
+                        <span class="fw-bold text-danger">
+                          [[ item.cantidad_a_comprar ]]
+                        </span>
+                      </div>
+
+                      <div class="mt-2 small d-flex flex-wrap gap-1">
+                        <span v-if="item.insumo_proveedor_id"
+                              class="badge proveedor-badge">
+                          🛒 [[ item.insumo_proveedor_id ]]
+                        </span>
+
+                        <span v-if="item.insumo_proveedor_secundario_id"
+                              class="badge proveedor-alt">
+                          🔁 [[ item.insumo_proveedor_secundario_id ]]
+                        </span>
+                      </div>
+                    </div>
                   </div>
-
-                  <div class="card-status"
-                       :class="claseEstadoBadge(item.estado)">
-                    [[ item.estado ]]
-                  </div>
-
-                  <div class="card-data">
-                    <span>Actual: [[ item.cantidad_actual ]]</span>
-                    <span class="comprar">Comprar: [[ item.cantidad_a_comprar ]]</span>
-                  </div>
                 </div>
-
-                <div class="card-price">
-                  $ [[ item.costo_total ]]
-                </div>
-              </div>
-            </template>
+              </template>
+            </div>
           </div>
         </div>
       </div>
@@ -310,6 +240,7 @@
         },
       },
       mounted() {
+        console.log(this.records);
         this.refrescarTablaRegistroIndividualDatatable();
       },
       computed: {

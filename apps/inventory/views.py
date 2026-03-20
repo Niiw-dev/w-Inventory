@@ -196,9 +196,10 @@ def shoppingList(request):
     record_id = (RegistroDiario.objects.aggregate(ultimo_id=Max('idRegistro'))['ultimo_id'])
 
     if record_id:
-        registros = list(RegistroDiario.objects.filter(idRegistro=record_id).select_related('insumo')
+        registros = list(RegistroDiario.objects.filter(idRegistro=record_id).select_related('insumo','insumo__proveedor',
+        'insumo__proveedor_secundario')
                             .values('id', 'insumo__nombre', 'cantidad_contada', 'cantidad_a_comprar',
-                                            'costo_unidad', 'costo_aprox', 'estado'))
+                                            'costo_unidad', 'costo_aprox', 'estado', 'insumo__proveedor__nombre', 'insumo__proveedor_secundario__nombre'))
 
         resultado = [
             {
@@ -209,6 +210,8 @@ def shoppingList(request):
                 "costo_unidad": float(r["costo_unidad"]),
                 "costo_total": float(r["costo_aprox"]),
                 "estado": r["estado"],
+                "insumo_proveedor_id": r["insumo__proveedor__nombre"],
+                "insumo_proveedor_secundario_id": r["insumo__proveedor_secundario__nombre"],
             }
             for r in registros
         ]

@@ -4,15 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="db028275-b21e-4314-951f-afda711f9cd5" name="Changes" comment="Se ajusta diseño de login y register">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/inventory/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/inventory/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/templates/home/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/home/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/templates/home/modals/insumoModal.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/home/modals/insumoModal.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/templates/includes/navigation.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/includes/navigation.html" afterDir="false" />
+    <list default="true" id="db028275-b21e-4314-951f-afda711f9cd5" name="Changes" comment="Se agregan filtros y barra de busqueda a shoppingList&#10;A ajusta la &quot;foto de perfil&quot;&#10;Se ajusta modo collapse &#10;Se agrega campo de valor de unidad &quot;agregar insumo&quot;">
       <change beforePath="$PROJECT_DIR$/apps/templates/inventory/shoppingList.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/inventory/shoppingList.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/templates/inventory/supplies.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/inventory/supplies.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/templates/inventory/suppliesModals/insumoModal.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/inventory/suppliesModals/insumoModal.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -489,7 +482,15 @@
       <option name="project" value="LOCAL" />
       <updated>1774039531953</updated>
     </task>
-    <option name="localTasksCounter" value="40" />
+    <task id="LOCAL-00040" summary="Se agregan filtros y barra de busqueda a shoppingList&#10;A ajusta la &quot;foto de perfil&quot;&#10;Se ajusta modo collapse &#10;Se agrega campo de valor de unidad &quot;agregar insumo&quot;">
+      <option name="closed" value="true" />
+      <created>1774062567266</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1774062567266</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -507,7 +508,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="SE modifica uri host" />
     <MESSAGE value="Se modifica DEBUG" />
     <MESSAGE value="Seguimiento a fallo con estilos" />
     <MESSAGE value="Se eliminan los residuos de página attendence" />
@@ -532,6 +532,7 @@
     <MESSAGE value="Se realizan ajustes de optimización para carga rápida de la página, se procede a realizar ajustes en shoppingList" />
     <MESSAGE value="Se realizan ajustes de diseño para shopping list" />
     <MESSAGE value="Se ajusta diseño de login y register" />
-    <option name="LAST_COMMIT_MESSAGE" value="Se ajusta diseño de login y register" />
+    <MESSAGE value="Se agregan filtros y barra de busqueda a shoppingList&#10;A ajusta la &quot;foto de perfil&quot;&#10;Se ajusta modo collapse &#10;Se agrega campo de valor de unidad &quot;agregar insumo&quot;" />
+    <option name="LAST_COMMIT_MESSAGE" value="Se agregan filtros y barra de busqueda a shoppingList&#10;A ajusta la &quot;foto de perfil&quot;&#10;Se ajusta modo collapse &#10;Se agrega campo de valor de unidad &quot;agregar insumo&quot;" />
   </component>
 </project>

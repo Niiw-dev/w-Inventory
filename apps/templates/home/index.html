@@ -153,6 +153,7 @@
           proveedores: JSON.parse('{{ proveedores_json|escapejs }}'),
           categorias: JSON.parse('{{ categorias_json|escapejs }}'),
           nuevoInsumo: '',
+          valorUnidad: 0,
           nuevoProveedor: '',
           nuevaCategoria: '',
           nuevoPunto: 90,
@@ -212,6 +213,7 @@
               },
               body: JSON.stringify({
                 nombre: this.nuevoInsumo,
+                valorUnidad: this.valorUnidad,
                 proveedor_id: this.nuevoProveedor,
                 categoria_id: this.nuevaCategoria,
                 punto_reorden: this.nuevoPunto
@@ -225,6 +227,7 @@
                 this.refrescarTabla();
 
                 this.nuevoInsumo = '';
+                this.valorUnidad = 0;
                 this.nuevoPunto = 5;
 
                 $('#modalNuevoInsumo').modal('hide');

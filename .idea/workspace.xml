@@ -6,7 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="db028275-b21e-4314-951f-afda711f9cd5" name="Changes" comment="Se ajusta diseño de login y register">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/templates/includes/navigation-fullscreen.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/includes/navigation-fullscreen.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/inventory/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/inventory/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/templates/home/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/home/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/templates/home/modals/insumoModal.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/home/modals/insumoModal.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/templates/includes/navigation.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/includes/navigation.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/templates/inventory/shoppingList.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/inventory/shoppingList.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/templates/inventory/supplies.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/inventory/supplies.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/templates/inventory/suppliesModals/insumoModal.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/inventory/suppliesModals/insumoModal.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,12 +35,12 @@
     &quot;assignee&quot;: &quot;Niiw-dev&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/Niiw-dev/w-Inventory.git&quot;,
-    &quot;accountId&quot;: &quot;abd70da5-485b-4566-b21a-1cf4b71ec6d0&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/Niiw-dev/w-Inventory.git",
+    "accountId": "6fc6db20-971e-4611-a31d-1e3a5fd39a49"
   }
-}</component>
+}]]></component>
   <component name="McpProjectServerCommands">
     <commands />
     <urls />
@@ -153,7 +159,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-3944b0c99280-6d6dccd035ac-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-253.30387.127" />
+        <option value="bundled-js-predefined-d6986cc7102b-9b0f141eb926-JavaScript-PY-253.31033.139" />
+        <option value="bundled-python-sdk-2653e85de345-6d6dccd035ac-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-253.31033.139" />
       </set>
     </attachedChunks>
   </component>

@@ -12,6 +12,59 @@
 
 {% block stylesheets %}
 <style>
+/* ===== ESTILO UNIFICADO INPUTS ===== */
+
+.input-group {
+  box-shadow: 0 2px 6px rgba(0,0,0,.06);
+  border-radius: 10px;
+  background: #fff;
+}
+
+/* quitar bordes internos */
+.input-group-text,
+.input-group .form-control {
+  border: none;
+  background: #fff;
+}
+
+/* bordes redondeados correctos */
+.input-group-text {
+  border-radius: 10px 0 0 10px;
+}
+
+.input-group .form-control {
+  border-radius: 0 10px 10px 0;
+}
+
+/* SELECT estilo moderno */
+.filter-group select.form-control {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  cursor: pointer;
+}
+
+/* hover suave */
+.input-group:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,.08);
+  transition: .15s ease;
+}
+
+.filter-group {
+  position: relative;
+}
+
+.filter-group::after {
+  content: "▾";
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #999;
+  pointer-events: none;
+  font-size: 15px;
+}
+
 .shopping-card{
   background:#fff;
   border-radius:14px;
@@ -87,15 +140,80 @@
           </div>
 
           <div class="container-fluid py-3">
+            <div class="row mb-4 align-items-center">
+              <!-- FILTROS (IZQUIERDA) -->
+              <div class="col-lg-8">
+                <div class="row">
+
+                  <!-- FILTRO ESTADO -->
+                  <div class="col-md-6 col-lg-4 mb-2">
+                    <div class="input-group filter-group">
+
+                      <div class="input-group-prepend">
+                        <span class="input-group-text bg-white">
+                          <i class="fas fa-layer-group text-muted"></i>
+                        </span>
+                      </div>
+
+                      <select class="form-control" v-model="filtroEstado">
+                        <option value="">Todos los estados</option>
+                        <option value="AGOTADO">Agotado</option>
+                        <option value="BAJO">Bajo</option>
+                        <option value="OK">OK</option>
+                      </select>
+
+                    </div>
+                  </div>
+
+                  <!-- FILTRO PROVEEDOR -->
+                  <div class="col-md-6 col-lg-4 mb-2">
+                    <div class="input-group filter-group">
+
+                      <div class="input-group-prepend">
+                        <span class="input-group-text bg-white">
+                          <i class="fas fa-store text-muted"></i>
+                        </span>
+                      </div>
+
+                      <select class="form-control" v-model="filtroProveedor">
+                        <option value="">Todos los proveedores</option>
+                        <option v-for="p in proveedoresUnicos" :key="p">
+                          [[ p ]]
+                        </option>
+                      </select>
+
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+              <!-- BUSCADOR (DERECHA) -->
+              <div class="col-lg-4 mb-2 text-lg-right">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text bg-white border-right-0">
+                      <i class="fas fa-search text-muted"></i>
+                    </span>
+                  </div>
+
+                  <input type="text"
+                         class="form-control border-left-0"
+                         placeholder="Buscar insumo..."
+                         v-model="busqueda">
+                </div>
+              </div>
+
+            </div>
             <div class="row g-3">
-              <template v-for="(item, index) in records" :key="item.id">
+              <template v-for="(item, index) in recordsFiltrados" :key="item.id">
                 <div v-if="item.estado!='OK'"
                      class="col-12 col-md-6 col-lg-4 mb-3">
                   <div class="shopping-card h-100 d-flex align-items-center"
                        @click="toggleCheck(item)">
                     <div class="check-col">
                       <input type="checkbox"
-                             v-model="check_[index]"
+                             v-model="check_[item.id]"
                              class="form-check-input shopping-check"
                              @click.stop>
                     </div>
@@ -103,7 +221,10 @@
                     <div class="flex-grow-1">
                       <div class="d-flex justify-content-between align-items-start">
                         <div class="fw-semibold">
-                          [[ obtenerIcono(item.insumo) ]] [[ item.insumo ]]
+                          <i class="mr-2" :class="obtenerCategoriaUI(item.insumo__categoria__nombre).icono"
+                             :style="{ color: obtenerCategoriaUI(item.insumo__categoria__nombre).color }">
+                          </i>
+                          <span class="fw-semibold">[[ item.insumo ]]</span>
                           <div>
                             <span class="badge mt-1"
                                   :class="claseEstadoBadge(item.estado)">
@@ -164,31 +285,41 @@
           records: JSON.parse('{{ records_json|escapejs }}'),
           mensajesDinamicos: [],
           msgIdCounter: 0,
-          check_:{}
+          check_:{},
+          busqueda: '',
+          filtroEstado: '',
+          filtroProveedor: '',
+          iconos_categoria: {
+            "Waffles Dulces": { icono:"fas fa-ice-cream", color:"#ff4da6" },
+            "Waffle Sal": { icono:"fas fa-cheese", color:"#f59f00" },
+            "Aseo": { icono:"fas fa-broom", color:"&#129529" },
+            "Dollarcity": { icono:"fas fa-store", color:"#845ef7" },
+            "Masa": { icono:"fas fa-bread-slice", color:"#fd7e14" },
+            "Bebidas": { icono:"fas fa-glass-whiskey", color:"#339af0" },
+            "Desechables": { icono:"fas fa-box-open", color:"#856225" },
+            "BIFF": { icono:"fas fa-drumstick-bite", color:"#e03131" },
+            "Chocolates": { icono:"fas fa-cookie", color:"#795548" },
+            "Frutas": { icono:"fas fa-apple-alt", color:"#48e120" },
+            "Verduras": { icono:"fas fa-carrot", color:"#f49839" },
+            "Decoración": { icono:"fas fa-star", color:"#fcc419" },
+            "Papeleria": { icono:"fas fa-pencil-alt", color:"#F0D624" },
+            "Otros": { icono:"fas fa-tag", color:"#adb5bd" }
+          }
         }
       },
       methods: {
         toggleCheck(item) {
-          const index = this.records.indexOf(item);
+          const id = item.id;
 
           this.$set
-              ? this.$set(this.check_, index, !this.check_[index])
-              : (this.check_[index] = !this.check_[index]);
+            ? this.$set(this.check_, id, !this.check_[id])
+            : (this.check_[id] = !this.check_[id]);
         },
-        obtenerIcono(nombre) {
-          const n = nombre.toLowerCase();
-
-          if (n.includes('leche') || n.includes('queso')) return '🥛';
-          if (n.includes('arroz') || n.includes('pasta')) return '🍚';
-          if (n.includes('pollo') || n.includes('carne')) return '🍗';
-          if (n.includes('huevo')) return '🥚';
-          if (n.includes('pan')) return '🍞';
-          if (n.includes('café')) return '☕';
-          if (n.includes('aceite')) return '🫒';
-          if (n.includes('jabón') || n.includes('aseo')) return '🧴';
-          if (n.includes('tomate') || n.includes('verdura')) return '🥦';
-
-          return '🛒';
+        obtenerCategoriaUI(nombreCategoria) {
+          return this.iconos_categoria[nombreCategoria] || {
+            icono: "fas fa-tag",
+            color: "#adb5bd"
+          };
         },
         claseEstadoBadge(estado) {
           return {
@@ -244,6 +375,48 @@
         this.refrescarTablaRegistroIndividualDatatable();
       },
       computed: {
+        proveedoresUnicos() {
+          const set = new Set();
+
+          this.records.forEach(r => {
+            if (r.insumo_proveedor_id)
+              set.add(r.insumo_proveedor_id);
+
+            if (r.insumo_proveedor_secundario_id)
+              set.add(r.insumo_proveedor_secundario_id);
+          });
+
+          return Array.from(set);
+        },
+
+        recordsFiltrados() {
+          console.log(this.records)
+          return this.records.filter(item => {
+
+            // ocultar OK (tu lógica actual)
+            if (item.estado === 'OK') return false;
+
+            // BUSQUEDA
+            const coincideBusqueda =
+              item.insumo.toLowerCase()
+                .includes(this.busqueda.toLowerCase());
+
+            // ESTADO
+            const coincideEstado =
+              !this.filtroEstado ||
+              item.estado === this.filtroEstado;
+
+            // PROVEEDOR
+            const coincideProveedor =
+              !this.filtroProveedor ||
+              item.insumo_proveedor_id === this.filtroProveedor ||
+              item.insumo_proveedor_secundario_id === this.filtroProveedor;
+
+            return coincideBusqueda &&
+                   coincideEstado &&
+                   coincideProveedor;
+          });
+        }
       }
     });
 

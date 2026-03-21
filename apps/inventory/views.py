@@ -17,9 +17,10 @@ def agregar_insumo(request):
         punto_reorden = data.get('punto_reorden', 5)
         proveedor_id = data.get('proveedor_id')
         categoria_id = data.get('categoria_id')
+        valorUnidad = data.get('valorUnidad')
 
         Insumo.objects.create(nombre=nombre, proveedor_id=proveedor_id, categoria_id=categoria_id,
-                              punto_reorden=punto_reorden)
+                              punto_reorden=punto_reorden, costo_unidad=valorUnidad)
 
         insumos_maestros = insumos_con_stock()
 
@@ -199,7 +200,8 @@ def shoppingList(request):
         registros = list(RegistroDiario.objects.filter(idRegistro=record_id).select_related('insumo','insumo__proveedor',
         'insumo__proveedor_secundario')
                             .values('id', 'insumo__nombre', 'cantidad_contada', 'cantidad_a_comprar',
-                                            'costo_unidad', 'costo_aprox', 'estado', 'insumo__proveedor__nombre', 'insumo__proveedor_secundario__nombre'))
+                                    'costo_unidad', 'costo_aprox', 'estado', 'insumo__proveedor__nombre',
+                                    'insumo__proveedor_secundario__nombre', 'insumo__categoria__nombre'))
 
         resultado = [
             {
@@ -212,6 +214,7 @@ def shoppingList(request):
                 "estado": r["estado"],
                 "insumo_proveedor_id": r["insumo__proveedor__nombre"],
                 "insumo_proveedor_secundario_id": r["insumo__proveedor_secundario__nombre"],
+                "insumo__categoria__nombre": r["insumo__categoria__nombre"],
             }
             for r in registros
         ]

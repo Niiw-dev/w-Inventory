@@ -8,8 +8,12 @@
 
       <div class="modal-body">
           <div class="mb-3">
-              <label class="form-label">Nombre del Insumo</label>
+            <label class="form-label">Nombre del Insumo</label>
             <input type="text" v-model="nuevoInsumo" class="form-control" placeholder="Ej. Nutella" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Valor por Unidad</label>
+            <input type="number" v-model="valorUnidad" class="form-control" placeholder="Ej. 5000" required>
           </div>
           <div class="mb-3">
               <label class="form-label">Punto de Reorden (Alerta roja)</label>

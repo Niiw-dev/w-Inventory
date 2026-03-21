@@ -111,6 +111,7 @@
           nuevoProveedor: '',
           nuevaCategoria: '',
           nuevoInsumo: '',
+          valorUnidad: 0,
           nuevoPunto: 90,
           guardandoInsumo: false,
           eliminandoInsumo: false,
@@ -231,6 +232,7 @@
               },
               body: JSON.stringify({
                 nombre: this.nuevoInsumo,
+                valorUnidad: this.valorUnidad,
                 proveedor_id: this.nuevoProveedor,
                 categoria_id: this.nuevaCategoria,
                 punto_reorden: this.nuevoPunto
@@ -244,6 +246,7 @@
                 this.refrescarTablaInsumos();
 
                 this.nuevoInsumo = '';
+                this.valorUnidad = 0;
 
                 $('#modalNuevoInsumo').modal('hide');
 

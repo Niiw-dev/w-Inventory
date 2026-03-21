@@ -47,10 +47,13 @@
           </li>
 
           <li class="nav-item">
-            <a class="nav-link active active-pro" href="{% url 'logout' %}">
-              <i class="ni ni-user-run text-red"></i>
-              <span class="nav-link-text">Logout</span>
-            </a>
+            <form method="post" action="{% url 'logout' %}" style="margin:0;">
+              {% csrf_token %}
+              <button type="submit" class="nav-link active active-pro" style="border:none; background:none; width:100%; text-align:left;">
+                <i class="ni ni-user-run text-red"></i>
+                <span>Logout</span>
+              </button>
+            </form>
           </li>
         </ul>
       </div>

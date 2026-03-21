@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="db028275-b21e-4314-951f-afda711f9cd5" name="Changes" comment="Se agregan filtros y barra de busqueda a shoppingList&#10;A ajusta la &quot;foto de perfil&quot;&#10;Se ajusta modo collapse &#10;Se agrega campo de valor de unidad &quot;agregar insumo&quot;">
-      <change beforePath="$PROJECT_DIR$/apps/templates/inventory/shoppingList.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/inventory/shoppingList.html" afterDir="false" />
+    <list default="true" id="db028275-b21e-4314-951f-afda711f9cd5" name="Changes" comment="Se ajusta nombre de iconos">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/templates/includes/sidenav.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/templates/includes/sidenav.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,12 +29,12 @@
     &quot;assignee&quot;: &quot;Niiw-dev&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/Niiw-dev/w-Inventory.git",
-    "accountId": "6fc6db20-971e-4611-a31d-1e3a5fd39a49"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Niiw-dev/w-Inventory.git&quot;,
+    &quot;accountId&quot;: &quot;6fc6db20-971e-4611-a31d-1e3a5fd39a49&quot;
   }
-}]]></component>
+}</component>
   <component name="McpProjectServerCommands">
     <commands />
     <urls />
@@ -169,6 +170,7 @@
       <workItem from="1773455203447" duration="96000" />
       <workItem from="1773486748181" duration="7243000" />
       <workItem from="1773580004275" duration="33100000" />
+      <workItem from="1774100519010" duration="346000" />
     </task>
     <task id="LOCAL-00001" summary="Se ajusta la vista de login y register">
       <option name="closed" value="true" />
@@ -490,7 +492,15 @@
       <option name="project" value="LOCAL" />
       <updated>1774062567266</updated>
     </task>
-    <option name="localTasksCounter" value="41" />
+    <task id="LOCAL-00041" summary="Se ajusta nombre de iconos">
+      <option name="closed" value="true" />
+      <created>1774062629124</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1774062629124</updated>
+    </task>
+    <option name="localTasksCounter" value="42" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -508,7 +518,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Se modifica DEBUG" />
     <MESSAGE value="Seguimiento a fallo con estilos" />
     <MESSAGE value="Se eliminan los residuos de página attendence" />
     <MESSAGE value="Se ajusta despliegue de .env" />
@@ -533,6 +542,7 @@
     <MESSAGE value="Se realizan ajustes de diseño para shopping list" />
     <MESSAGE value="Se ajusta diseño de login y register" />
     <MESSAGE value="Se agregan filtros y barra de busqueda a shoppingList&#10;A ajusta la &quot;foto de perfil&quot;&#10;Se ajusta modo collapse &#10;Se agrega campo de valor de unidad &quot;agregar insumo&quot;" />
-    <option name="LAST_COMMIT_MESSAGE" value="Se agregan filtros y barra de busqueda a shoppingList&#10;A ajusta la &quot;foto de perfil&quot;&#10;Se ajusta modo collapse &#10;Se agrega campo de valor de unidad &quot;agregar insumo&quot;" />
+    <MESSAGE value="Se ajusta nombre de iconos" />
+    <option name="LAST_COMMIT_MESSAGE" value="Se ajusta nombre de iconos" />
   </component>
 </project>
